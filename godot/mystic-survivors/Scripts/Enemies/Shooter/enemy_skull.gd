@@ -1,0 +1,2 @@
+extends EnemyShooter
+class_name EnemySkull

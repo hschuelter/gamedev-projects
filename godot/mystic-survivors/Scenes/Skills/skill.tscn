@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6p40xslyaa2c"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/Skills/skill.gd" id="1_om2sj"]
+[ext_resource type="Resource" uid="uid://bieg0vsg2jgne" path="res://Resources/Weapons/Bow/bow_lv_0.tres" id="2_3khgd"]
+[ext_resource type="Texture2D" uid="uid://v2vpbltco2d7" path="res://Art/Weapons/sprite_bow.png" id="3_s47ou"]
+
+[node name="Skill" type="Node2D"]
+script = ExtResource("1_om2sj")
+weapon_data = ExtResource("2_3khgd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+rotation = -1.5708
+texture = ExtResource("3_s47ou")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(29, 0)
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AmountTimer" type="Timer" parent="."]
+wait_time = 0.12
+one_shot = true

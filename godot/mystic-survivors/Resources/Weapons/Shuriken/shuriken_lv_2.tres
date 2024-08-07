@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://c03reih7wg1r4"]
+
+[ext_resource type="Texture2D" uid="uid://7bxdj0eeslrv" path="res://Art/Upgrades/Weapons/shuriken-icon.png" id="1_mlffb"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="1_s504i"]
+
+[resource]
+script = ExtResource("1_s504i")
+cooldown = 0.7
+damage = 7.0
+duration = 2.0
+speed = 250.0
+knockback = 120.0
+pierce = 1
+size = 1.0
+title = "Shuriken"
+level = 2
+description = "Damage increases by 3."
+icon = ExtResource("1_mlffb")

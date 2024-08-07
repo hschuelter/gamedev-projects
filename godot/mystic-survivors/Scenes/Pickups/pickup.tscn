@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtm8cpl2ashgn"]
+
+[ext_resource type="Script" path="res://Scripts/Drops/pickup.gd" id="1_qtovy"]
+[ext_resource type="Texture2D" uid="uid://328j645gdv6e" path="res://Art/Pickups/Seed3.png" id="2_eafrv"]
+
+[node name="Pickup" type="Area2D" groups=["pickups"]]
+collision_layer = 256
+collision_mask = 2
+script = ExtResource("1_qtovy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_eafrv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

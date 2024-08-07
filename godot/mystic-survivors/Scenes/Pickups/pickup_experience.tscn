@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmfhh5nisasw6"]
+
+[ext_resource type="PackedScene" uid="uid://dtm8cpl2ashgn" path="res://Scenes/Pickups/pickup.tscn" id="1_oo81c"]
+[ext_resource type="Script" path="res://Scripts/Drops/pickup_experience.gd" id="2_4ator"]
+[ext_resource type="Texture2D" uid="uid://ojmaneghmiv0" path="res://Art/Pickups/Seed1.png" id="3_wjy2p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yxy35"]
+radius = 5.0
+
+[node name="PickupExperience" instance=ExtResource("1_oo81c")]
+script = ExtResource("2_4ator")
+value = 50.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_yxy35")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_wjy2p")

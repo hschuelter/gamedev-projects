@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://duwtk1atgyi35"]
+
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="1_cor31"]
+[ext_resource type="Texture2D" uid="uid://bcw2m1qwypsgi" path="res://Art/Weapons/ScrollThunder.png" id="1_pqv3g"]
+[ext_resource type="Resource" uid="uid://cdxglpy4sxo1x" path="res://Resources/Weapons/Lightning/lightning_lv_1.tres" id="2_y3hl1"]
+
+[resource]
+script = ExtResource("1_cor31")
+cooldown = 5.0
+damage = 2.0
+duration = 0.8
+speed = 0.0
+knockback = 0.0
+pierce = 9999
+size = 1.0
+amount = 0.0
+title = "Lightning Scroll"
+level = 0
+description = "Lightning strikes random enemies."
+icon = ExtResource("1_pqv3g")
+next = ExtResource("2_y3hl1")

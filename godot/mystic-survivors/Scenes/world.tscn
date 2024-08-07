@@ -1,0 +1,272 @@
+[gd_scene load_steps=41 format=3 uid="uid://burekea328867"]
+
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_5ajck"]
+[ext_resource type="PackedScene" uid="uid://c83ndiejbf0sf" path="res://Scenes/player.tscn" id="1_57ges"]
+[ext_resource type="PackedScene" uid="uid://dgp8immkq50a3" path="res://Scenes/UI/ui_main.tscn" id="2_6bjhr"]
+[ext_resource type="PackedScene" uid="uid://dc7cxhgeb4ykx" path="res://Scenes/UI/ui_level_up.tscn" id="3_isb03"]
+[ext_resource type="PackedScene" uid="uid://fo26hl4tg52v" path="res://Scenes/Tilemap/tile_map.tscn" id="3_s1xif"]
+[ext_resource type="PackedScene" uid="uid://dh5ecue8madhd" path="res://Scenes/Objects/tree.tscn" id="4_cogqn"]
+[ext_resource type="PackedScene" uid="uid://efvbf8d0dpbi" path="res://Scenes/UI/Screens/ui_screen_game_over.tscn" id="4_eup1v"]
+[ext_resource type="PackedScene" uid="uid://6tgbfnua86c" path="res://Scenes/Objects/object_plants.tscn" id="4_o70k6"]
+[ext_resource type="PackedScene" uid="uid://c22bk5ldqssap" path="res://Scenes/Objects/object_tree_trunk.tscn" id="4_r40pl"]
+[ext_resource type="PackedScene" uid="uid://buxe2jiasty3f" path="res://Scenes/UI/ui_you_win.tscn" id="5_np1se"]
+[ext_resource type="PackedScene" uid="uid://7512e2coflnl" path="res://Scenes/UI/Screens/ui_screen_you_win.tscn" id="5_w1jo0"]
+[ext_resource type="Script" path="res://Scripts/World/tile_manager.gd" id="6_mitv1"]
+[ext_resource type="PackedScene" uid="uid://eedemhf8y4om" path="res://Scenes/UI/Screens/ui_screen_pause.tscn" id="6_vrhxg"]
+[ext_resource type="PackedScene" uid="uid://cjx0trib4e4k" path="res://Scenes/Enemies/enemy_spawner.tscn" id="8_sfqeg"]
+[ext_resource type="PackedScene" uid="uid://bt2nywn108q5m" path="res://Scenes/Enemies/Regular/enemy_slime_1.tscn" id="11_oxgjo"]
+[ext_resource type="PackedScene" uid="uid://dmfhh5nisasw6" path="res://Scenes/Pickups/pickup_experience.tscn" id="12_1vjcg"]
+[ext_resource type="Script" path="res://Scripts/Enemies/wave.gd" id="12_owijp"]
+[ext_resource type="PackedScene" uid="uid://b61gnt15bfxtr" path="res://Scenes/Enemies/Tank/enemy_bamboo_1.tscn" id="13_jsxe3"]
+[ext_resource type="PackedScene" uid="uid://cwxcntke2icku" path="res://Scenes/Pickups/pickup_health.tscn" id="13_nvj42"]
+[ext_resource type="PackedScene" uid="uid://4q74ydlpers8" path="res://Scenes/Enemies/Shooter/enemy_skull_1.tscn" id="14_it4u7"]
+[ext_resource type="PackedScene" uid="uid://rtcsbgrvo31n" path="res://Scenes/Enemies/Regular/enemy_axolotl_1.tscn" id="15_c1f7m"]
+[ext_resource type="PackedScene" uid="uid://dc1k8hglcegyg" path="res://Scenes/Enemies/Tank/enemy_mushroom.tscn" id="16_p7jji"]
+[ext_resource type="PackedScene" uid="uid://cx07r4ys71f1g" path="res://Scenes/Enemies/Shooter/enemy_eye_1.tscn" id="17_sa511"]
+[ext_resource type="PackedScene" uid="uid://cwtjdrgg457ni" path="res://Scenes/Enemies/Regular/enemy_slime_2.tscn" id="18_6e7wl"]
+[ext_resource type="PackedScene" uid="uid://b6djbdsebwsxs" path="res://Scenes/Enemies/Tank/enemy_cyclops_1.tscn" id="19_cr1yw"]
+[ext_resource type="PackedScene" uid="uid://sxaghyus8bkf" path="res://Scenes/Enemies/Shooter/enemy_skull_2.tscn" id="20_omm6r"]
+[ext_resource type="PackedScene" uid="uid://bnafu5yk8ffvh" path="res://Scenes/Enemies/Tank/enemy_bamboo_2.tscn" id="21_cwrsj"]
+
+[sub_resource type="Resource" id="Resource_3tb16"]
+script = ExtResource("12_owijp")
+spawn_rate = 1
+spawn_limit = 50
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("11_oxgjo")]
+
+[sub_resource type="Resource" id="Resource_vygyd"]
+script = ExtResource("12_owijp")
+spawn_rate = 2
+spawn_limit = 100
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("11_oxgjo"), ExtResource("13_jsxe3")]
+
+[sub_resource type="Resource" id="Resource_q0opi"]
+script = ExtResource("12_owijp")
+spawn_rate = 2
+spawn_limit = 150
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("11_oxgjo"), ExtResource("14_it4u7"), ExtResource("13_jsxe3")]
+
+[sub_resource type="Resource" id="Resource_4jmg0"]
+script = ExtResource("12_owijp")
+spawn_rate = 2
+spawn_limit = 180
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("15_c1f7m"), ExtResource("16_p7jji"), ExtResource("14_it4u7")]
+
+[sub_resource type="Resource" id="Resource_i3441"]
+script = ExtResource("12_owijp")
+spawn_rate = 3
+spawn_limit = 210
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("15_c1f7m"), ExtResource("16_p7jji"), ExtResource("14_it4u7")]
+
+[sub_resource type="Resource" id="Resource_7hdew"]
+script = ExtResource("12_owijp")
+spawn_rate = 4
+spawn_limit = 250
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("15_c1f7m"), ExtResource("16_p7jji"), ExtResource("17_sa511")]
+
+[sub_resource type="Resource" id="Resource_m24wx"]
+script = ExtResource("12_owijp")
+spawn_rate = 4
+spawn_limit = 300
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("18_6e7wl"), ExtResource("19_cr1yw"), ExtResource("17_sa511")]
+
+[sub_resource type="Resource" id="Resource_5b0rg"]
+script = ExtResource("12_owijp")
+spawn_rate = 5
+spawn_limit = 300
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("18_6e7wl"), ExtResource("19_cr1yw"), ExtResource("17_sa511")]
+
+[sub_resource type="Resource" id="Resource_lvmyh"]
+script = ExtResource("12_owijp")
+spawn_rate = 5
+spawn_limit = 300
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("18_6e7wl"), ExtResource("19_cr1yw"), ExtResource("20_omm6r")]
+
+[sub_resource type="Resource" id="Resource_rbhkj"]
+script = ExtResource("12_owijp")
+spawn_rate = 5
+spawn_limit = 330
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("18_6e7wl"), ExtResource("21_cwrsj"), ExtResource("20_omm6r")]
+
+[sub_resource type="Animation" id="Animation_fvf7b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Begin/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5746p"]
+resource_name = "begin"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Begin/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_go4ei"]
+_data = {
+"RESET": SubResource("Animation_fvf7b"),
+"begin": SubResource("Animation_5746p")
+}
+
+[node name="World" type="Node2D"]
+process_mode = 3
+y_sort_enabled = true
+script = ExtResource("1_5ajck")
+
+[node name="Begin" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="Begin"]
+y_sort_enabled = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UI_Main" parent="." instance=ExtResource("2_6bjhr")]
+process_mode = 1
+
+[node name="UI_LevelUp" parent="." instance=ExtResource("3_isb03")]
+visible = false
+
+[node name="UI_Screen_GameOver" parent="." instance=ExtResource("4_eup1v")]
+visible = false
+
+[node name="UI_Screen_YouWin" parent="." instance=ExtResource("5_w1jo0")]
+visible = false
+
+[node name="UI_Screen_Pause" parent="." instance=ExtResource("6_vrhxg")]
+visible = false
+
+[node name="UI_YouWin" parent="." instance=ExtResource("5_np1se")]
+visible = false
+
+[node name="MusicPlayer" type="Node2D" parent="."]
+
+[node name="BG_Music" type="AudioStreamPlayer2D" parent="MusicPlayer"]
+volume_db = -10.0
+autoplay = true
+
+[node name="TileManager" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("6_mitv1")
+player = NodePath("../Player")
+
+[node name="TileMap" parent="TileManager" instance=ExtResource("3_s1xif")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("1_57ges")]
+process_mode = 1
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_sfqeg")]
+process_mode = 1
+player = NodePath("../Player")
+waves_list = [SubResource("Resource_3tb16"), SubResource("Resource_vygyd"), SubResource("Resource_q0opi"), SubResource("Resource_4jmg0"), SubResource("Resource_i3441"), SubResource("Resource_7hdew"), SubResource("Resource_m24wx"), SubResource("Resource_5b0rg"), SubResource("Resource_lvmyh"), SubResource("Resource_rbhkj")]
+
+[node name="Objects" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(32, -56)
+
+[node name="Tree" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(-66, 7)
+
+[node name="Tree2" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(-34, 7)
+
+[node name="Tree3" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(-2, 7)
+
+[node name="Tree4" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(-50, -9)
+
+[node name="Tree5" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(-18, -9)
+
+[node name="Tree6" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(30, 7)
+
+[node name="Tree7" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(14, -9)
+
+[node name="Tree8" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(46, -9)
+
+[node name="Tree9" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(60, 8)
+
+[node name="Tree10" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(92, 8)
+
+[node name="Tree11" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(124, 8)
+
+[node name="Tree12" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(76, -8)
+
+[node name="Tree13" parent="Objects" instance=ExtResource("4_cogqn")]
+position = Vector2(108, -8)
+
+[node name="Object_Tree_Trunk" parent="Objects" instance=ExtResource("4_r40pl")]
+position = Vector2(167, 8)
+collision_mask = 19
+script = null
+
+[node name="Plant" parent="Objects" instance=ExtResource("4_o70k6")]
+position = Vector2(148, 6)
+script = null
+
+[node name="BeginningAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_go4ei")
+}
+autoplay = "begin"
+
+[node name="PickupExperience" parent="." instance=ExtResource("12_1vjcg")]
+position = Vector2(39, 0)
+priority = 1
+
+[node name="PickupHealth" parent="." instance=ExtResource("13_nvj42")]
+position = Vector2(-39, 0)
+priority = 1
+
+[connection signal="area_entered" from="PickupExperience" to="PickupExperience" method="_on_area_entered"]
+[connection signal="area_entered" from="PickupHealth" to="PickupHealth" method="_on_area_entered"]
+
+[editable path="EnemySpawner"]

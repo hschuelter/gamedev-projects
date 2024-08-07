@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgvp0de6ruqqc"]
+
+[ext_resource type="PackedScene" uid="uid://b6m38qlhpr21v" path="res://Scenes/FX/fx.tscn" id="1_n4p7j"]
+[ext_resource type="Texture2D" uid="uid://b6dcx35gru2d6" path="res://Art/FX/Leaf.png" id="2_5o778"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i20jx"]
+atlas = ExtResource("2_5o778")
+region = Rect2(0, 0, 12, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5e3tl"]
+atlas = ExtResource("2_5o778")
+region = Rect2(12, 0, 12, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhjar"]
+atlas = ExtResource("2_5o778")
+region = Rect2(24, 0, 12, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btqbf"]
+atlas = ExtResource("2_5o778")
+region = Rect2(36, 0, 12, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy7mk"]
+atlas = ExtResource("2_5o778")
+region = Rect2(48, 0, 12, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5xk8"]
+atlas = ExtResource("2_5o778")
+region = Rect2(60, 0, 12, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3w5ht"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i20jx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5e3tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhjar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btqbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy7mk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5xk8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FX_Leaf" instance=ExtResource("1_n4p7j")]
+move_speed = 4.0
+duration = 2.0
+
+[node name="Sprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_3w5ht")
+autoplay = "default"
+frame_progress = 0.766299

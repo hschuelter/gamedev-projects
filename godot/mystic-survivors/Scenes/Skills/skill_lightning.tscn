@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0b07dj46228c"]
+
+[ext_resource type="PackedScene" uid="uid://bmg1ufinr2vfe" path="res://Scenes/Skills/skill_bow.tscn" id="1_55aym"]
+[ext_resource type="Script" path="res://Scripts/Inventory/Skills/skill_lightning.gd" id="2_72m8j"]
+
+[node name="SkillLightning" instance=ExtResource("1_55aym")]
+script = ExtResource("2_72m8j")
+weapon_data = null

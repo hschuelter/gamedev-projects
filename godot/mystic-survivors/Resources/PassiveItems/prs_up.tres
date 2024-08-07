@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PassiveItemData" load_steps=3 format=3 uid="uid://c86mrppteaey3"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/PassiveItems/passive_item_data.gd" id="1_47pga"]
+[ext_resource type="Texture2D" uid="uid://dy2v2uj40kp2q" path="res://Art/Upgrades/PassiveItems/FortuneCookie.png" id="1_oeg7s"]
+
+[resource]
+script = ExtResource("1_47pga")
+multiplier = 0.3
+level = 0.0
+title = "Cookie"
+description = "Increases projectile speed by {multiplier}%."
+icon = ExtResource("1_oeg7s")

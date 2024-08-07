@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PassiveItemData" load_steps=3 format=3 uid="uid://xc2a7rbn8en3"]
+
+[ext_resource type="Texture2D" uid="uid://bi4rfip4lso4u" path="res://Art/Upgrades/PassiveItems/Yakitori.png" id="1_0pqgm"]
+[ext_resource type="Script" path="res://Scripts/Inventory/PassiveItems/passive_item_data.gd" id="1_k73ew"]
+
+[resource]
+script = ExtResource("1_k73ew")
+multiplier = 1.0
+level = 0.0
+title = "Yakitori"
+description = "Increases the pierce of projectiles by {multiplier}."
+icon = ExtResource("1_0pqgm")

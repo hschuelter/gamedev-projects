@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://eedemhf8y4om"]
+
+[ext_resource type="PackedScene" uid="uid://dh5vsyc6g6gxw" path="res://Scenes/UI/Screens/ui_screen.tscn" id="1_ej2sn"]
+[ext_resource type="Script" path="res://Scripts/UI/Screens/ui_screen_pause.gd" id="2_vwegn"]
+[ext_resource type="StyleBox" uid="uid://ddcsy0dwrdgub" path="res://Scenes/Menu/Buttons/main_menu_button.tres" id="3_osofq"]
+[ext_resource type="StyleBox" uid="uid://chywju427bqij" path="res://Scenes/Menu/Buttons/main_menu_hover.tres" id="4_4oktb"]
+[ext_resource type="StyleBox" uid="uid://665y0s5eo1td" path="res://Scenes/Menu/Buttons/main_menu_button_pressed.tres" id="5_tuc4k"]
+[ext_resource type="LabelSettings" uid="uid://fqpaivrurl6s" path="res://Resources/Menu/label_settings.tres" id="6_oonxu"]
+
+[node name="UI_Screen_Pause" instance=ExtResource("1_ej2sn")]
+script = ExtResource("2_vwegn")
+
+[node name="Title" parent="." index="1"]
+text = "PAUSED"
+
+[node name="TimeLabel" parent="Container" index="2"]
+layout_mode = 0
+
+[node name="HealthLabel" parent="Container" index="3"]
+layout_mode = 0
+
+[node name="MoveSpeedLabel" parent="Container" index="4"]
+layout_mode = 0
+
+[node name="DamageLabel" parent="Container" index="5"]
+layout_mode = 0
+
+[node name="DurationLabel" parent="Container" index="6"]
+layout_mode = 0
+
+[node name="KnockbackLabel" parent="Container" index="7"]
+layout_mode = 0
+
+[node name="PierceLabel" parent="Container" index="8"]
+layout_mode = 0
+
+[node name="ProjectileSpeedLabel" parent="Container" index="9"]
+layout_mode = 0
+
+[node name="CooldownLabel" parent="Container" index="10"]
+layout_mode = 0
+
+[node name="SizeLabel" parent="Container" index="11"]
+layout_mode = 0
+
+[node name="RegenLabel" parent="Container" index="12"]
+layout_mode = 0
+
+[node name="MagnetLabel" parent="Container" index="13"]
+layout_mode = 0
+
+[node name="AmountLabel" parent="Container" index="14"]
+layout_mode = 0
+
+[node name="Continue" type="Button" parent="HBoxContainer" index="2"]
+custom_minimum_size = Vector2(42, 16)
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = ExtResource("3_osofq")
+theme_override_styles/hover = ExtResource("4_4oktb")
+theme_override_styles/pressed = ExtResource("5_tuc4k")
+
+[node name="Label" type="Label" parent="HBoxContainer/Continue" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CONTINUE"
+label_settings = ExtResource("6_oonxu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/Continue" to="." method="_on_continue_pressed"]

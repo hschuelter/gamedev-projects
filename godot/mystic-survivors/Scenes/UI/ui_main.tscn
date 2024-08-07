@@ -1,0 +1,299 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgp8immkq50a3"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ui_main.gd" id="1_sdilo"]
+[ext_resource type="LabelSettings" uid="uid://fqpaivrurl6s" path="res://Resources/Menu/label_settings.tres" id="2_a424m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2vio"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_yrydv"]
+line_spacing = 0.0
+font_size = 4
+
+[node name="UI_Main" type="CanvasLayer"]
+script = ExtResource("1_sdilo")
+
+[node name="WaveCountContainer" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.5
+offset_right = 33.5
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="WaveCountLabel" type="Label" parent="WaveCountContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.5
+offset_right = 42.5
+offset_bottom = 17.0
+grow_horizontal = 2
+text = "Wave 1"
+label_settings = SubResource("LabelSettings_t2vio")
+horizontal_alignment = 1
+
+[node name="HealthBarContainer" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 59.0
+offset_bottom = 5.0
+
+[node name="BG" type="ColorRect" parent="HealthBarContainer"]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 6.0
+color = Color(0, 0, 0, 0.588235)
+
+[node name="HealthBar" type="ColorRect" parent="HealthBarContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 6.0
+color = Color(0.956863, 0.262745, 0.211765, 1)
+
+[node name="ExperienceBarContainer" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -167.0
+offset_right = -255.0
+offset_bottom = -167.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BG" type="ColorRect" parent="ExperienceBarContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="ExperienceBar" type="ColorRect" parent="ExperienceBarContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 6.0
+offset_bottom = 6.0
+scale = Vector2(1e-05, 1)
+color = Color(0.6432, 0.096, 0.96, 1)
+
+[node name="Label_Level" type="Label" parent="ExperienceBarContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 7.0
+grow_horizontal = 2
+text = "Lv. 1"
+label_settings = SubResource("LabelSettings_yrydv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsVBox" type="VBoxContainer" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.627451)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -70.0
+offset_right = 29.0
+offset_bottom = 30.0
+grow_vertical = 2
+
+[node name="MoveSpeedContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="MoveSpeedLabel" type="Label" parent="StatsVBox/MoveSpeedContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.0
+text = "MS: "
+label_settings = ExtResource("2_a424m")
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="MoveSpeedValue" type="Label" parent="StatsVBox/MoveSpeedContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.0
+text = "X"
+label_settings = ExtResource("2_a424m")
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="DamageContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="DamageLabel" type="Label" parent="StatsVBox/DamageContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "DMG:
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="DamageValue" type="Label" parent="StatsVBox/DamageContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+text = "X
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="DurationContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="DurationLabel" type="Label" parent="StatsVBox/DurationContainer"]
+layout_mode = 2
+text = "DUR:
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="DurationValue" type="Label" parent="StatsVBox/DurationContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="KnockbackContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="KnockbackLabel" type="Label" parent="StatsVBox/KnockbackContainer"]
+layout_mode = 2
+text = "KNO:"
+label_settings = ExtResource("2_a424m")
+
+[node name="KnockbackValue" type="Label" parent="StatsVBox/KnockbackContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+label_settings = ExtResource("2_a424m")
+
+[node name="PierceContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="PierceLabel" type="Label" parent="StatsVBox/PierceContainer"]
+layout_mode = 2
+text = "PRC:
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="PierceValue" type="Label" parent="StatsVBox/PierceContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="ProjectileSpeedContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="ProjectileSpeedLabel" type="Label" parent="StatsVBox/ProjectileSpeedContainer"]
+layout_mode = 2
+text = "PRS:
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="ProjectileSpeedValue" type="Label" parent="StatsVBox/ProjectileSpeedContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="CDRContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="CDRLabel" type="Label" parent="StatsVBox/CDRContainer"]
+layout_mode = 2
+text = "CDR:"
+label_settings = ExtResource("2_a424m")
+
+[node name="CDRValue" type="Label" parent="StatsVBox/CDRContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+label_settings = ExtResource("2_a424m")
+
+[node name="SizeContainer" type="HBoxContainer" parent="StatsVBox"]
+layout_mode = 2
+
+[node name="SizeLabel" type="Label" parent="StatsVBox/SizeContainer"]
+layout_mode = 2
+text = "SIZ:
+"
+label_settings = ExtResource("2_a424m")
+
+[node name="SizeValue" type="Label" parent="StatsVBox/SizeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+label_settings = ExtResource("2_a424m")
+
+[node name="MetaContainer" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = 4.0
+offset_bottom = 25.0
+grow_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="FpsLabel" type="Label" parent="MetaContainer"]
+visible = false
+layout_mode = 2
+text = "FPS: XX"
+label_settings = ExtResource("2_a424m")
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="MetaContainer"]
+layout_mode = 2
+text = "00:00"
+label_settings = ExtResource("2_a424m")
+horizontal_alignment = 1
+
+[node name="KillCountLabel" type="Label" parent="MetaContainer"]
+layout_mode = 2
+text = "K: 0"
+label_settings = ExtResource("2_a424m")
+horizontal_alignment = 1
+
+[node name="CurrentWaveLabel" type="Label" parent="MetaContainer"]
+layout_mode = 2
+text = "Wave 1"
+label_settings = ExtResource("2_a424m")
+horizontal_alignment = 1
+
+[node name="Version" type="Label" parent="."]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -9.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v 0.0.6"
+label_settings = ExtResource("2_a424m")

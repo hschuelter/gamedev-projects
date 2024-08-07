@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4a6d4wu5bd6v"]
+
+[ext_resource type="Script" path="res://Scripts/FX/fx_manager.gd" id="1_4w05f"]
+
+[node name="FX_Manager" type="Node2D"]
+z_index = 10
+y_sort_enabled = true
+script = ExtResource("1_4w05f")
+
+[node name="timer_cloud" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="timer_leaf" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="timer_cloud" to="." method="_on_timer_cloud_timeout"]
+[connection signal="timeout" from="timer_leaf" to="." method="_on_timer_leaf_timeout"]

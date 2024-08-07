@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://fq6ss5tbwtc8"]
+
+[ext_resource type="FontFile" uid="uid://bxaglg02cbgur" path="res://Art/UI/Minecraft.ttf" id="1_bqr3w"]
+
+[resource]
+default_font = ExtResource("1_bqr3w")
+default_font_size = 6

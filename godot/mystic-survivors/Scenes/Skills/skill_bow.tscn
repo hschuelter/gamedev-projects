@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmg1ufinr2vfe"]
+
+[ext_resource type="PackedScene" uid="uid://c6p40xslyaa2c" path="res://Scenes/Skills/skill.tscn" id="1_g0x60"]
+[ext_resource type="Script" path="res://Scripts/Inventory/Skills/skill_bow.gd" id="2_fsgte"]
+
+[node name="SkillBow" instance=ExtResource("1_g0x60")]
+script = ExtResource("2_fsgte")
+
+[node name="Sprite2D" parent="." index="0"]
+visible = false
+
+[node name="Marker2D" parent="." index="1"]
+position = Vector2(12, 0)

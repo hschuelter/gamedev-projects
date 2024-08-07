@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnwg3aq3e2rmf"]
+
+[ext_resource type="Script" path="res://Scripts/Projectiles/projectile_base.gd" id="1_nw5qk"]
+[ext_resource type="Texture2D" uid="uid://jlirjxf1wa4e" path="res://Art/Weapons/Arrow.png" id="2_3ug85"]
+[ext_resource type="PackedScene" uid="uid://ct5ogj0i1qeyx" path="res://Scenes/Components/hitbox.tscn" id="3_l6hit"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox.gd" id="4_14ljy"]
+[ext_resource type="AudioStream" uid="uid://bxarnpdvcp2ga" path="res://Music/SFX/Hit.wav" id="5_srd14"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5dvwb"]
+radius = 3.0
+
+[node name="EnemyProjectile" type="Area2D"]
+z_index = 1
+y_sort_enabled = true
+collision_layer = 32
+collision_mask = 8
+script = ExtResource("1_nw5qk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(-6, 0)
+texture = ExtResource("2_3ug85")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(-6, 0)
+shape = SubResource("CircleShape2D_5dvwb")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_l6hit")]
+collision_layer = 4
+collision_mask = 64
+script = ExtResource("4_14ljy")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-7, 0)
+rotation = 1.5708
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="VFX" type="Node2D" parent="."]
+
+[node name="ProjectileAudio" type="Node2D" parent="."]
+
+[node name="HitEffectAudio" type="AudioStreamPlayer2D" parent="ProjectileAudio"]
+stream = ExtResource("5_srd14")
+volume_db = -6.0
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+
+[editable path="Hitbox"]

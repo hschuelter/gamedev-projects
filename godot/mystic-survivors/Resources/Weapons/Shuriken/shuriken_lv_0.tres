@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://b7hvi5tj1fhqa"]
+
+[ext_resource type="Texture2D" uid="uid://7bxdj0eeslrv" path="res://Art/Upgrades/Weapons/shuriken-icon.png" id="1_8snau"]
+[ext_resource type="Resource" uid="uid://bq8swtlgaegyh" path="res://Resources/Weapons/Shuriken/shuriken_lv_1.tres" id="1_pdohy"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="1_t8cpq"]
+
+[resource]
+script = ExtResource("1_t8cpq")
+cooldown = 0.9
+damage = 4.0
+duration = 2.0
+speed = 250.0
+knockback = 120.0
+pierce = 1
+size = 1.0
+title = "Shuriken"
+level = 0
+description = "Throws shuriken at nearest enemy"
+icon = ExtResource("1_8snau")
+next = ExtResource("1_pdohy")

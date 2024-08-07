@@ -1,0 +1,327 @@
+[gd_scene load_steps=10 format=3 uid="uid://dh5vsyc6g6gxw"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Screens/ui_screen.gd" id="1_ixfts"]
+[ext_resource type="FontFile" uid="uid://bxaglg02cbgur" path="res://Art/UI/Minecraft.ttf" id="2_350ul"]
+[ext_resource type="StyleBox" uid="uid://ddcsy0dwrdgub" path="res://Scenes/Menu/Buttons/main_menu_button.tres" id="3_1nrbh"]
+[ext_resource type="Theme" uid="uid://bvihq5l4duulb" path="res://Resources/Menu/Themes/stats_screen_title.tres" id="3_nvmkc"]
+[ext_resource type="StyleBox" uid="uid://chywju427bqij" path="res://Scenes/Menu/Buttons/main_menu_hover.tres" id="4_8qipi"]
+[ext_resource type="Theme" uid="uid://fq6ss5tbwtc8" path="res://Resources/Menu/Themes/stats_screen_main.tres" id="4_j1xak"]
+[ext_resource type="StyleBox" uid="uid://665y0s5eo1td" path="res://Scenes/Menu/Buttons/main_menu_button_pressed.tres" id="5_0sn50"]
+[ext_resource type="LabelSettings" uid="uid://fqpaivrurl6s" path="res://Resources/Menu/label_settings.tres" id="6_m67yw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bh6p8"]
+font = ExtResource("2_350ul")
+font_size = 24
+
+[node name="UI_Screen" type="CanvasLayer"]
+script = ExtResource("1_ixfts")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27451)
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -90.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TITLE"
+label_settings = SubResource("LabelSettings_bh6p8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -35.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="GeneralStats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 28.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="GeneralStats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GeneralStats"]
+custom_minimum_size = Vector2(99.75, 0)
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = 20.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="LevelLabel" type="RichTextLabel" parent="GeneralStats/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 11)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("3_nvmkc")
+bbcode_enabled = true
+text = "Level: "
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+text_direction = 1
+
+[node name="TimeLabel" type="RichTextLabel" parent="GeneralStats/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 12)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("3_nvmkc")
+bbcode_enabled = true
+text = "Current time:"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="StatsContainer" type="GridContainer" parent="GeneralStats"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -92.0
+offset_right = 160.0
+grow_vertical = 0
+theme_override_constants/v_separation = 2
+columns = 2
+
+[node name="HealthLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Max Health:  "
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="MoveSpeedLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Move Speed:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="DamageLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Damage:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="DurationLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Duration:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="KnockbackLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Knockback:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="PierceLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Pierce:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="ProjectileSpeedLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Projectile Speed:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="CooldownLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Cooldown:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="SizeLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Size:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="RegenLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Regen:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="MagnetLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Magnet:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="AmountLabel" type="RichTextLabel" parent="GeneralStats/StatsContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(70, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_j1xak")
+bbcode_enabled = true
+text = "Amount:  "
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.956
+anchor_right = 0.5
+anchor_bottom = 0.956
+offset_left = -160.0
+offset_top = -32.08
+offset_right = 160.0
+offset_bottom = -16.08
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="QuitButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(42, 16)
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(0.745098, 0, 0, 1)
+theme_override_styles/normal = ExtResource("3_1nrbh")
+theme_override_styles/hover = ExtResource("4_8qipi")
+theme_override_styles/pressed = ExtResource("5_0sn50")
+
+[node name="Label" type="Label" parent="HBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+label_settings = ExtResource("6_m67yw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(42, 16)
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = ExtResource("3_1nrbh")
+theme_override_styles/hover = ExtResource("4_8qipi")
+theme_override_styles/pressed = ExtResource("5_0sn50")
+
+[node name="Label" type="Label" parent="HBoxContainer/Restart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RESTART"
+label_settings = ExtResource("6_m67yw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Restart" to="." method="_on_restart_pressed"]

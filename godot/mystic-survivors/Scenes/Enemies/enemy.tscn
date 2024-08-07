@@ -1,0 +1,103 @@
+[gd_scene load_steps=18 format=3 uid="uid://jnc61o4bu06m"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/enemy.gd" id="1_5hdhq"]
+[ext_resource type="Texture2D" uid="uid://dw6ubvgocjxny" path="res://Art/Shadow.png" id="2_jylgf"]
+[ext_resource type="Resource" uid="uid://c8opxlhx5pe11" path="res://Resources/Enemy/stats_enemy_default.tres" id="2_ybvo8"]
+[ext_resource type="PackedScene" uid="uid://b28xxcs3vf300" path="res://Scenes/Components/soft_collision.tscn" id="3_cm2kk"]
+[ext_resource type="Texture2D" uid="uid://dob0laqc20jtk" path="res://Art/Enemy/Slime/slime_Spritesheet.png" id="3_ucrek"]
+[ext_resource type="PackedScene" uid="uid://b7jr5q03ovc60" path="res://Scenes/Components/hurtbox.tscn" id="3_vts6s"]
+[ext_resource type="PackedScene" uid="uid://ct5ogj0i1qeyx" path="res://Scenes/Components/hitbox.tscn" id="4_w3en1"]
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox.gd" id="4_xpind"]
+[ext_resource type="Script" path="res://Scripts/Components/hitbox.gd" id="6_jvmkk"]
+[ext_resource type="Script" path="res://Scripts/States/state_machine.gd" id="9_vi12e"]
+[ext_resource type="Script" path="res://Scripts/States/EnemyStates/enemy_chase_state.gd" id="10_4h4n7"]
+[ext_resource type="Script" path="res://Scripts/States/EnemyStates/enemy_attack_state.gd" id="11_nkm6t"]
+[ext_resource type="Script" path="res://Scripts/Enemies/EnemyAttacks/enemy_attack.gd" id="12_c1y30"]
+[ext_resource type="Script" path="res://Scripts/States/EnemyStates/enemy_hit_state.gd" id="12_huwib"]
+[ext_resource type="Script" path="res://Scripts/Drops/drop_manager.gd" id="14_hfju3"]
+
+[sub_resource type="Animation" id="Animation_7k5xy"]
+resource_name = "hit"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w2rey"]
+_data = {
+"hit": SubResource("Animation_7k5xy")
+}
+
+[node name="Enemy" type="Area2D" groups=["Enemies"]]
+process_mode = 1
+z_index = 1
+y_sort_enabled = true
+collision_layer = 16
+script = ExtResource("1_5hdhq")
+stats = ExtResource("2_ybvo8")
+
+[node name="sprite_main" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, -8)
+texture = ExtResource("3_ucrek")
+hframes = 4
+vframes = 4
+
+[node name="sprite_shadow" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("2_jylgf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w2rey")
+}
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_vts6s")]
+collision_layer = 64
+collision_mask = 4
+script = ExtResource("4_xpind")
+
+[node name="Hitbox" parent="." instance=ExtResource("4_w3en1")]
+collision_layer = 32
+collision_mask = 8
+script = ExtResource("6_jvmkk")
+
+[node name="Soft_Collision" parent="." instance=ExtResource("3_cm2kk")]
+
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("9_vi12e")
+initial_state = NodePath("Chase")
+
+[node name="Chase" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("10_4h4n7")
+enemy = NodePath("../..")
+
+[node name="Attack" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("11_nkm6t")
+enemy = NodePath("../..")
+
+[node name="EnemyAttack" type="Node" parent="StateMachine/Attack"]
+script = ExtResource("12_c1y30")
+
+[node name="CooldownTimer" type="Timer" parent="StateMachine/Attack"]
+
+[node name="Hit" type="Node2D" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("12_huwib")
+enemy = NodePath("../..")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+z_index = 100
+y_sort_enabled = true
+position = Vector2(0, -11)
+
+[node name="DamageNumber" type="Node2D" parent="."]
+
+[node name="DropManager" type="Node2D" parent="."]
+script = ExtResource("14_hfju3")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="take_damage" from="Hurtbox" to="." method="take_damage"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="Soft_Collision" to="Soft_Collision" method="_on_area_entered"]
+[connection signal="area_exited" from="Soft_Collision" to="Soft_Collision" method="_on_area_exited"]
+
+[editable path="Soft_Collision"]

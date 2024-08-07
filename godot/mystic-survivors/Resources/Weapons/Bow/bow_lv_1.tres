@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://dntytmq406boo"]
+
+[ext_resource type="Texture2D" uid="uid://b4dp47am4i6kw" path="res://Art/Upgrades/Weapons/bow-icon.png" id="1_4h4oh"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="1_23rp1"]
+[ext_resource type="Resource" uid="uid://psdt0rpjs1k8" path="res://Resources/Weapons/Bow/bow_lv_2.tres" id="2_3s2df"]
+
+[resource]
+script = ExtResource("1_23rp1")
+cooldown = 0.8
+damage = 7.0
+duration = 1.5
+speed = 150.0
+knockback = 250.0
+pierce = 1
+size = 1.0
+amount = 0.0
+title = "Bow"
+level = 1
+description = "Increases damage by 2 and decreases cooldown by 0.2 s."
+icon = ExtResource("1_4h4oh")
+next = ExtResource("2_3s2df")

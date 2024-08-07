@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://psdt0rpjs1k8"]
+
+[ext_resource type="Texture2D" uid="uid://b4dp47am4i6kw" path="res://Art/Upgrades/Weapons/bow-icon.png" id="1_7hunt"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="2_ynvyg"]
+
+[resource]
+script = ExtResource("2_ynvyg")
+cooldown = 0.8
+damage = 10.0
+duration = 1.5
+speed = 150.0
+knockback = 250.0
+pierce = 2
+size = 1.0
+amount = 1.0
+title = "Bow"
+level = 2
+description = "Increases base Pierce by 1, Damage by 3 and shoots an additional arrow."
+icon = ExtResource("1_7hunt")

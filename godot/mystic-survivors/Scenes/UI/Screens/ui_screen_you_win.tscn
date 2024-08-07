@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://7512e2coflnl"]
+
+[ext_resource type="PackedScene" uid="uid://dh5vsyc6g6gxw" path="res://Scenes/UI/Screens/ui_screen.tscn" id="1_okp17"]
+
+[node name="UI_Screen_YouWin" instance=ExtResource("1_okp17")]
+
+[node name="Title" parent="." index="1"]
+text = "YOU WIN"

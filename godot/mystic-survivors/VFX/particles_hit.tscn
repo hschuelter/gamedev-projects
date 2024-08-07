@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkfix6ekpj6pi"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u1pr0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -60.0
+angle_max = 60.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(-120, 0, 0)
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+scale_min = 2.0
+scale_max = 3.0
+
+[node name="PartcilesHit" type="GPUParticles2D"]
+z_index = 2
+y_sort_enabled = true
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_u1pr0")
+lifetime = 0.4
+one_shot = true
+speed_scale = 2.0

@@ -1,0 +1,2 @@
+extends EnemyTank
+class_name EnemyCyclops

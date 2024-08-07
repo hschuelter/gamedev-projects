@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://nw2ugxj1pxn3"]
+
+[ext_resource type="PackedScene" uid="uid://b6m38qlhpr21v" path="res://Scenes/FX/fx.tscn" id="1_q8s2g"]
+
+[node name="FX_Clouds" instance=ExtResource("1_q8s2g")]
+
+[node name="Sprite2D" parent="." index="0"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.117647)

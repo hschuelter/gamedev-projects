@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PassiveItemData" load_steps=3 format=3 uid="uid://b3k8mfjdmy16h"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/PassiveItems/passive_item_data.gd" id="1_t3adx"]
+[ext_resource type="Texture2D" uid="uid://bshon5garrp4s" path="res://Art/Upgrades/PassiveItems/Fish.png" id="1_tlnv2"]
+
+[resource]
+script = ExtResource("1_t3adx")
+multiplier = 0.2
+level = 0.0
+title = "Fish"
+description = "Increases knockback of projectiles by {multiplier}%."
+icon = ExtResource("1_tlnv2")

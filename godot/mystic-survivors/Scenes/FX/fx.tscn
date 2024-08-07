@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6m38qlhpr21v"]
+
+[ext_resource type="Script" path="res://Scripts/FX/fx.gd" id="1_kebvf"]
+[ext_resource type="Texture2D" uid="uid://c7ibmd5erwg2x" path="res://Art/FX/Clouds.png" id="2_8nut8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2vgtj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8nut8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_l8rls"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.235294)]
+}
+
+[sub_resource type="Animation" id="Animation_hnhs7"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3yxay"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2whkv"]
+_data = {
+"RESET": SubResource("Animation_l8rls"),
+"fade_in": SubResource("Animation_hnhs7"),
+"fade_out": SubResource("Animation_3yxay")
+}
+
+[node name="FX" type="Node2D"]
+modulate = Color(0, 0, 0, 0.235294)
+z_index = 3
+y_sort_enabled = true
+script = ExtResource("1_kebvf")
+move_speed = 1.0
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2vgtj")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2whkv")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

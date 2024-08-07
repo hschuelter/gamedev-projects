@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://efvbf8d0dpbi"]
+
+[ext_resource type="PackedScene" uid="uid://dh5vsyc6g6gxw" path="res://Scenes/UI/Screens/ui_screen.tscn" id="1_1ry5i"]
+
+[node name="UI_Screen_GameOver" instance=ExtResource("1_1ry5i")]
+
+[node name="Title" parent="." index="1"]
+text = "GAME OVER"

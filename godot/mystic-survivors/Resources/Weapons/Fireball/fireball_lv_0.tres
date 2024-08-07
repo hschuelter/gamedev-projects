@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://kdxywhivau68"]
+
+[ext_resource type="Texture2D" uid="uid://q4fp1gg8m8li" path="res://Art/Weapons/ScrollFire.png" id="1_0kcwp"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="1_luenj"]
+[ext_resource type="Resource" uid="uid://d3nqae2wkla63" path="res://Resources/Weapons/Fireball/fireball_lv_1.tres" id="2_4bf6d"]
+
+[resource]
+script = ExtResource("1_luenj")
+cooldown = 2.5
+damage = 10.0
+duration = 1.5
+speed = 100.0
+knockback = 60.0
+pierce = 1
+size = 1.5
+amount = 0.0
+title = "Fire Scroll"
+level = 0
+description = "Shoots fireball at random direction."
+icon = ExtResource("1_0kcwp")
+next = ExtResource("2_4bf6d")

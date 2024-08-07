@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh5ecue8madhd"]
+
+[ext_resource type="Texture2D" uid="uid://dcuy8klprrve8" path="res://Art/Objects/tree.png" id="1_yxc4d"]
+[ext_resource type="Texture2D" uid="uid://dw6ubvgocjxny" path="res://Art/Shadow.png" id="2_2vrju"]
+[ext_resource type="PackedScene" uid="uid://b7jr5q03ovc60" path="res://Scenes/Components/hurtbox.tscn" id="3_ujt8d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6caji"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4aia5"]
+radius = 6.0
+height = 16.0
+
+[node name="Tree" type="StaticBody2D"]
+z_index = 1
+y_sort_enabled = true
+collision_mask = 19
+
+[node name="sprite_main" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, -16)
+texture = ExtResource("1_yxc4d")
+
+[node name="sprite_shadow" type="Sprite2D" parent="."]
+position = Vector2(2.98023e-08, -2.4375)
+scale = Vector2(1.83333, 1.30357)
+texture = ExtResource("2_2vrju")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, -4)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6caji")
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_ujt8d")]
+collision_layer = 64
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_4aia5")
+debug_color = Color(0.175, 0.7, 0, 0.419608)
+
+[editable path="Hurtbox"]

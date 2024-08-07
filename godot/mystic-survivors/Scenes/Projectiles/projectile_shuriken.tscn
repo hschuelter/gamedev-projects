@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://6yiqgqrs7g13"]
+
+[ext_resource type="PackedScene" uid="uid://btwfakmq81axf" path="res://Scenes/Projectiles/projectile.tscn" id="1_4wuqw"]
+[ext_resource type="Texture2D" uid="uid://q433ccbujy4p" path="res://Art/Weapons/Shuriken.png" id="2_q56ya"]
+[ext_resource type="Script" path="res://Scripts/Projectiles/projectile_shuriken.gd" id="2_yjmgj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6xemb"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_own1e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rieic"]
+resource_name = "spin"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_axdx2"]
+_data = {
+"RESET": SubResource("Animation_own1e"),
+"spin": SubResource("Animation_rieic")
+}
+
+[node name="ProjectileShuriken" instance=ExtResource("1_4wuqw")]
+script = ExtResource("2_yjmgj")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_q56ya")
+hframes = 2
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_6xemb")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_axdx2")
+}
+autoplay = "spin"
+
+[editable path="Hitbox"]

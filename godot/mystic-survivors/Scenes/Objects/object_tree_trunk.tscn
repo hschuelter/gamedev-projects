@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://c22bk5ldqssap"]
+
+[ext_resource type="PackedScene" uid="uid://bfhfl30xl5u8y" path="res://Scenes/Objects/object.tscn" id="1_5avac"]
+[ext_resource type="Texture2D" uid="uid://cy4o7hoq83qsc" path="res://Art/Objects/tree-trunk.png" id="2_k3uad"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ydt0r"]
+radius = 2.0
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0cs0o"]
+radius = 6.0
+height = 14.0
+
+[node name="Object_Tree_Trunk" instance=ExtResource("1_5avac")]
+z_index = 1
+y_sort_enabled = true
+
+[node name="sprite_main" parent="." index="0"]
+z_index = 1
+position = Vector2(2.38419e-07, -7)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_k3uad")
+
+[node name="sprite_shadow" parent="." index="1"]
+position = Vector2(-2.68221e-07, -1.5)
+scale = Vector2(1.33333, 1)
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ydt0r")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_0cs0o")
+debug_color = Color(0.175, 0.7, 0, 0.419608)
+
+[editable path="Hurtbox"]

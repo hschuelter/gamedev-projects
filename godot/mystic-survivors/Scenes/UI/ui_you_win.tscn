@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3 uid="uid://buxe2jiasty3f"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ui_you_win.gd" id="1_sf110"]
+[ext_resource type="FontFile" uid="uid://bdoihpyg7h5qn" path="res://Art/UI/Kenney Pixel Square.ttf" id="2_ac1xg"]
+[ext_resource type="LabelSettings" uid="uid://fqpaivrurl6s" path="res://Resources/Menu/label_settings.tres" id="3_q4oen"]
+[ext_resource type="StyleBox" uid="uid://ddcsy0dwrdgub" path="res://Scenes/Menu/Buttons/main_menu_button.tres" id="4_k5x0p"]
+[ext_resource type="StyleBox" uid="uid://chywju427bqij" path="res://Scenes/Menu/Buttons/main_menu_hover.tres" id="5_s50y5"]
+[ext_resource type="StyleBox" uid="uid://665y0s5eo1td" path="res://Scenes/Menu/Buttons/main_menu_button_pressed.tres" id="6_jekw7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3gnis"]
+font = ExtResource("2_ac1xg")
+font_size = 24
+
+[node name="UI_YouWin" type="CanvasLayer"]
+script = ExtResource("1_sf110")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27451)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -81.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN"
+label_settings = SubResource("LabelSettings_3gnis")
+horizontal_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -35.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 166.0
+offset_top = 58.0
+offset_right = 308.0
+offset_bottom = 134.0
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Level 00"
+label_settings = ExtResource("3_q4oen")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.956
+anchor_right = 0.5
+anchor_bottom = 0.956
+offset_left = -160.0
+offset_top = -32.08
+offset_right = 160.0
+offset_bottom = -16.08
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="QuitButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(36, 18)
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = ExtResource("4_k5x0p")
+theme_override_styles/hover = ExtResource("5_s50y5")
+theme_override_styles/pressed = ExtResource("6_jekw7")
+
+[node name="Label" type="Label" parent="HBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+label_settings = ExtResource("3_q4oen")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(36, 18)
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = ExtResource("4_k5x0p")
+theme_override_styles/hover = ExtResource("5_s50y5")
+theme_override_styles/pressed = ExtResource("6_jekw7")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="HBoxContainer/Restart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RESTART"
+label_settings = ExtResource("3_q4oen")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Restart" to="." method="_on_restart_pressed"]

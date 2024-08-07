@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PassiveItemData" load_steps=3 format=3 uid="uid://b0xywvnvtib0e"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/PassiveItems/passive_item_data.gd" id="1_25of4"]
+[ext_resource type="Texture2D" uid="uid://dbdv6xac1ge1c" path="res://Art/Upgrades/PassiveItems/hp.png" id="1_p7b8d"]
+
+[resource]
+script = ExtResource("1_25of4")
+multiplier = 0.3
+level = 0.0
+title = "Potion"
+description = "Increases the player's maximum health by {multiplier}%."
+icon = ExtResource("1_p7b8d")

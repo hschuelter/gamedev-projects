@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://byxx6n67d2ccq"]
+
+[ext_resource type="Texture2D" uid="uid://bcw2m1qwypsgi" path="res://Art/Weapons/ScrollThunder.png" id="1_3s58r"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="2_pig0p"]
+
+[resource]
+script = ExtResource("2_pig0p")
+cooldown = 5.0
+damage = 4.0
+duration = 0.8
+speed = 0.0
+knockback = 0.0
+pierce = 9999
+size = 1.2
+amount = 1.0
+title = "Lightning Scroll"
+level = 2
+description = "Strikes an additional enemy."
+icon = ExtResource("1_3s58r")

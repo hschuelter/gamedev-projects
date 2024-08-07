@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://byxpo5gegy4nr"]
+
+[ext_resource type="Texture2D" uid="uid://q4fp1gg8m8li" path="res://Art/Weapons/ScrollFire.png" id="1_3nq37"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="2_ehera"]
+
+[resource]
+script = ExtResource("2_ehera")
+cooldown = 2.5
+damage = 20.0
+duration = 1.5
+speed = 96.0
+knockback = 60.0
+pierce = 1
+size = 1.8
+amount = 0.0
+title = "Fire Scroll"
+level = 1
+description = "Increases base damage by 5 and size by 20%."
+icon = ExtResource("1_3nq37")

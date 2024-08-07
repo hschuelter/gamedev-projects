@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://d3nqae2wkla63"]
+
+[ext_resource type="Texture2D" uid="uid://q4fp1gg8m8li" path="res://Art/Weapons/ScrollFire.png" id="1_2hvcf"]
+[ext_resource type="Resource" uid="uid://byxpo5gegy4nr" path="res://Resources/Weapons/Fireball/fireball_lv_2.tres" id="2_86o4l"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="2_a2hxo"]
+
+[resource]
+script = ExtResource("2_a2hxo")
+cooldown = 2.5
+damage = 15.0
+duration = 1.5
+speed = 96.0
+knockback = 60.0
+pierce = 1
+size = 1.5
+amount = 0.0
+title = "Fire Scroll"
+level = 2
+description = "Increases speed by 20% and damage by 5. "
+icon = ExtResource("1_2hvcf")
+next = ExtResource("2_86o4l")

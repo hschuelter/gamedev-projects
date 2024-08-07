@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw68elh52ghku"]
+
+[ext_resource type="Script" path="res://Scripts/Projectiles/projectile_bullet.gd" id="1_bwpu3"]
+[ext_resource type="Texture2D" uid="uid://dhgoli32rdqbm" path="res://Art/Weapons/bullet.png" id="2_54l50"]
+[ext_resource type="PackedScene" uid="uid://ct5ogj0i1qeyx" path="res://Scenes/Components/hitbox.tscn" id="3_w4sj2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5dvwb"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p2bh1"]
+radius = 4.0
+
+[node name="Bullet" type="Area2D"]
+z_index = 1
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 64
+script = ExtResource("1_bwpu3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+texture = ExtResource("2_54l50")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+z_index = 1
+y_sort_enabled = true
+shape = SubResource("CircleShape2D_5dvwb")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_w4sj2")]
+collision_layer = 4
+collision_mask = 64
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_p2bh1")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+
+[editable path="Hitbox"]

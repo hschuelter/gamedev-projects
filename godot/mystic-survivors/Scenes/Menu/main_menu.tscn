@@ -1,0 +1,272 @@
+[gd_scene load_steps=16 format=3 uid="uid://c64r5xicyr27g"]
+
+[ext_resource type="Script" path="res://Scripts/Menu/main_menu.gd" id="1_1ii2s"]
+[ext_resource type="PackedScene" uid="uid://fo26hl4tg52v" path="res://Scenes/Tilemap/tile_map.tscn" id="2_jd4gn"]
+[ext_resource type="PackedScene" uid="uid://dh5ecue8madhd" path="res://Scenes/Objects/tree.tscn" id="3_n4e3u"]
+[ext_resource type="LabelSettings" uid="uid://duxfr7r31w74m" path="res://Resources/Menu/main_menu_font.tres" id="4_3iwny"]
+[ext_resource type="StyleBox" uid="uid://665y0s5eo1td" path="res://Scenes/Menu/Buttons/main_menu_button_pressed.tres" id="4_d0tyj"]
+[ext_resource type="StyleBox" uid="uid://ddcsy0dwrdgub" path="res://Scenes/Menu/Buttons/main_menu_button.tres" id="4_l17t2"]
+[ext_resource type="AudioStream" uid="uid://cdntp2sbv1b8a" path="res://Music/1 - Adventure Begin.ogg" id="4_n6xkf"]
+[ext_resource type="StyleBox" uid="uid://chywju427bqij" path="res://Scenes/Menu/Buttons/main_menu_hover.tres" id="5_nea4k"]
+[ext_resource type="FontFile" uid="uid://bxaglg02cbgur" path="res://Art/UI/Minecraft.ttf" id="8_o7pan"]
+[ext_resource type="LabelSettings" uid="uid://fqpaivrurl6s" path="res://Resources/Menu/label_settings.tres" id="10_qqtuj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sur21"]
+font = ExtResource("8_o7pan")
+font_size = 24
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="Animation" id="Animation_lrhrg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0cvce"]
+resource_name = "begin"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ldm2h"]
+resource_name = "start_game"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_start_game"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mypvj"]
+_data = {
+"RESET": SubResource("Animation_lrhrg"),
+"begin": SubResource("Animation_0cvce"),
+"start_game": SubResource("Animation_ldm2h")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ii2s")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="TileMap" parent="Background" instance=ExtResource("2_jd4gn")]
+position = Vector2(153, 31)
+
+[node name="Objects" type="Node2D" parent="Background"]
+y_sort_enabled = true
+
+[node name="Tree" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(285, 27)
+
+[node name="Tree2" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(252, 27)
+
+[node name="Tree3" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(318, 27)
+
+[node name="Tree4" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(269, 40)
+
+[node name="Tree5" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(302, 40)
+
+[node name="Tree6" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(236, 40)
+
+[node name="Tree7" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(219, 27)
+
+[node name="Tree8" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(253, 52)
+
+[node name="Tree9" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(286, 52)
+
+[node name="Tree10" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(319, 52)
+
+[node name="Tree11" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(269, 65)
+
+[node name="Tree12" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(302, 65)
+
+[node name="Tree13" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(286, 80)
+
+[node name="Tree14" parent="Background/Objects" instance=ExtResource("3_n4e3u")]
+position = Vector2(319, 80)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StartButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 31)
+offset_left = 143.0
+offset_top = 130.0
+offset_right = 213.0
+offset_bottom = 161.0
+scale = Vector2(0.5, 0.5)
+focus_neighbor_top = NodePath("../QuitButton")
+theme_override_styles/normal = ExtResource("4_l17t2")
+theme_override_styles/hover = ExtResource("5_nea4k")
+theme_override_styles/pressed = ExtResource("4_d0tyj")
+
+[node name="Label" type="Label" parent="CanvasLayer/StartButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "START"
+label_settings = ExtResource("4_3iwny")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsButton" type="Button" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(70, 31)
+offset_left = 143.0
+offset_top = 130.0
+offset_right = 213.0
+offset_bottom = 161.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/normal = ExtResource("4_l17t2")
+theme_override_styles/hover = ExtResource("5_nea4k")
+theme_override_styles/pressed = ExtResource("4_d0tyj")
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "OPTIONS
+"
+label_settings = ExtResource("4_3iwny")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="Button" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(70, 31)
+offset_left = 143.0
+offset_top = 148.0
+offset_right = 213.0
+offset_bottom = 179.0
+scale = Vector2(0.5, 0.5)
+focus_neighbor_bottom = NodePath("../StartButton")
+theme_override_styles/normal = ExtResource("4_l17t2")
+theme_override_styles/hover = ExtResource("5_nea4k")
+theme_override_styles/pressed = ExtResource("4_d0tyj")
+
+[node name="Label" type="Label" parent="CanvasLayer/QuitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+label_settings = ExtResource("4_3iwny")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameTitle" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 112.0
+grow_horizontal = 2
+text = "MYSTIC
+SURVIVORS
+"
+label_settings = SubResource("LabelSettings_sur21")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MusicPlayer" type="Node2D" parent="."]
+
+[node name="BG_Music" type="AudioStreamPlayer2D" parent="MusicPlayer"]
+stream = ExtResource("4_n6xkf")
+volume_db = -10.0
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mypvj")
+}
+autoplay = "begin"
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -9.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v 0.0.7"
+label_settings = ExtResource("10_qqtuj")
+
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]

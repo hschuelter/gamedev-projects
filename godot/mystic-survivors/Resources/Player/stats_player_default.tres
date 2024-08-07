@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatsPlayer" load_steps=2 format=3 uid="uid://bn6y6bq3ft7bl"]
+
+[ext_resource type="Script" path="res://Scripts/Custom Resources/stats_player.gd" id="1_eu0vo"]
+
+[resource]
+script = ExtResource("1_eu0vo")
+health = 10.0
+move_speed = 80.0
+damage = 1.0
+duration = 1.0
+knockback = 1.0
+pierce = 0
+projectile_speed = 1.0
+cdr = 1.0
+size = 1.0

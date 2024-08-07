@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd0c6a37yg1k7"]
+
+[ext_resource type="PackedScene" uid="uid://bmg1ufinr2vfe" path="res://Scenes/Skills/skill_bow.tscn" id="1_rygpj"]
+[ext_resource type="Script" path="res://Scripts/Inventory/Skills/skill_fireball.gd" id="2_d6ukb"]
+
+[node name="SkillFireball" instance=ExtResource("1_rygpj")]
+script = ExtResource("2_d6ukb")
+weapon_data = null

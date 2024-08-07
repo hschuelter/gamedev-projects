@@ -1,0 +1,63 @@
+[gd_scene load_steps=13 format=3 uid="uid://cjx0trib4e4k"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/enemy_spawner.gd" id="1_vnici"]
+[ext_resource type="PackedScene" uid="uid://bt2nywn108q5m" path="res://Scenes/Enemies/Regular/enemy_slime_1.tscn" id="2_gy4ak"]
+[ext_resource type="PackedScene" uid="uid://b61gnt15bfxtr" path="res://Scenes/Enemies/Tank/enemy_bamboo_1.tscn" id="3_oqb0k"]
+[ext_resource type="PackedScene" uid="uid://4q74ydlpers8" path="res://Scenes/Enemies/Shooter/enemy_skull_1.tscn" id="5_fyhro"]
+[ext_resource type="Script" path="res://Scripts/Enemies/wave.gd" id="5_w23ar"]
+[ext_resource type="PackedScene" uid="uid://rtcsbgrvo31n" path="res://Scenes/Enemies/Regular/enemy_axolotl_1.tscn" id="6_7eajq"]
+[ext_resource type="PackedScene" uid="uid://dc1k8hglcegyg" path="res://Scenes/Enemies/Tank/enemy_mushroom.tscn" id="7_w2iua"]
+
+[sub_resource type="Resource" id="Resource_3tb16"]
+script = ExtResource("5_w23ar")
+spawn_rate = 1
+spawn_limit = 50
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("2_gy4ak")]
+
+[sub_resource type="Resource" id="Resource_vygyd"]
+script = ExtResource("5_w23ar")
+spawn_rate = 2
+spawn_limit = 100
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("2_gy4ak"), ExtResource("3_oqb0k")]
+
+[sub_resource type="Resource" id="Resource_q0opi"]
+script = ExtResource("5_w23ar")
+spawn_rate = 2
+spawn_limit = 150
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("2_gy4ak"), ExtResource("5_fyhro"), ExtResource("3_oqb0k")]
+
+[sub_resource type="Resource" id="Resource_4jmg0"]
+script = ExtResource("5_w23ar")
+spawn_rate = 2
+spawn_limit = 180
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("6_7eajq"), ExtResource("7_w2iua"), ExtResource("5_fyhro")]
+
+[sub_resource type="Resource" id="Resource_i3441"]
+script = ExtResource("5_w23ar")
+spawn_rate = 3
+spawn_limit = 210
+spawn_cooldown = 1.0
+wave_duration = 60
+enemies_list = [ExtResource("6_7eajq"), ExtResource("7_w2iua"), ExtResource("5_fyhro")]
+
+[node name="EnemySpawner" type="Node2D"]
+position = Vector2(83, 66)
+script = ExtResource("1_vnici")
+waves_list = [SubResource("Resource_3tb16"), SubResource("Resource_vygyd"), SubResource("Resource_q0opi"), SubResource("Resource_4jmg0"), SubResource("Resource_i3441")]
+
+[node name="SpawnCooldownTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="WaveTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SpawnCooldownTimer" to="." method="_on_spawn_cooldown_timer_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0gnj82lxmal2"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/Skills/skill_shuriken.gd" id="1_yjjlh"]
+
+[node name="skill_shuriken" type="Node2D"]
+script = ExtResource("1_yjjlh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AmountTimer" type="Timer" parent="."]
+wait_time = 0.12
+one_shot = true

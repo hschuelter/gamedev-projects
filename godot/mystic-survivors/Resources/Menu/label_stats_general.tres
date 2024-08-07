@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://b4vu0icmh15gk"]
+
+[ext_resource type="FontFile" uid="uid://bxaglg02cbgur" path="res://Art/UI/Minecraft.ttf" id="1_ypqig"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_ypqig")
+font_size = 6

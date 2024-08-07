@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://drm5txgy3o16w"]
+
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="1_mngxs"]
+
+[resource]
+script = ExtResource("1_mngxs")
+cooldown = 1
+damage = 3.0
+duration = 1.5
+speed = 250.0
+knockback = 250.0
+pierce = 1
+size = 1.0

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://cdxglpy4sxo1x"]
+
+[ext_resource type="Texture2D" uid="uid://bcw2m1qwypsgi" path="res://Art/Weapons/ScrollThunder.png" id="1_djqy0"]
+[ext_resource type="Resource" uid="uid://byxx6n67d2ccq" path="res://Resources/Weapons/Lightning/lightning_lv_2.tres" id="2_nwx3c"]
+[ext_resource type="Script" path="res://Scripts/Custom Resources/weapon_data.gd" id="2_vnpms"]
+
+[resource]
+script = ExtResource("2_vnpms")
+cooldown = 5.0
+damage = 4.0
+duration = 0.8
+speed = 0.0
+knockback = 0.0
+pierce = 9999
+size = 1.2
+amount = 0.0
+title = "Lightning Scroll"
+level = 1
+description = "Increases base damage by 2 and size by 20%."
+icon = ExtResource("1_djqy0")
+next = ExtResource("2_nwx3c")

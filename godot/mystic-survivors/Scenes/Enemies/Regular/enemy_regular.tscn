@@ -1,0 +1,225 @@
+[gd_scene load_steps=13 format=3 uid="uid://bvr50ufgu4fqd"]
+
+[ext_resource type="PackedScene" uid="uid://jnc61o4bu06m" path="res://Scenes/Enemies/enemy.tscn" id="1_f7pql"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Regular/enemy_regular.gd" id="2_rnr3t"]
+[ext_resource type="Shader" uid="uid://dt0cqkpqv4t0s" path="res://VFX/Shaders/hit_flash.res" id="4_3mfj6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_idulu"]
+resource_local_to_scene = true
+shader = ExtResource("4_3mfj6")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1gimw"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="Animation" id="Animation_lpddl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_main:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite_main:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite_main:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite_main:material:shader_parameter/enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6n3d6"]
+resource_name = "enemy_default"
+length = 0.40001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_main:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 4, 8, 12]
+}
+
+[sub_resource type="Animation" id="Animation_2ikys"]
+resource_name = "enemy_hit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_main:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite_main:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_state_to_chase"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("sprite_main:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("sprite_main:material:shader_parameter/enabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ev5p"]
+_data = {
+"RESET": SubResource("Animation_lpddl"),
+"enemy_default": SubResource("Animation_6n3d6"),
+"enemy_hit": SubResource("Animation_2ikys")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e76m1"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_srx5l"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vbndd"]
+radius = 6.97523
+height = 13.9505
+
+[node name="Enemy_Regular" instance=ExtResource("1_f7pql")]
+script = ExtResource("2_rnr3t")
+stats = null
+
+[node name="sprite_main" parent="." index="0"]
+material = SubResource("ShaderMaterial_idulu")
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1gimw")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_8ev5p")
+}
+autoplay = "enemy_default"
+
+[node name="Hurtbox" parent="." index="4"]
+visible = false
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_e76m1")
+debug_color = Color(0.175, 0.7, 0, 0.419608)
+
+[node name="Hitbox" parent="." index="5"]
+visible = false
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_srx5l")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="CollisionShape2D" parent="Soft_Collision" index="0"]
+position = Vector2(0, -5)
+rotation = 1.5708
+scale = Vector2(1, 1.00355)
+shape = SubResource("CapsuleShape2D_vbndd")
+debug_color = Color(0, 0, 0, 0.419608)
+
+[node name="Chase" parent="StateMachine" index="0"]
+DISTANCE_TO_ATTACK = -1.0
+
+[node name="Marker2D" parent="." index="8"]
+position = Vector2(0, -5)
+
+[node name="DamageNumber" parent="." index="9"]
+position = Vector2(0, -11)
+
+[connection signal="take_damage" from="Hurtbox" to="." method="take_damage"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
+[editable path="Soft_Collision"]
