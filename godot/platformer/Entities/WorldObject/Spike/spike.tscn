@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://m0vgf5uwoket"]
+
+[ext_resource type="PackedScene" uid="uid://dp4p7smcnm52m" path="res://Entities/WorldObject/world_object.tscn" id="1_sb4nn"]
+[ext_resource type="Script" path="res://Entities/WorldObject/Spike/spike.gd" id="2_w6lrg"]
+
+[node name="Spike" instance=ExtResource("1_sb4nn")]
+script = ExtResource("2_w6lrg")

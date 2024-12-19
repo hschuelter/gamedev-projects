@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://jbk1a0qns3by"]
+
+[ext_resource type="PackedScene" uid="uid://dp4p7smcnm52m" path="res://Entities/WorldObject/world_object.tscn" id="1_y10d2"]
+[ext_resource type="Script" path="res://Entities/WorldObject/Checkpoint/checkpoint.gd" id="2_6mm3r"]
+
+[node name="Checkpoint" instance=ExtResource("1_y10d2")]
+script = ExtResource("2_6mm3r")
+
+[node name="Sprite2D" parent="." index="0"]
+frame = 1
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-2, 0)
