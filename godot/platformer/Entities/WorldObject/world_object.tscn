@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dc6ttsxhdfoir" path="res://Entities/WorldObject/world-tileset.png" id="1_ui2ye"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvnf2"]
-size = Vector2(12, 16)
+size = Vector2(16, 16)
 
 [node name="WorldObject" type="Area2D"]
 script = ExtResource("1_5tb6l")

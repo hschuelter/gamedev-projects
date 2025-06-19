@@ -1,6 +1,8 @@
 extends Area2D
 class_name Coin
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
 const SPEED = 60
 const DISTANCE = 5
 
@@ -24,6 +26,7 @@ func follow(target: Vector2, delta: float) -> void:
 			position += dif.normalized() * SPEED * delta
 
 func _on_body_entered(player: Player) -> void:
+	animated_sprite_2d.visible = false
 	if not target:
 		target = player.target
 	if not self in player.coins_collected:
