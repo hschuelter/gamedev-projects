@@ -1,0 +1,7 @@
+Assets/Entities/BattleHUD/Backgrounds
+Assets/Entities/Monsters/**/*.png
+Assets/TextMesh Pro/
+Assets/*.png
+
+.vsconfig
+.vs/

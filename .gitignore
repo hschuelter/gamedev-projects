@@ -14,10 +14,6 @@ export_presets.cfg
 data_*/
 mono_crash.*.json
 
-# Mystic Survivors Specific
-godot/mystic-survivors/Art/
-godot/mystic-survivors/Music/
-
 ### Unity ###
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -29,14 +25,6 @@ godot/mystic-survivors/Music/
 **/[Bb]uilds/
 **/[Ll]ogs/
 **/[Uu]ser[Ss]ettings/
-
-# Monster Tamer Game Specific - 
-unity/monster_tamer_game/Assets/Entities/BattleHUD/Backgrounds
-unity/monster_tamer_game/Assets/Entities/Monsters/**/*.png
-unity/monster_tamer_game/Assets/*.png
-
-# Pong Specific
-unity/pong/Assets/TextMesh Pro/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
