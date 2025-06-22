@@ -11,9 +11,14 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] private MonsterStats playerStats;
     [SerializeField] private MonsterStats enemyStats;
+    
+    [SerializeField] private Party playerParty;
+    [SerializeField] private Party enemyParty;
+
+
     [SerializeField] private HUDManager hudManager;
     [SerializeField] private Button atkButton;
-    [SerializeField] private GameObject actionsMenu;
+    [SerializeField] private ActionMenu actionMenu;
 
     float ANIMATION_DELAY_TIME = 1f;
     float SHORT_DELAY_TIME = 0.5f;
@@ -22,39 +27,57 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Battle Start!");
+        //Debug.Log("Battle Start!");
         //hudManager.UpdateHUD(playerStats, enemyStats);
-        atkButton.Select();
+        //actionMenu.actionsList.First().GetComponent<Button>().Select();
+        //hudManager.ShowActionMenu();
     }
 
     public void ConfirmAttackAction()
     {
-        string description = $"{playerStats.nickname} attacked {enemyStats.nickname}!";
-        roundQueue.Add(new Action(playerStats, enemyStats, "Attack", description));
+        foreach (var player in playerParty.partyMembers)
+        {
+            var stats = player.GetComponent<MonsterStats>();
+            string description = $"{stats.nickname} attacked {enemyStats.nickname}!";
+            roundQueue.Add(new Action(stats, enemyStats, "Attack", description));
+
+        }
         StartCoroutine(ExecuteBattleRound());
 
     }
 
     public void ConfirmGuardAction()
     {
-        string description = $"{playerStats.nickname} is guarding!";
-        roundQueue.Add(new Action(playerStats, enemyStats, "Guard", description));
+        foreach (var player in playerParty.partyMembers)
+        {
+            var stats = player.GetComponent<MonsterStats>();
+            string description = $"{stats.nickname} is guarding!";
+            roundQueue.Add(new Action(stats, enemyStats, "Guard", description));
+        }
         StartCoroutine(ExecuteBattleRound());
     }
 
     public void ConfirmMagicAction()
     {
-        string description = $"{playerStats.nickname} casted Fire!";
-        roundQueue.Add(new Action(playerStats, enemyStats, "Magic", description));
+        foreach (var player in playerParty.partyMembers)
+        {
+            var stats = player.GetComponent<MonsterStats>();
+            string description = $"{stats.nickname} casted Fire!";
+            roundQueue.Add(new Action(stats, enemyStats, "Magic", description));
+        }
         StartCoroutine(ExecuteBattleRound());
     }
 
     public IEnumerator ExecuteBattleRound()
     {
-        actionsMenu.SetActive(false);
+        hudManager.HideActionMenu();
 
-        roundQueue.Add(new Action(enemyStats, playerStats, "Attack", $"{enemyStats.nickname} attacked {playerStats.nickname}!"));
+        var enemyTarget = playerParty.partyMembers.First().GetComponent<MonsterStats>();
+
+        roundQueue.Add(new Action(enemyStats, enemyTarget, "Attack", $"{enemyStats.nickname} attacked {enemyTarget.nickname}!"));
         roundQueue = roundQueue.OrderByDescending(action => action.actionName == "Guard").ThenByDescending(action => action.user.speed).ToList();
+        
+        roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
 
         while (roundQueue.Count > 0)
         {
@@ -87,7 +110,7 @@ public class BattleManager : MonoBehaviour
             if (user.characterHUDManager != null)
                 hudManager.UpdateHUD(user.characterHUDManager);
 
-            roundQueue.RemoveAll(action => action.user.currentHealth == 0);
+            roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
             user.ActionAnimation();
             yield return delay(ANIMATION_DELAY_TIME);
             user.Stepback();
@@ -96,7 +119,7 @@ public class BattleManager : MonoBehaviour
             yield return delay(SHORT_DELAY_TIME);
         }
 
-        actionsMenu.SetActive(true);
+        hudManager.ShowActionMenu();
     }
 
     IEnumerator delay(float seconds)

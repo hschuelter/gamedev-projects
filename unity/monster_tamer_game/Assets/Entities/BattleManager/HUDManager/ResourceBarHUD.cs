@@ -13,6 +13,7 @@ public class ResourceBarHUD : MonoBehaviour
 
     public void UpdateResourceBar(float ratio, Color color)
     {
+        rectTransform = barComponent.GetComponent<RectTransform>();
         ratio = Mathf.Clamp(ratio, 0f, 100f);
         rectTransform.SetRight(100f - ratio);
         barComponent.color = color;

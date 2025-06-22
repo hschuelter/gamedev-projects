@@ -7,12 +7,18 @@ using UnityEngine;
 public class Party : MonoBehaviour
 {
     public List<GameObject> partyMembers;
-    public GameObject prefab;
+    //public GameObject prefab1;
+    //public GameObject prefab2;
+    //public GameObject prefab3;
+    //public GameObject prefab4;
     public PartyHUDManager partyHUD;
 
     void Start()
     {
-        CreateParty();
+        ResetParty();
+
+        if (partyHUD == null) return;
+        partyHUD.DrawHUD();
 
         int i = 0;
         foreach (var member in partyMembers)
@@ -24,21 +30,13 @@ public class Party : MonoBehaviour
             i++;
         }
     }
-
-    void Update()
+    public void ResetParty()
     {
-        
-    }
-
-    public void CreateParty()
-    {
-        partyMembers = new List<GameObject>();
-        partyMembers.Add(prefab);
-        partyMembers.Add(prefab);
-        partyMembers.Add(prefab);
-        //partyMembers.Add(prefab);
-
-        if (partyHUD == null) return;
-        partyHUD.DrawHUD();
+        foreach (var member in partyMembers)
+        {
+            MonsterStats stats = member.GetComponent<MonsterStats>();
+            stats.currentHealth = stats.maxHealth;
+            stats.currentMana = stats.maxMana;
+        }
     }
 }

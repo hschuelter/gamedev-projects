@@ -19,7 +19,6 @@ public class ActionMenuCursor : MonoBehaviour
         verticalLayout.gameObject.SetActive(true);
 
         Activate();
-        //MoveToTarget();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void MoveToTarget()

@@ -1,18 +1,29 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class PartyHUDManager : MonoBehaviour
 {
     public Party party;
-    public GameObject partyMemberPrefab;
+    public PartyMemberHUDManager partyMemberPrefab;
+
+    private List<PartyMemberHUDManager> partyMembersHUD;
 
     public void DrawHUD()
     {
-        foreach(GameObject partyMember in party.partyMembers)
+        partyMembersHUD = new List<PartyMemberHUDManager>();
+        int i = 0;
+        foreach (GameObject partyMember in party.partyMembers)
         {
             partyMemberPrefab.GetComponent<PartyMemberHUDManager>().partyMember = partyMember;
-            var member = Instantiate(partyMemberPrefab, this.transform);
-            partyMember.GetComponent<MonsterStats>().characterHUDManager = member.GetComponent<PartyMemberHUDManager>();
+            var memberHUD = Instantiate(partyMemberPrefab, this.transform);
+            var stats = partyMember.GetComponent<MonsterStats>();
+            memberHUD.name = $"PartyMemberHUD-{stats.nickname}-{i++}";
+            //partyMember.GetComponent<MonsterStats>().characterHUDManager = member.GetComponent<PartyMemberHUDManager>();
 
+            partyMembersHUD.Add(memberHUD);
+            memberHUD.Draw();
         }
     }
 }

@@ -20,7 +20,7 @@ public class PartyMemberHUDManager : MonoBehaviour
 
     void Start()
     {
-        Draw();
+        //Draw();
     }
 
     public void Draw()
