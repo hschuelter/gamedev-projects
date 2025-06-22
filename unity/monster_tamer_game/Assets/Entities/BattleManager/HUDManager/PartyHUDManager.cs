@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 public class PartyHUDManager : MonoBehaviour
 {
     public Party party;
-    public PartyMemberHUDManager partyMemberPrefab;
+    public PartyMemberHUDManager partyMemberHUDPrefab;
 
     private List<PartyMemberHUDManager> partyMembersHUD;
 
@@ -14,13 +14,13 @@ public class PartyHUDManager : MonoBehaviour
     {
         partyMembersHUD = new List<PartyMemberHUDManager>();
         int i = 0;
-        foreach (GameObject partyMember in party.partyMembers)
+        foreach (MonsterStats partyMember in party.partyMembers)
         {
-            partyMemberPrefab.GetComponent<PartyMemberHUDManager>().partyMember = partyMember;
-            var memberHUD = Instantiate(partyMemberPrefab, this.transform);
-            var stats = partyMember.GetComponent<MonsterStats>();
-            memberHUD.name = $"PartyMemberHUD-{stats.nickname}-{i++}";
-            //partyMember.GetComponent<MonsterStats>().characterHUDManager = member.GetComponent<PartyMemberHUDManager>();
+            partyMemberHUDPrefab.GetComponent<PartyMemberHUDManager>().partyMember = partyMember.gameObject;
+
+            var memberHUD = Instantiate(partyMemberHUDPrefab, this.transform);
+            partyMember.GetComponent<MonsterStats>();
+            memberHUD.name = $"PartyMemberHUD-{partyMember.nickname}-{i++}";
 
             partyMembersHUD.Add(memberHUD);
             memberHUD.Draw();

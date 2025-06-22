@@ -1144,12 +1144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b03e9241ce4bae488e95d7224be48b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partyMembers: []
-  prefab1: {fileID: 2991907037364789347, guid: 3e7ab7eaa7386ee46bd2d6fbc4cd7ed7, type: 3}
-  prefab2: {fileID: 2991907037364789347, guid: f270231530028f34286dd0f531779696, type: 3}
-  prefab3: {fileID: 2991907037364789347, guid: a2f341082c23379418738a7ab659118b, type: 3}
-  prefab4: {fileID: 2991907037364789347, guid: 8c91495149b611046a13f5a573ddb96e, type: 3}
   partyHUD: {fileID: 1267118225}
+  partyMembersPrefab:
+  - {fileID: 2991907037364789347, guid: 3e7ab7eaa7386ee46bd2d6fbc4cd7ed7, type: 3}
+  - {fileID: 2991907037364789347, guid: f270231530028f34286dd0f531779696, type: 3}
+  - {fileID: 2991907037364789347, guid: a2f341082c23379418738a7ab659118b, type: 3}
+  - {fileID: 2991907037364789347, guid: 8c91495149b611046a13f5a573ddb96e, type: 3}
+  partyMembers: []
 --- !u!212 &1106538297
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1993,7 +1994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   party: {fileID: 1106538294}
-  partyMemberPrefab: {fileID: 3505426387561632583, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
+  partyMemberHUDPrefab: {fileID: 3505426387561632583, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
 --- !u!1 &1569803895
 GameObject:
   m_ObjectHideFlags: 0

@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 3505426387561632583}
   - component: {fileID: 276200722206154153}
   m_Layer: 5
-  m_Name: PartyMember
+  m_Name: PartyMemberHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

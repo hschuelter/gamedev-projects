@@ -51,13 +51,13 @@ public class MonsterStats : MonoBehaviour
     {
         var pos = gameObject.transform.position;
         var scale = gameObject.transform.localScale;
-        gameObject.transform.position = new Vector3(pos.x + 0.6f * scale.x, pos.y, pos.z);
+        gameObject.transform.position = new Vector3(pos.x + 0.4f * scale.x, pos.y, pos.z);
     }
     public void Stepback()
     {
         var pos = gameObject.transform.position;
         var scale = gameObject.transform.localScale;
-        gameObject.transform.position = new Vector3(pos.x - 0.6f * scale.x, pos.y, pos.z);
+        gameObject.transform.position = new Vector3(pos.x - 0.4f * scale.x, pos.y, pos.z);
     }
 
     private int CalculateDamage(MonsterStats target, int movePower)

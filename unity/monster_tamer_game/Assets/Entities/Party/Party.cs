@@ -6,22 +6,17 @@ using UnityEngine;
 
 public class Party : MonoBehaviour
 {
-    public List<GameObject> partyMembers;
-    //public GameObject prefab1;
-    //public GameObject prefab2;
-    //public GameObject prefab3;
-    //public GameObject prefab4;
     public PartyHUDManager partyHUD;
+    public List<GameObject> partyMembersPrefab;
+    [HideInInspector] public List<MonsterStats> partyMembers;
 
     void Start()
     {
+        partyMembers = new List<MonsterStats>();
         ResetParty();
 
-        if (partyHUD == null) return;
-        partyHUD.DrawHUD();
-
         int i = 0;
-        foreach (var member in partyMembers)
+        foreach (var member in partyMembersPrefab)
         {
             var cur = Instantiate(member, this.transform);
             float y_offset = -0.20f * i;
@@ -29,10 +24,14 @@ public class Party : MonoBehaviour
             cur.transform.position = new Vector3(this.transform.position.x + x_offset, this.transform.position.y + y_offset, 0);
             i++;
         }
+        partyMembers = gameObject.GetComponentsInChildren<MonsterStats>().ToList();
+
+        if (partyHUD == null) return;
+        partyHUD.DrawHUD();
     }
     public void ResetParty()
     {
-        foreach (var member in partyMembers)
+        foreach (var member in partyMembersPrefab)
         {
             MonsterStats stats = member.GetComponent<MonsterStats>();
             stats.currentHealth = stats.maxHealth;
