@@ -19,12 +19,12 @@ public class MonsterStats : MonoBehaviour
 
     private void Start()
     {
-        this.spriteAnimator = GetComponent<Animator>();
+        spriteAnimator = GetComponent<Animator>();
     }
 
     public void Damage(float damage)
     {
-        this.currentHealth = Mathf.Clamp(this.currentHealth - damage, 0f, this.currentHealth);
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
     }
 
     public void Attack(MonsterStats target)

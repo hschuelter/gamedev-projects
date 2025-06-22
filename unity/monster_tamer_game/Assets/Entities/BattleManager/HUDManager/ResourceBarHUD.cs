@@ -6,14 +6,9 @@ public class ResourceBarHUD : MonoBehaviour
     [SerializeField] Image barComponent;
     private RectTransform rectTransform;
 
-    private void Start()
+    void Start()
     {
         rectTransform = barComponent.GetComponent<RectTransform>();
-    }
-
-    void Update()
-    {
-
     }
 
     public void UpdateResourceBar(float ratio, Color color)
@@ -21,5 +16,10 @@ public class ResourceBarHUD : MonoBehaviour
         ratio = Mathf.Clamp(ratio, 0f, 100f);
         rectTransform.SetRight(100f - ratio);
         barComponent.color = color;
+    }
+
+    public void SetRight(float right)
+    {
+        rectTransform.offsetMax = new Vector2(-right, rectTransform.offsetMax.y);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PartyMemberHUDManager : MonoBehaviour
 {
-    [SerializeField] GameObject partyMember;
+    public GameObject partyMember;
     [SerializeField] ResourceBarHUD healthBarHUD;
     [SerializeField] ResourceBarHUD manaBarHUD;
     [SerializeField] Color healthyColor;
@@ -19,6 +19,11 @@ public class PartyMemberHUDManager : MonoBehaviour
     private MonsterStats stats;
 
     void Start()
+    {
+        Draw();
+    }
+
+    public void Draw()
     {
         stats = partyMember.GetComponent<MonsterStats>();
         stats.characterHUDManager = this;
@@ -42,6 +47,7 @@ public class PartyMemberHUDManager : MonoBehaviour
         UpdateHealth();
         UpdateMana();
     }
+
     public void UpdateHealth()
     {
         var ratio = 100 * stats.currentHealth / stats.maxHealth;
