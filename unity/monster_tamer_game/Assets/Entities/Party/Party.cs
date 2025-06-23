@@ -8,11 +8,13 @@ public class Party : MonoBehaviour
 {
     public PartyHUDManager partyHUD;
     public List<GameObject> partyMembersPrefab;
-    [HideInInspector] public List<MonsterStats> partyMembers;
+    public List<Character> partyCharacters;
+
+    [HideInInspector] public List<Stats> partyMembers;
 
     void Start()
     {
-        partyMembers = new List<MonsterStats>();
+        partyMembers = new List<Stats>();
         ResetParty();
 
         int i = 0;
@@ -24,7 +26,7 @@ public class Party : MonoBehaviour
             cur.transform.position = new Vector3(this.transform.position.x + x_offset, this.transform.position.y + y_offset, 0);
             i++;
         }
-        partyMembers = gameObject.GetComponentsInChildren<MonsterStats>().ToList();
+        partyMembers = gameObject.GetComponentsInChildren<Stats>().ToList();
 
         if (partyHUD == null) return;
         partyHUD.DrawHUD();
@@ -33,7 +35,7 @@ public class Party : MonoBehaviour
     {
         foreach (var member in partyMembersPrefab)
         {
-            MonsterStats stats = member.GetComponent<MonsterStats>();
+            Stats stats = member.GetComponent<Stats>();
             stats.currentHealth = stats.maxHealth;
             stats.currentMana = stats.maxMana;
         }

@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] private MonsterStats playerStats;
-    [SerializeField] private MonsterStats enemyStats;
+    [SerializeField] private Stats playerStats;
+    [SerializeField] private Stats enemyStats;
     
     [SerializeField] private Party playerParty;
     [SerializeField] private Party enemyParty;
@@ -37,7 +37,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (var player in playerParty.partyMembers)
         {
-            var stats = player.GetComponent<MonsterStats>();
+            var stats = player.GetComponent<Stats>();
             string description = $"{stats.nickname} attacked {enemyStats.nickname}!";
             roundQueue.Add(new Action(stats, enemyStats, "Attack", description));
 
@@ -50,7 +50,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (var player in playerParty.partyMembers)
         {
-            var stats = player.GetComponent<MonsterStats>();
+            var stats = player.GetComponent<Stats>();
             string description = $"{stats.nickname} is guarding!";
             roundQueue.Add(new Action(stats, enemyStats, "Guard", description));
         }
@@ -61,7 +61,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (var player in playerParty.partyMembers)
         {
-            var stats = player.GetComponent<MonsterStats>();
+            var stats = player.GetComponent<Stats>();
             string description = $"{stats.nickname} casted Fire!";
             roundQueue.Add(new Action(stats, enemyStats, "Magic", description));
         }
@@ -72,7 +72,7 @@ public class BattleManager : MonoBehaviour
     {
         hudManager.HideActionMenu();
 
-        var enemyTarget = playerParty.partyMembers.First().GetComponent<MonsterStats>();
+        var enemyTarget = playerParty.partyMembers.First().GetComponent<Stats>();
 
         roundQueue.Add(new Action(enemyStats, enemyTarget, "Attack", $"{enemyStats.nickname} attacked {enemyTarget.nickname}!"));
         roundQueue = roundQueue.OrderByDescending(action => action.actionName == "Guard").ThenByDescending(action => action.user.speed).ToList();

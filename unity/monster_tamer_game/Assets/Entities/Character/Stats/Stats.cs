@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class MonsterStats : MonoBehaviour
+public class Stats : MonoBehaviour
 {
     [SerializeField] public float currentHealth;
     [SerializeField] public float maxHealth;
@@ -27,14 +27,14 @@ public class MonsterStats : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
     }
 
-    public void Attack(MonsterStats target)
+    public void Attack(Stats target)
     {
         int movePower = 40;
         int damage = CalculateDamage(target, movePower);
         target.Damage(damage);
     }
 
-    public void Magic(MonsterStats target)
+    public void Magic(Stats target)
     {
         int movePower = 60;
         int damage = CalculateDamage(target, movePower);
@@ -60,7 +60,7 @@ public class MonsterStats : MonoBehaviour
         gameObject.transform.position = new Vector3(pos.x - 0.4f * scale.x, pos.y, pos.z);
     }
 
-    private int CalculateDamage(MonsterStats target, int movePower)
+    private int CalculateDamage(Stats target, int movePower)
     {
         float damageConstant = ((2 * level / 5) + 2) / 50;
 

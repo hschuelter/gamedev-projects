@@ -16,7 +16,7 @@ public class PartyMemberHUDManager : MonoBehaviour
     private TMP_Text nameText;
     private TMP_Text healthText;
     private TMP_Text manaText;
-    private MonsterStats stats;
+    private Stats stats;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class PartyMemberHUDManager : MonoBehaviour
 
     public void Draw()
     {
-        stats = partyMember.GetComponent<MonsterStats>();
+        stats = partyMember.GetComponent<Stats>();
         stats.characterHUDManager = this;
         foreach (Transform child in transform)
         {

@@ -14,12 +14,12 @@ public class PartyHUDManager : MonoBehaviour
     {
         partyMembersHUD = new List<PartyMemberHUDManager>();
         int i = 0;
-        foreach (MonsterStats partyMember in party.partyMembers)
+        foreach (Stats partyMember in party.partyMembers)
         {
             partyMemberHUDPrefab.GetComponent<PartyMemberHUDManager>().partyMember = partyMember.gameObject;
 
             var memberHUD = Instantiate(partyMemberHUDPrefab, this.transform);
-            partyMember.GetComponent<MonsterStats>();
+            partyMember.GetComponent<Stats>();
             memberHUD.name = $"PartyMemberHUD-{partyMember.nickname}-{i++}";
 
             partyMembersHUD.Add(memberHUD);

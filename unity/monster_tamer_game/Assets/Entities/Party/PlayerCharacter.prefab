@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3650747663849509956}
   - component: {fileID: 7371665796996977646}
   - component: {fileID: 3662342482126034815}
+  - component: {fileID: 8327483888514876420}
   - component: {fileID: 7594840935926172918}
   m_Layer: 0
   m_Name: PlayerCharacter
@@ -98,20 +99,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 2991907037364789347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2a5a41abb91ce44b513bb79c9290ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 5060bb83caddd1e45baf88fb13d54b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 18
-  maxHealth: 18
+  currentHealth: 20
+  maxHealth: 20
   currentMana: 10
   maxMana: 10
-  attack: 18
-  defense: 12
-  speed: 13
+  attack: 10
+  defense: 10
+  speed: 10
   nickname: Player
   level: 5
   isGuarding: 0
-  characterHUDManager: {fileID: 0}
+  characterHUDManager: {fileID: 3505426387561632583, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
+--- !u!114 &8327483888514876420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2991907037364789347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6b3d65b9bd8734380db7515f52a3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSprite: {fileID: 0}
+  stats: {fileID: 0}
 --- !u!95 &7594840935926172918
 Animator:
   serializedVersion: 7

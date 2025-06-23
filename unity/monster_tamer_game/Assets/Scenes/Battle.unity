@@ -2327,18 +2327,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1859366460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2a5a41abb91ce44b513bb79c9290ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 5060bb83caddd1e45baf88fb13d54b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 16
-  maxHealth: 16
+  currentHealth: 10
+  maxHealth: 10
   currentMana: 5
   maxMana: 5
-  attack: 17
-  defense: 9
-  speed: 19
-  nickname: Enemy
-  level: 5
+  attack: 5
+  defense: 5
+  speed: 12
+  nickname: Bat
+  level: 3
   isGuarding: 0
   characterHUDManager: {fileID: 0}
 --- !u!95 &1859366464
