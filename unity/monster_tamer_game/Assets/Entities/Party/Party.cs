@@ -14,6 +14,8 @@ public class Party : MonoBehaviour
 
     //[HideInInspector] 
     public List<Stats> partyMembers { get; set; }
+    
+    private int sortingOrder = 1;
 
     void Start()
     {
@@ -53,7 +55,7 @@ public class Party : MonoBehaviour
 
         var spriteRenderer = characterObj.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = character.characterSprite;
-        spriteRenderer.sortingOrder = 1;
+        spriteRenderer.sortingOrder = sortingOrder++;
 
         var animator = characterObj.AddComponent<Animator>();
         animator.runtimeAnimatorController = character.animatorController;
