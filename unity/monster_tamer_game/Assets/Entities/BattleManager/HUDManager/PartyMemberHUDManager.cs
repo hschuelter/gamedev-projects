@@ -43,7 +43,8 @@ public class PartyMemberHUDManager : MonoBehaviour
             }
         }
 
-        nameText.text = stats.nickname;
+        UpdateName();
+
         UpdateHealth();
         UpdateMana();
     }
@@ -72,6 +73,11 @@ public class PartyMemberHUDManager : MonoBehaviour
         else manaText.color = whiteColor;
 
         manaBarHUD.UpdateResourceBar(ratio, manaColor);
+    }
+
+    public void UpdateName()
+    {
+        nameText.text = stats.nickname;
     }
 
 }

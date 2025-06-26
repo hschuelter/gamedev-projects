@@ -15,7 +15,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Party playerParty;
     [SerializeField] private Party enemyParty;
 
-
     [SerializeField] private HUDManager hudManager;
     [SerializeField] private Button atkButton;
     [SerializeField] private ActionMenu actionMenu;

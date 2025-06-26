@@ -13,6 +13,8 @@ public class Stats : MonoBehaviour
     [SerializeField] public string nickname;
     [SerializeField] public int level;
 
+    public StatsData statusData;
+
     public bool isGuarding = false;
     public PartyMemberHUDManager characterHUDManager;
     private Animator spriteAnimator;
@@ -20,6 +22,23 @@ public class Stats : MonoBehaviour
     private void Start()
     {
         spriteAnimator = GetComponent<Animator>();
+    }
+    public void UpdateStats(StatsData statusData)
+    {
+        Debug.Log($"{statusData}");
+        this.currentHealth = statusData.currentHealth;
+        this.maxHealth = statusData.maxHealth;
+        this.currentMana = statusData.currentMana;
+        this.maxMana = statusData.maxMana;
+        this.attack = statusData.attack;
+        this.defense = statusData.defense;
+        this.speed = statusData.speed;
+        this.nickname = statusData.nickname;
+        this.level = statusData.level;
+
+        //characterHUDManager.UpdateName();
+        //characterHUDManager.UpdateHealth();
+        //characterHUDManager.UpdateMana();
     }
 
     public void Damage(float damage)

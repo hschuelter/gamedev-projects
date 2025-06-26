@@ -1146,11 +1146,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partyHUD: {fileID: 1267118225}
   partyMembersPrefab:
-  - {fileID: 2991907037364789347, guid: 3e7ab7eaa7386ee46bd2d6fbc4cd7ed7, type: 3}
-  - {fileID: 2991907037364789347, guid: f270231530028f34286dd0f531779696, type: 3}
-  - {fileID: 2991907037364789347, guid: a2f341082c23379418738a7ab659118b, type: 3}
   - {fileID: 2991907037364789347, guid: 8c91495149b611046a13f5a573ddb96e, type: 3}
-  partyMembers: []
+  partyCharacters:
+  - {fileID: 8327483888514876420, guid: bc30b9b125e904c428727735a40a6bcd, type: 3}
+  - {fileID: 6719457545690070272, guid: 861a1909c560ba04e87dc277f228cbea, type: 3}
+  - {fileID: -172850867217573873, guid: c5a84c6883dd2384e83d50b3350b84ef, type: 3}
+  - {fileID: 7016533116300623335, guid: 15f73db2f7f6a124dbd9fee271a92162, type: 3}
 --- !u!212 &1106538297
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2339,6 +2340,7 @@ MonoBehaviour:
   speed: 12
   nickname: Bat
   level: 3
+  statusData: {fileID: 0}
   isGuarding: 0
   characterHUDManager: {fileID: 0}
 --- !u!95 &1859366464

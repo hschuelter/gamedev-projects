@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3650747663849509956}
   - component: {fileID: 7371665796996977646}
-  - component: {fileID: 8327483888514876420}
   - component: {fileID: 3662342482126034815}
   - component: {fileID: 7594840935926172918}
+  - component: {fileID: -172850867217573873}
   m_Layer: 0
-  m_Name: PlayerCharacter
+  m_Name: HealerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2991907037364789347}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -90,21 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8327483888514876420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2991907037364789347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6b3d65b9bd8734380db7515f52a3d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterSprite: {fileID: -167315840640745018, guid: cc2b26324e88b6742bc15513497c8c66, type: 3}
-  statusData: {fileID: 11400000, guid: c540e904c9f71294ab33ca5b9e408dbb, type: 2}
-  stats: {fileID: 0}
 --- !u!114 &3662342482126034815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +136,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-172850867217573873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2991907037364789347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6b3d65b9bd8734380db7515f52a3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSprite: {fileID: -167315840640745018, guid: cc2b26324e88b6742bc15513497c8c66, type: 3}
+  statusData: {fileID: 11400000, guid: 1dd2444947683f349854768cbba08344, type: 2}
+  animatorController: {fileID: 9100000, guid: 59508c5cb8514404caa8de5b9466192f, type: 2}
