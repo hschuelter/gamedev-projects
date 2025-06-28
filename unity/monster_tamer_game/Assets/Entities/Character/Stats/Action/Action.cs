@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Action
 {
-    public Stats user;
-    public Stats target;
-    public string actionName;
-    public string description;
+    public Stats user { get; set; }
+    public Stats target { get; set; }
+    public string actionName { get; set; }
+    public string description { get; set; }
 
     public Action(Stats user, Stats target, string actionName, string description = "")
     {
@@ -13,5 +13,17 @@ public class Action
         this.target = target;
         this.actionName = actionName;
         this.description = description;
+    }
+    public Action(Stats user, Stats target)
+    {
+        this.user = user;
+        this.target = target;
+        this.actionName = "Dont know!";
+        this.description = $"{user.nickname} did something to {target.nickname}...";
+    }
+
+    public virtual void Execute()
+    {
+        Debug.Log($"Override me...");
     }
 }

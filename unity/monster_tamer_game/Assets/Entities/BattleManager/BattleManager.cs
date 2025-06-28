@@ -37,8 +37,7 @@ public class BattleManager : MonoBehaviour
         foreach (var player in playerParty.partyMembers)
         {
             var stats = player.GetComponent<Stats>();
-            string description = $"{stats.nickname} attacked {enemyStats.nickname}!";
-            roundQueue.Add(new Action(stats, enemyStats, "Attack", description));
+            roundQueue.Add(new ActionAttack(stats, enemyStats));
 
         }
         StartCoroutine(ExecuteBattleRound());
@@ -50,8 +49,7 @@ public class BattleManager : MonoBehaviour
         foreach (var player in playerParty.partyMembers)
         {
             var stats = player.GetComponent<Stats>();
-            string description = $"{stats.nickname} is guarding!";
-            roundQueue.Add(new Action(stats, enemyStats, "Guard", description));
+            roundQueue.Add(new ActionGuard(stats, enemyStats));
         }
         StartCoroutine(ExecuteBattleRound());
     }
@@ -61,8 +59,7 @@ public class BattleManager : MonoBehaviour
         foreach (var player in playerParty.partyMembers)
         {
             var stats = player.GetComponent<Stats>();
-            string description = $"{stats.nickname} casted Fire!";
-            roundQueue.Add(new Action(stats, enemyStats, "Magic", description));
+            roundQueue.Add(new ActionMagic(stats, enemyStats));
         }
         StartCoroutine(ExecuteBattleRound());
     }
@@ -73,7 +70,7 @@ public class BattleManager : MonoBehaviour
 
         var enemyTarget = playerParty.partyMembers.First().GetComponent<Stats>();
 
-        roundQueue.Add(new Action(enemyStats, enemyTarget, "Attack", $"{enemyStats.nickname} attacked {enemyTarget.nickname}!"));
+        roundQueue.Add(new ActionAttack(enemyStats, enemyTarget));
         roundQueue = roundQueue.OrderByDescending(action => action.actionName == "Guard").ThenByDescending(action => action.user.speed).ToList();
         
         roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
@@ -82,37 +79,24 @@ public class BattleManager : MonoBehaviour
         {
             var currAction = roundQueue.First();
             roundQueue.RemoveAt(0);
-            var user = currAction.user;
-            var target = currAction.target;
+            
             hudManager.UpdateDescription(currAction.description);
             hudManager.ShowDescription();
 
-            if (currAction.actionName == "Attack")
-            {
-                user.Attack(target);
-            }
+            currAction.Execute();
 
-            if (currAction.actionName == "Magic")
-            {
-                user.Magic(target);
-            }
+            if (currAction.target.characterHUDManager != null)
+                hudManager.UpdateHUD(currAction.target.characterHUDManager);
 
-            if (currAction.actionName == "Guard")
-            {
-                user.Guard();
-            }
-
-
-            if (target.characterHUDManager != null)
-                hudManager.UpdateHUD(target.characterHUDManager);
-
-            if (user.characterHUDManager != null)
-                hudManager.UpdateHUD(user.characterHUDManager);
+            if (currAction.user.characterHUDManager != null)
+                hudManager.UpdateHUD(currAction.user.characterHUDManager);
 
             roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
-            user.ActionAnimation();
+            currAction.user.ActionAnimation();
+
+            // Add specific delay times for each type of action
             yield return delay(ANIMATION_DELAY_TIME);
-            user.Stepback();
+            currAction.user.Stepback();
 
             hudManager.HideDescription();
             yield return delay(SHORT_DELAY_TIME);

@@ -17,15 +17,9 @@ public class Stats : MonoBehaviour
 
     public bool isGuarding = false;
     public PartyMemberHUDManager characterHUDManager;
-    private Animator spriteAnimator;
-
-    private void Start()
-    {
-        spriteAnimator = GetComponent<Animator>();
-    }
+    public Animator animatorController;
     public void UpdateStats(StatsData statusData)
     {
-        Debug.Log($"{statusData}");
         this.currentHealth = statusData.currentHealth;
         this.maxHealth = statusData.maxHealth;
         this.currentMana = statusData.currentMana;
@@ -35,10 +29,6 @@ public class Stats : MonoBehaviour
         this.speed = statusData.speed;
         this.nickname = statusData.nickname;
         this.level = statusData.level;
-
-        //characterHUDManager.UpdateName();
-        //characterHUDManager.UpdateHealth();
-        //characterHUDManager.UpdateMana();
     }
 
     public void Damage(float damage)
@@ -50,15 +40,23 @@ public class Stats : MonoBehaviour
     {
         int movePower = 40;
         int damage = CalculateDamage(target, movePower);
+        Debug.Log($"[ATK] {nickname} -> {target.nickname}: {damage} dmg");
         target.Damage(damage);
+
+        if (animatorController != null)
+            animatorController.SetBool("isAttack", true);
     }
 
     public void Magic(Stats target)
     {
         int movePower = 60;
         int damage = CalculateDamage(target, movePower);
+        Debug.Log($"[MAG] {nickname} -> {target.nickname}: {damage} dmg");
         target.Damage(damage);
         currentMana--;
+
+        if (animatorController != null)
+            animatorController.SetBool("isMagic", true);
     }
 
     public void Guard()
@@ -71,12 +69,22 @@ public class Stats : MonoBehaviour
         var pos = gameObject.transform.position;
         var scale = gameObject.transform.localScale;
         gameObject.transform.position = new Vector3(pos.x + 0.4f * scale.x, pos.y, pos.z);
+
     }
     public void Stepback()
     {
         var pos = gameObject.transform.position;
         var scale = gameObject.transform.localScale;
         gameObject.transform.position = new Vector3(pos.x - 0.4f * scale.x, pos.y, pos.z);
+
+        if (animatorController != null)
+            ResetAnimator();
+    }
+
+    private void ResetAnimator()
+    {
+        animatorController.SetBool("isAttack", false);
+        animatorController.SetBool("isMagic", false);
     }
 
     private int CalculateDamage(Stats target, int movePower)

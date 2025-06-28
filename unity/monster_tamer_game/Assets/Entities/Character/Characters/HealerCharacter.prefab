@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3650747663849509956}
   - component: {fileID: 7371665796996977646}
-  - component: {fileID: 3662342482126034815}
-  - component: {fileID: 7594840935926172918}
   - component: {fileID: -172850867217573873}
   m_Layer: 0
   m_Name: HealerCharacter
@@ -90,52 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3662342482126034815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2991907037364789347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5060bb83caddd1e45baf88fb13d54b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 20
-  maxHealth: 20
-  currentMana: 10
-  maxMana: 10
-  attack: 10
-  defense: 10
-  speed: 10
-  nickname: Player
-  level: 5
-  statusData: {fileID: 0}
-  isGuarding: 0
-  characterHUDManager: {fileID: 3505426387561632583, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
---- !u!95 &7594840935926172918
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2991907037364789347}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 59508c5cb8514404caa8de5b9466192f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &-172850867217573873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6b3d65b9bd8734380db7515f52a3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterSprite: {fileID: -167315840640745018, guid: cc2b26324e88b6742bc15513497c8c66, type: 3}
+  characterSprite: {fileID: 1615351823, guid: 7bcd09d15bcfe434d920e9ea20e5f7d1, type: 3}
   statusData: {fileID: 11400000, guid: 1dd2444947683f349854768cbba08344, type: 2}
-  animatorController: {fileID: 9100000, guid: 59508c5cb8514404caa8de5b9466192f, type: 2}
+  animatorController: {fileID: 9100000, guid: 74b9f171ec1bfdc49a4d6f186de89b56, type: 2}
