@@ -27,8 +27,4 @@ public class Character : MonoBehaviour
         //stats.UpdateStats(statusData);
     }
 
-    //void Update()
-    //{
-
-    //}
 }
