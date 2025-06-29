@@ -6,7 +6,6 @@ public class ActionMenuCursor : MonoBehaviour
 {
     private ActionOption currentOption;
     private SpriteRenderer spriteRenderer;
-    private VerticalLayoutGroup verticalLayout;
 
     bool holdPosition = false;
 
@@ -15,11 +14,8 @@ public class ActionMenuCursor : MonoBehaviour
 
     void Start()
     {
-        verticalLayout = GetComponent<VerticalLayoutGroup>();
-        verticalLayout.gameObject.SetActive(true);
-
-        Activate();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Activate();
     }
     private void MoveToTarget()
     {

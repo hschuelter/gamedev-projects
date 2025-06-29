@@ -9,9 +9,6 @@ using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] private Stats playerStats;
-    [SerializeField] private Stats enemyStats;
-    
     [SerializeField] private Party playerParty;
     [SerializeField] private Party enemyParty;
 
@@ -26,6 +23,8 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        playerParty.CreateParty();
+        enemyParty.CreateParty(false);
         //Debug.Log("Battle Start!");
         //hudManager.UpdateHUD(playerStats, enemyStats);
         //actionMenu.actionsList.First().GetComponent<Button>().Select();
@@ -37,6 +36,8 @@ public class BattleManager : MonoBehaviour
         foreach (var player in playerParty.partyMembers)
         {
             var stats = player.GetComponent<Stats>();
+            var enemyStats = enemyParty.partyMembers.PickRandom();
+
             roundQueue.Add(new ActionAttack(stats, enemyStats));
 
         }
@@ -49,6 +50,8 @@ public class BattleManager : MonoBehaviour
         foreach (var player in playerParty.partyMembers)
         {
             var stats = player.GetComponent<Stats>();
+            var enemyStats = enemyParty.partyMembers.PickRandom();
+
             roundQueue.Add(new ActionGuard(stats, enemyStats));
         }
         StartCoroutine(ExecuteBattleRound());
@@ -59,7 +62,20 @@ public class BattleManager : MonoBehaviour
         foreach (var player in playerParty.partyMembers)
         {
             var stats = player.GetComponent<Stats>();
+            var enemyStats = enemyParty.partyMembers.PickRandom();
+
             roundQueue.Add(new ActionMagic(stats, enemyStats));
+        }
+        StartCoroutine(ExecuteBattleRound());
+    }
+    public void ConfirmItemAction()
+    {
+        foreach (var player in playerParty.partyMembers)
+        {
+            var stats = player.GetComponent<Stats>();
+            var enemyStats = enemyParty.partyMembers.PickRandom();
+
+            roundQueue.Add(new ActionItem(stats, enemyStats));
         }
         StartCoroutine(ExecuteBattleRound());
     }
@@ -68,11 +84,22 @@ public class BattleManager : MonoBehaviour
     {
         hudManager.HideActionMenu();
 
-        var enemyTarget = playerParty.partyMembers.First().GetComponent<Stats>();
+        //var enemyTarget = playerParty.partyMembers.First().GetComponent<Stats>();
+        foreach (var enemy in enemyParty.partyMembers)
+        {
+            foreach (var player in playerParty.partyMembers)
+            {
+                Debug.Log($"\t{player.nickname}");
+            }
 
-        roundQueue.Add(new ActionAttack(enemyStats, enemyTarget));
+            var playerStats = playerParty.partyMembers.PickRandom();
+            Debug.Log($"[EnemyTarget]: {playerStats.nickname}");
+
+            if (enemy.currentHealth <= 0) continue;
+            roundQueue.Add(new ActionAttack(enemy, playerStats));
+        }
+
         roundQueue = roundQueue.OrderByDescending(action => action.actionName == "Guard").ThenByDescending(action => action.user.speed).ToList();
-        
         roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
 
         while (roundQueue.Count > 0)

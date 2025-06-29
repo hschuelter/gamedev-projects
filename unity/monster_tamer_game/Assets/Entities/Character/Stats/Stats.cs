@@ -64,6 +64,13 @@ public class Stats : MonoBehaviour
         this.isGuarding = true;
     }
 
+    // UseItem(Item item)
+    public void UseItem()
+    {
+        // item.use(this);
+        currentHealth = Mathf.Clamp(currentHealth + 20, 0f, maxHealth);
+    }
+
     public void ActionAnimation()
     {
         var pos = gameObject.transform.position;

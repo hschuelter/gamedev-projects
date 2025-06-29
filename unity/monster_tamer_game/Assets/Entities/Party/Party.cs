@@ -9,27 +9,26 @@ using UnityEngine;
 public class Party : MonoBehaviour
 {
     public PartyHUDManager partyHUD;
-    public List<GameObject> partyMembersPrefab;
     public List<Character> partyCharacters;
+    public GameObject shadowPrefab;
 
-    //[HideInInspector] 
-    public List<Stats> partyMembers { get; set; }
+    [HideInInspector] public List<Stats> partyMembers;
     
     private int sortingOrder = 1;
-
-    void Start()
+    public void CreateParty(bool isPlayer = true)
     {
         partyMembers = new List<Stats>();
-        ResetParty();
 
         int i = 0;
+        int positionMod = isPlayer ? 1 : -1;
         foreach (Character character in partyCharacters)
         {
             var cur = CreateCharacter(character);
-            float x_offset = -0.15f * i;
-            float y_offset = -0.20f * i;
+            float x_offset = -0.15f * i * positionMod;
+            float y_offset = -0.18f * i;
 
             cur.transform.position = new Vector3(this.transform.position.x + x_offset, this.transform.position.y + y_offset, 0);
+            cur.transform.localScale = new Vector3(cur.transform.localScale.x * positionMod, cur.transform.localScale.y, cur.transform.localScale.z);
             i++;
         }
 
@@ -38,21 +37,14 @@ public class Party : MonoBehaviour
         if (partyHUD == null) return;
         partyHUD.DrawHUD();
     }
-    public void ResetParty()
-    {
-        foreach (var member in partyMembersPrefab)
-        {
-            Stats stats = member.GetComponent<Stats>();
-            stats.currentHealth = stats.maxHealth;
-            stats.currentMana = stats.maxMana;
-        }
-    }
 
     public GameObject CreateCharacter(Character character)
     {
-        GameObject characterObj = new GameObject($"PartyMemberHUD-{character.statusData.nickname}");
+        GameObject characterObj = new GameObject($"PartyMemberHUD-{character.statusData.nickname}-{sortingOrder}");
 
-
+        GameObject shadowObject = Instantiate(shadowPrefab);
+        shadowObject.transform.parent = characterObj.transform;
+        
         var spriteRenderer = characterObj.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = character.characterSprite;
         spriteRenderer.sortingOrder = sortingOrder++;
