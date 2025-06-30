@@ -312,7 +312,7 @@ Animator:
   m_GameObject: {fileID: 305724611}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c9178c415a2daf5479199a79b6297d47, type: 2}
+  m_Controller: {fileID: 9100000, guid: 131700256572cad4186e293ef0ffee8e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -368,7 +368,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -203430975, guid: de791d70a19833f43924bb2a2a3f0c1c, type: 3}
+  m_Sprite: {fileID: 226908752, guid: 3738b9a239fdbc7499bbbf92e8c40da9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2980,7 +2980,8 @@ MonoBehaviour:
   partyHUD: {fileID: 0}
   partyCharacters:
   - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
-  - {fileID: 7016533116300623335, guid: ad1434e4dd1193742800bd4900aa081e, type: 3}
+  - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
+  - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
   - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
   shadowPrefab: {fileID: 3509812548471410319, guid: d59cad24e54bb1e49ae12c362ee1ff0d, type: 3}
   partyMembers: []

@@ -1,6 +1,3 @@
-using JetBrains.Annotations;
-using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,16 +81,12 @@ public class BattleManager : MonoBehaviour
     {
         hudManager.HideActionMenu();
 
-        //var enemyTarget = playerParty.partyMembers.First().GetComponent<Stats>();
         foreach (var enemy in enemyParty.partyMembers)
         {
-            foreach (var player in playerParty.partyMembers)
-            {
-                Debug.Log($"\t{player.nickname}");
-            }
-
-            var playerStats = playerParty.partyMembers.PickRandom();
-            Debug.Log($"[EnemyTarget]: {playerStats.nickname}");
+            if (enemy.currentHealth == 0) continue;
+            var partyCopy = playerParty.partyMembers;
+            //var playerStats = partyCopy.Where(p => p.currentHealth > 0).PickRandom();
+            var playerStats = partyCopy.Where(p => p.currentHealth > 0).First();
 
             if (enemy.currentHealth <= 0) continue;
             roundQueue.Add(new ActionAttack(enemy, playerStats));
@@ -106,7 +99,7 @@ public class BattleManager : MonoBehaviour
         {
             var currAction = roundQueue.First();
             roundQueue.RemoveAt(0);
-            
+
             hudManager.UpdateDescription(currAction.description);
             hudManager.ShowDescription();
 
@@ -127,6 +120,11 @@ public class BattleManager : MonoBehaviour
 
             hudManager.HideDescription();
             yield return delay(SHORT_DELAY_TIME);
+        }
+
+        foreach (var player in playerParty.partyMembers)
+        {
+            player.ResetGuard();
         }
 
         hudManager.ShowActionMenu();

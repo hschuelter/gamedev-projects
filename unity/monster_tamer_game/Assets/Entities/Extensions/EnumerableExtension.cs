@@ -13,7 +13,6 @@ public static class EnumerableExtension
     {
         return source.Shuffle().Take(count);
     }
-
     public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
     {
         return source.OrderBy(x => Guid.NewGuid());

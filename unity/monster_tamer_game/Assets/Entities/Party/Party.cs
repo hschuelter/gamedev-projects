@@ -53,8 +53,8 @@ public class Party : MonoBehaviour
         animator.runtimeAnimatorController = character.animatorController;
 
         var stats = characterObj.AddComponent<Stats>();
-        stats.UpdateStats(character.statusData);
         stats.animatorController = animator;
+        stats.UpdateStats(character.statusData);
 
         characterObj.transform.parent = this.transform;
         return characterObj;

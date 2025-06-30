@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3df429419e2194b88bda794ee2eba1, type: 3}
   m_Name: FighterStatsData
   m_EditorClassIdentifier: 
-  currentHealth: 25
-  maxHealth: 25
+  currentHealth: 2
+  maxHealth: 1000
   currentMana: 5
   maxMana: 5
   attack: 10

@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Stats : MonoBehaviour
 {
@@ -29,11 +31,22 @@ public class Stats : MonoBehaviour
         this.speed = statusData.speed;
         this.nickname = statusData.nickname;
         this.level = statusData.level;
+
+        if (animatorController != null)
+        {
+            animatorController.SetFloat("healthPercentage", currentHealth / maxHealth);
+            animatorController.SetInteger("healthValue", (int)Mathf.Floor(currentHealth));
+        }
     }
 
     public void Damage(float damage)
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
+
+        if (animatorController != null)
+        {
+            AnimateDamageTaken(0.40f);
+        }
     }
 
     public void Attack(Stats target)
@@ -62,6 +75,9 @@ public class Stats : MonoBehaviour
     public void Guard()
     {
         this.isGuarding = true;
+
+        if (animatorController != null)
+            animatorController.SetBool("isGuard", true);
     }
 
     // UseItem(Item item)
@@ -69,6 +85,9 @@ public class Stats : MonoBehaviour
     {
         // item.use(this);
         currentHealth = Mathf.Clamp(currentHealth + 20, 0f, maxHealth);
+
+        if (animatorController != null)
+            animatorController.SetBool("isItem", true);
     }
 
     public void ActionAnimation()
@@ -92,6 +111,12 @@ public class Stats : MonoBehaviour
     {
         animatorController.SetBool("isAttack", false);
         animatorController.SetBool("isMagic", false);
+        animatorController.SetBool("isItem", false);
+    }
+
+    public void ResetGuard()
+    {
+        animatorController.SetBool("isGuard", false);
     }
 
     private int CalculateDamage(Stats target, int movePower)
@@ -102,5 +127,27 @@ public class Stats : MonoBehaviour
         if (target.isGuarding) damage = damage / 2;
 
         return (int)Math.Ceiling(damage);
+    }
+
+    public IEnumerator SetHit(bool value, float time)
+    {
+        yield return delay(time);
+        animatorController.SetBool("isHit", value);
+        if (!value)
+        {
+            animatorController.SetFloat("healthPercentage", currentHealth / maxHealth);
+            animatorController.SetInteger("healthValue", (int)Mathf.Floor(currentHealth));
+        }
+    }
+
+    public void AnimateDamageTaken(float time)
+    {
+        StartCoroutine(SetHit(true, 0.32f));
+        StartCoroutine(SetHit(false, time + 0.40f));
+    }
+
+    IEnumerator delay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 }

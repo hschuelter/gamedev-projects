@@ -8,7 +8,6 @@ public class ActionGuard : Action
         this.target = target;
         this.actionName = "Guard";
         this.description = $"{user.nickname} is guarding!";
-
     }
 
     public override void Execute()
