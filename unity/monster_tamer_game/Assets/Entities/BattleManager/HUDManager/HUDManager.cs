@@ -46,4 +46,15 @@ public class HUDManager : MonoBehaviour
     {
         actionMenu.ShowMenu(true);
     }
+
+    public void EnableActionMenu()
+    {
+        actionMenu.EnableAllButtons();
+    }
+
+    public void DisableActionMenu()
+    {
+        actionMenu.DisableAllButtons();
+    }
+
 }

@@ -9,7 +9,18 @@ public class ActionAttack : Action
         this.target = target;
         this.actionName = "Attack";
         this.description = $"{user.nickname} attacked {target.nickname}!";
+    }
 
+    public ActionAttack(Stats user) : base(user)
+    {
+        this.user = user;
+        this.actionName = "Attack!";
+    }
+
+    public override void SetTarget(Stats target)
+    {
+        this.target = target;
+        this.description = $"{user.nickname} attacked {target.nickname}!";
     }
 
     public override void Execute()

@@ -39,4 +39,21 @@ public class ActionMenu : MonoBehaviour
         actionCursor.ChangeTarget(lastAction);
     }
 
+    public void EnableAllButtons()
+    {
+        foreach (var item in actionsList)
+        {
+            item.GetComponent<Button>().interactable = true;
+        }
+        lastAction.GetComponent<Button>().Select();
+    }
+
+    public void DisableAllButtons()
+    {
+        foreach (var item in actionsList)
+        {
+            item.GetComponent<Button>().interactable = false;
+        }
+    }
+
 }

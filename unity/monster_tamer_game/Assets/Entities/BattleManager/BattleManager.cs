@@ -9,72 +9,88 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Party playerParty;
     [SerializeField] private Party enemyParty;
 
-    [SerializeField] private HUDManager hudManager;
-    [SerializeField] private Button atkButton;
-    [SerializeField] private ActionMenu actionMenu;
+    [SerializeField] public HUDManager hudManager;
+    [SerializeField] private TargetSelectionManager targetSelectionManager;
+    //[SerializeField] private Button atkButton;
+    //[SerializeField] private ActionMenu actionMenu;
 
     float ANIMATION_DELAY_TIME = 1f;
     float SHORT_DELAY_TIME = 0.5f;
 
     private List<Action> roundQueue = new List<Action>();
+    private List<Stats> partyList = new List<Stats>();
+    private Action currentAction;
 
     void Start()
     {
         playerParty.CreateParty();
         enemyParty.CreateParty(false);
-        //Debug.Log("Battle Start!");
-        //hudManager.UpdateHUD(playerStats, enemyStats);
-        //actionMenu.actionsList.First().GetComponent<Button>().Select();
-        //hudManager.ShowActionMenu();
+
+        roundQueue = new List<Action>();
+        partyList = new List<Stats>();
+        ResetPartyState();
+    }
+
+    public void ConfirmAction(Action action)
+    {
+        currentAction = action;
+        targetSelectionManager.isSelectingEnemy = true;
+        targetSelectionManager.SetTargets(enemyParty.partyMembers.Where(c => c.currentHealth > 0).ToList());
+        hudManager.DisableActionMenu();
+    }
+
+    public void ConfirmTarget(Stats target)
+    {
+        currentAction.SetTarget(target);
+        roundQueue.Add(currentAction);
+
+        Debug.Log($"Round Queue: {roundQueue.Count} x {playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count}");
+        if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
+            StartCoroutine(ExecuteBattleRound());
     }
 
     public void ConfirmAttackAction()
     {
-        foreach (var player in playerParty.partyMembers)
-        {
-            var stats = player.GetComponent<Stats>();
-            var enemyStats = enemyParty.partyMembers.PickRandom();
+        // Depois tirar
+        var enemyStats = enemyParty.partyMembers.PickRandom();
 
-            roundQueue.Add(new ActionAttack(stats, enemyStats));
+        var currentStats = partyList.First();
+        partyList.RemoveAt(0);
 
-        }
-        StartCoroutine(ExecuteBattleRound());
-
+        ConfirmAction(new ActionAttack(currentStats));
     }
 
     public void ConfirmGuardAction()
     {
-        foreach (var player in playerParty.partyMembers)
-        {
-            var stats = player.GetComponent<Stats>();
-            var enemyStats = enemyParty.partyMembers.PickRandom();
+        // Depois tirar
+        var enemyStats = enemyParty.partyMembers.PickRandom();
 
-            roundQueue.Add(new ActionGuard(stats, enemyStats));
-        }
-        StartCoroutine(ExecuteBattleRound());
+        var currentStats = partyList.First();
+        partyList.RemoveAt(0);
+
+        ConfirmAction(new ActionGuard(currentStats));
     }
 
     public void ConfirmMagicAction()
     {
-        foreach (var player in playerParty.partyMembers)
-        {
-            var stats = player.GetComponent<Stats>();
-            var enemyStats = enemyParty.partyMembers.PickRandom();
+        // Depois tirar
+        var enemyStats = enemyParty.partyMembers.PickRandom();
 
-            roundQueue.Add(new ActionMagic(stats, enemyStats));
-        }
-        StartCoroutine(ExecuteBattleRound());
+        var currentStats = partyList.First();
+        partyList.RemoveAt(0);
+
+        ConfirmAction(new ActionMagic(currentStats));
     }
+
     public void ConfirmItemAction()
     {
-        foreach (var player in playerParty.partyMembers)
-        {
-            var stats = player.GetComponent<Stats>();
-            var enemyStats = enemyParty.partyMembers.PickRandom();
+        // Depois tirar
+        var enemyStats = enemyParty.partyMembers.PickRandom();
 
-            roundQueue.Add(new ActionItem(stats, enemyStats));
-        }
-        StartCoroutine(ExecuteBattleRound());
+        var currentStats = partyList.First();
+        partyList.RemoveAt(0);
+
+        ConfirmAction(new ActionItem(currentStats));
     }
 
     public IEnumerator ExecuteBattleRound()
@@ -122,12 +138,20 @@ public class BattleManager : MonoBehaviour
             yield return delay(SHORT_DELAY_TIME);
         }
 
+        ResetPartyState();
+        hudManager.ShowActionMenu();
+    }
+
+    public void ResetPartyState() 
+    {
+        partyList = new List<Stats>();
         foreach (var player in playerParty.partyMembers)
         {
             player.ResetGuard();
-        }
 
-        hudManager.ShowActionMenu();
+            if (player.currentHealth == 0) continue;
+            partyList.Add(player);
+        }
     }
 
     IEnumerator delay(float seconds)
