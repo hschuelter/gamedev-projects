@@ -25,7 +25,11 @@ public class ActionAttack : Action
     public override void Execute()
     {
         if (target.currentHealth == 0)
+        {
+            if (targetParty.Where(t => t.currentHealth > 0).ToList().Count == 0) return;
+
             target = this.targetParty.Where(t => t.currentHealth > 0).PickRandom();
+        }
 
         user.Attack(target);
     }

@@ -18,9 +18,10 @@ public class BattleManager : MonoBehaviour
     float ANIMATION_DELAY_TIME = 1f;
     float SHORT_DELAY_TIME = 0.5f;
 
+    [HideInInspector] public Action currentAction;
+    [HideInInspector] public List<Stats> partyList = new List<Stats>();
     private List<Action> roundQueue = new List<Action>();
-    private List<Stats> partyList = new List<Stats>();
-    private Action currentAction;
+    private bool isGameOver = false;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class BattleManager : MonoBehaviour
 
     public void ConfirmAction(Action action)
     {
+        partyList.RemoveAt(0);
         currentAction = action;
         targetSelectionManager.isSelectingEnemy = true;
         targetSelectionManager.SetTargets(enemyParty.partyMembers.Where(c => c.currentHealth > 0).ToList());
@@ -42,6 +44,7 @@ public class BattleManager : MonoBehaviour
     }
     public void ConfirmAction(Action action, Stats target)
     {
+        partyList.RemoveAt(0);
         currentAction = action;
         currentAction.SetTarget(target);
         roundQueue.Add(currentAction);
@@ -62,7 +65,6 @@ public class BattleManager : MonoBehaviour
     public void ConfirmAttackAction()
     {
         var currentStats = partyList.First();
-        partyList.RemoveAt(0);
         hudManager.ShowSubActionMenu(false);
 
         ConfirmAction(new ActionAttack(currentStats));
@@ -71,47 +73,22 @@ public class BattleManager : MonoBehaviour
     public void ConfirmGuardAction()
     {
         var currentStats = partyList.First();
-        partyList.RemoveAt(0);
-
         ConfirmAction(new ActionGuard(currentStats), currentStats);
     }
 
     public void ConfirmMagicAction()
     {
         var currentStats = partyList.First();
-        //partyList.RemoveAt(0);
-
         hudManager.ShowSubActionMenu(true);
 
         var action = new ActionMagic(currentStats);
         currentAction = action;
-
-        //targetSelectionManager.isSelectingEnemy = true;
-        //targetSelectionManager.SetTargets(enemyParty.partyMembers.Where(c => c.currentHealth > 0).ToList());
         hudManager.DisableActionMenu();
-
-    }
-
-    public void ConfirmSpell()
-    {
-        Spell spell = new Spell(fireSpellData);
-        var currentStats = partyList.First();
-        partyList.RemoveAt(0);
-
-        var action = new ActionMagic(currentStats);
-        action.SetSpell(spell);
-        currentAction = action;
-
-
-        Debug.Log($"{spell.title} spell selected");
-        hudManager.ShowSubActionMenu(false);
-        ConfirmAction(action);
     }
 
     public void ConfirmItemAction()
     {
         var currentStats = partyList.First();
-        partyList.RemoveAt(0);
 
         ConfirmAction(new ActionItem(currentStats));
     }
@@ -122,7 +99,7 @@ public class BattleManager : MonoBehaviour
         AddEnemyActions();
         SortRoundQueue();
 
-        while (roundQueue.Count > 0)
+        while (roundQueue.Count > 0 && !isGameOver)
         {
             var currAction = roundQueue.First();
             roundQueue.RemoveAt(0);
@@ -146,7 +123,12 @@ public class BattleManager : MonoBehaviour
             currAction.user.Stepback();
             hudManager.ShowDescription(false);
             yield return delay(SHORT_DELAY_TIME);
+
+            bool playersAlive = (playerParty.partyMembers.Where(pm => pm.currentHealth > 0).ToList().Count > 0);
+            bool enemiesAlive = (enemyParty.partyMembers.Where(pm => pm.currentHealth > 0).ToList().Count > 0);
+            isGameOver = !playersAlive || !enemiesAlive;
         }
+        if (isGameOver) yield return delay(0);
 
         ResetPartyState();
         hudManager.ShowActionMenu(true);

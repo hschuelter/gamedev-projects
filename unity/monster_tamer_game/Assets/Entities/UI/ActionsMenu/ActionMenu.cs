@@ -14,15 +14,14 @@ public class ActionMenu : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"[ActionMenu] Start");
         actionsList = GetComponentsInChildren<ActionOption>().ToList();
         foreach (var action in actionsList)
         {
             action.actionMenu = this;
         }
 
-        actionsList.First().GetComponent<Button>().Select();
         lastAction = actionsList.First();
+        lastAction.GetComponent<Button>().Select();
         MoveCursorTo(lastAction);
     }
     private void Setup()
@@ -37,11 +36,11 @@ public class ActionMenu : MonoBehaviour
 
     public void SelectFirstOption()
     {
-        if (actionsList.Count == 0) return;
-        //if (actionsList == null) Setup();
+        if (actionsList.Count == 0) Setup();
 
-        actionsList.First().GetComponent<Button>().Select();
-        lastAction = actionsList.First();
+        //lastAction = actionsList.First();
+        lastAction.GetComponent<Button>().Select();
+        actionCursor.Activate();
         MoveCursorTo(lastAction);
     }
 

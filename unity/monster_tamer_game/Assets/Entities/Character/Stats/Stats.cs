@@ -12,6 +12,8 @@ public class Stats : MonoBehaviour
     [SerializeField] public float maxMana;
     [SerializeField] public float attack;
     [SerializeField] public float defense;
+    [SerializeField] public float magicAttack;
+    [SerializeField] public float magicDefense;
     [SerializeField] public float speed;
     [SerializeField] public string nickname;
     [SerializeField] public int level;
@@ -29,6 +31,8 @@ public class Stats : MonoBehaviour
         this.maxMana = statusData.maxMana;
         this.attack = statusData.attack;
         this.defense = statusData.defense;
+        this.magicAttack = statusData.magicAttack;
+        this.magicDefense = statusData.magicDefense;
         this.speed = statusData.speed;
         this.nickname = statusData.nickname;
         this.level = statusData.level;
@@ -52,8 +56,8 @@ public class Stats : MonoBehaviour
 
     public void Attack(Stats target)
     {
-        int movePower = 40;
-        int damage = CalculateDamage(target, movePower);
+        int baseDamage = 1;
+        int damage = CalculateDamage(target, baseDamage, isMagic: false);
         //Debug.Log($"[ATK] {nickname} -> {target.nickname}: {damage} dmg");
         target.Damage(damage);
 
@@ -64,10 +68,10 @@ public class Stats : MonoBehaviour
     public void Magic(Stats target, Spell spell)
     {
         int baseDamage = spell.baseDamage;
-        int damage = CalculateDamage(target, baseDamage);
+        int damage = CalculateDamage(target, baseDamage, isMagic: true);
         //Debug.Log($"[MAG] {nickname} -> {target.nickname}: {damage} dmg");
         target.Damage(damage);
-        currentMana--;
+        currentMana -= spell.manaCost;
 
         if (animatorController != null)
             animatorController.SetBool("isMagic", true);
@@ -92,7 +96,6 @@ public class Stats : MonoBehaviour
             animatorController.SetBool("isItem", true);
             animatorController.SetFloat("healthPercentage", currentHealth / maxHealth);
             animatorController.SetInteger("healthValue", (int)Mathf.Floor(currentHealth));
-
         }
     }
 
@@ -125,14 +128,40 @@ public class Stats : MonoBehaviour
         animatorController.SetBool("isGuard", false);
     }
 
-    private int CalculateDamage(Stats target, int movePower)
+    private int CalculateDamage(Stats target, int baseDamage, bool isMagic = false)
     {
-        //float damageConstant = ((2 * level / 5) + 2) / 50;
+        float moveMultiplier = 1f;
+        /* 
+         * DAMAGE = Base Damage × Stat Difference × Level Difference × Move Multiplier
+         *      * Base Damage = Weapon or Spell Rank
+         *          * Min: 1
+         *          * Max: 2
+         *      * Stat Difference = Attack - Defense
+         *          * Min: 1
+         *          * Max: (M) Attack - (M) Defense
+         *      * Level Difference = 
+         *          * Each level above -> +10% damage
+         *          * Each level below -> +10% damage
+         *      * Move Multiplier =
+         *          * Normal: 1
+         *          * Weak: 1.5
+         *          * Resists: 0.5
+         *          * Null: 0
+         *          * Absorbs: -1
+         */
 
-        float damage = movePower * (attack / target.defense);
+        float offensiveStat = isMagic ? magicAttack : attack;
+        float defensiveStat = isMagic ? target.magicDefense : target.defense;
+
+        float statDifference = offensiveStat - defensiveStat;
+        statDifference = Mathf.Clamp(statDifference, 1, statDifference);
+
+        float levelDifference = (10 + this.level - target.level) / 10;
+
+        float damage =  baseDamage * statDifference * levelDifference * moveMultiplier;
         if (target.isGuarding) damage = damage / 2;
 
-        return (int)Math.Ceiling(damage);
+        return (int) Math.Ceiling(damage);
     }
 
     public IEnumerator SetHit(bool value, float time)

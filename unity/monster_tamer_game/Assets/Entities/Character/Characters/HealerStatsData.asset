@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3df429419e2194b88bda794ee2eba1, type: 3}
   m_Name: HealerStatsData
   m_EditorClassIdentifier: 
-  currentHealth: 18
-  maxHealth: 18
-  currentMana: 14
-  maxMana: 14
-  attack: 5
-  defense: 10
+  currentHealth: 22
+  maxHealth: 22
+  currentMana: 16
+  maxMana: 16
+  attack: 11
+  defense: 9
+  magicAttack: 13
+  magicDefense: 10
   speed: 8
   nickname: Healer
   level: 1

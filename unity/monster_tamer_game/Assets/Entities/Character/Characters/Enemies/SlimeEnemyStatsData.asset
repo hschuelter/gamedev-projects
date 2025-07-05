@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3df429419e2194b88bda794ee2eba1, type: 3}
   m_Name: SlimeEnemyStatsData
   m_EditorClassIdentifier: 
-  currentHealth: 10
-  maxHealth: 10
-  currentMana: 5
-  maxMana: 5
-  attack: 8
-  defense: 8
+  currentHealth: 16
+  maxHealth: 16
+  currentMana: 1
+  maxMana: 1
+  attack: 11
+  defense: 10
+  magicAttack: 10
+  magicDefense: 8
   speed: 8
   nickname: Slime
   level: 1

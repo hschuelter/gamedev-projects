@@ -3,13 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StatsData", menuName = "Scriptable Objects/StatsData")]
 public class StatsData : ScriptableObject
 {
-    [SerializeField] public float currentHealth;
-    [SerializeField] public float maxHealth;
-    [SerializeField] public float currentMana;
-    [SerializeField] public float maxMana;
-    [SerializeField] public float attack;
-    [SerializeField] public float defense;
-    [SerializeField] public float speed;
-    [SerializeField] public string nickname;
-    [SerializeField] public int level;
+    public float currentHealth;
+    public float maxHealth;
+    public float currentMana;
+    public float maxMana;
+    public float attack;
+    public float defense;
+    public float magicAttack;
+    public float magicDefense;
+    public float speed;
+    public string nickname;
+    public int level;
 }

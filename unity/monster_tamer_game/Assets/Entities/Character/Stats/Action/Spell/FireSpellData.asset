@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ec41683e7e7f34a910ed6de3acf008, type: 3}
   m_Name: FireSpellData
   m_EditorClassIdentifier: 
-  baseDamage: 120
+  baseDamage: 1
   manaCost: 2
-  title: Firaga
+  title: Fire

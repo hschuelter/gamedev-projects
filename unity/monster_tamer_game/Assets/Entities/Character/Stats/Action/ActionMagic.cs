@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class ActionMagic : Action
@@ -30,6 +31,9 @@ public class ActionMagic : Action
 
     public override void Execute()
     {
+        if (target.currentHealth == 0)
+            target = this.targetParty.Where(t => t.currentHealth > 0).PickRandom();
+
         user.Magic(target, spell);
     }
 }

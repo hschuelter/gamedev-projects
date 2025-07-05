@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3df429419e2194b88bda794ee2eba1, type: 3}
   m_Name: FighterStatsData
   m_EditorClassIdentifier: 
-  currentHealth: 25
-  maxHealth: 25
-  currentMana: 5
-  maxMana: 5
-  attack: 10
+  currentHealth: 26
+  maxHealth: 26
+  currentMana: 8
+  maxMana: 8
+  attack: 14
   defense: 10
-  speed: 5
+  magicAttack: 10
+  magicDefense: 9
+  speed: 10
   nickname: Fighter
   level: 1
