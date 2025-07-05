@@ -18,6 +18,7 @@ public class ActionMenu : MonoBehaviour
         foreach (var action in actionsList)
         {
             action.actionMenu = this;
+            action.SetInfo();
         }
 
         lastAction = actionsList.First();

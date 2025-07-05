@@ -117,6 +117,19 @@ public class Stats : MonoBehaviour
             ResetAnimator();
     }
 
+    public void MoveFront()
+    {
+        var pos = gameObject.transform.position;
+        var scale = gameObject.transform.localScale;
+        gameObject.transform.position = new Vector3(pos.x + 0.2f * scale.x, pos.y, pos.z);
+    }
+    public void MoveBack()
+    {
+        var pos = gameObject.transform.position;
+        var scale = gameObject.transform.localScale;
+        gameObject.transform.position = new Vector3(pos.x - 0.2f * scale.x, pos.y, pos.z);
+    }
+
     private void ResetAnimator()
     {
         animatorController.SetBool("isAttack", false);

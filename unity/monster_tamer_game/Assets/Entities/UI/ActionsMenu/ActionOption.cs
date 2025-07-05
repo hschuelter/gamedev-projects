@@ -1,4 +1,5 @@
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,22 +10,13 @@ public class ActionOption : MonoBehaviour, ISelectHandler
 
     [HideInInspector] public ActionMenu actionMenu;
 
+    public virtual void SetInfo() { }
+
     public void OnSelect(BaseEventData eventData)
     {
         actionMenu.MoveCursorTo(this);
         if (actionMenu != null)
             actionMenu.lastAction = this;
-    }
-
-    public void ConfirmSpell()
-    {
-        Spell spell = new Spell(spellData);
-        var currentStats = battleManager.partyList.First();
-
-        var action = new ActionMagic(currentStats);
-        action.SetSpell(spell);
-
-        battleManager.ConfirmAction(action);
     }
 
 }

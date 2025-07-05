@@ -84,4 +84,9 @@ public class TargetSelectionManager : MonoBehaviour
         var position = enemiesList.ElementAt(currentPosition).transform.position;
         selectionCursor.transform.position = position;
     }
+
+    public void OnDisable()
+    {
+        
+    }
 }

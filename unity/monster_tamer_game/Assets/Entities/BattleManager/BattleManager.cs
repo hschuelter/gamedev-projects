@@ -34,6 +34,17 @@ public class BattleManager : MonoBehaviour
         hudManager.ShowBattleStart();
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel") && targetSelectionManager.isSelectingEnemy)
+        {
+            Debug.Log($"Cancel");
+            targetSelectionManager.isSelectingEnemy = false;
+            partyList.Insert(0, currentAction.user);
+
+        }
+    }
+
     public void ConfirmAction(Action action)
     {
         partyList.RemoveAt(0);
@@ -64,12 +75,15 @@ public class BattleManager : MonoBehaviour
 
     public void ConfirmTarget(List<Stats> targetParty, int targetPosition)
     {
+        currentAction.user.MoveBack();
         currentAction.SetTarget(targetParty.ElementAt(targetPosition));
         currentAction.SetTargetParty(targetParty);
         roundQueue.Add(currentAction);
 
         if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
             StartCoroutine(ExecuteBattleRound());
+        else
+            partyList.First().MoveFront();
     }
 
     public void ConfirmAttackAction()
@@ -179,6 +193,7 @@ public class BattleManager : MonoBehaviour
             if (player.currentHealth == 0) continue;
             partyList.Add(player);
         }
+        partyList.First().MoveFront();
     }
     IEnumerator delay(float seconds)
     {
