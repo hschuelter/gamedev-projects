@@ -61,6 +61,12 @@ public class TargetSelectionManager : MonoBehaviour
     public void SetTargets(List<Stats> enemiesList)
     {
         this.enemiesList = enemiesList;
+        selectionCursor.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+    }
+    public void SetTargetsAlly(List<Stats> enemiesList)
+    {
+        this.enemiesList = enemiesList;
+        selectionCursor.transform.localScale = new Vector3(-0.7f, 0.7f, 0.7f);
     }
 
     private void MoveUp()

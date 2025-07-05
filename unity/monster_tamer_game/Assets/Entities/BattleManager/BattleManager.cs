@@ -31,6 +31,7 @@ public class BattleManager : MonoBehaviour
         roundQueue = new List<Action>();
         partyList = new List<Stats>();
         ResetPartyState();
+        hudManager.ShowBattleStart();
     }
 
     public void ConfirmAction(Action action)
@@ -39,6 +40,15 @@ public class BattleManager : MonoBehaviour
         currentAction = action;
         targetSelectionManager.isSelectingEnemy = true;
         targetSelectionManager.SetTargets(enemyParty.partyMembers.Where(c => c.currentHealth > 0).ToList());
+        hudManager.ShowSubActionMenu(false);
+        hudManager.DisableActionMenu();
+    }
+    public void ConfirmAction(Action action, Party party)
+    {
+        partyList.RemoveAt(0);
+        currentAction = action;
+        targetSelectionManager.isSelectingEnemy = true;
+        targetSelectionManager.SetTargetsAlly(party.partyMembers.Where(c => c.currentHealth > 0).ToList());
         hudManager.ShowSubActionMenu(false);
         hudManager.DisableActionMenu();
     }
@@ -90,7 +100,7 @@ public class BattleManager : MonoBehaviour
     {
         var currentStats = partyList.First();
 
-        ConfirmAction(new ActionItem(currentStats));
+        ConfirmAction(new ActionItem(currentStats), playerParty);
     }
 
     public IEnumerator ExecuteBattleRound()
@@ -98,6 +108,8 @@ public class BattleManager : MonoBehaviour
         hudManager.ShowActionMenu(false);
         AddEnemyActions();
         SortRoundQueue();
+
+        bool playersAlive = false, enemiesAlive = false;
 
         while (roundQueue.Count > 0 && !isGameOver)
         {
@@ -124,14 +136,17 @@ public class BattleManager : MonoBehaviour
             hudManager.ShowDescription(false);
             yield return delay(SHORT_DELAY_TIME);
 
-            bool playersAlive = (playerParty.partyMembers.Where(pm => pm.currentHealth > 0).ToList().Count > 0);
-            bool enemiesAlive = (enemyParty.partyMembers.Where(pm => pm.currentHealth > 0).ToList().Count > 0);
+            playersAlive = (playerParty.partyMembers.Where(pm => pm.currentHealth > 0).ToList().Count > 0);
+            enemiesAlive = (enemyParty.partyMembers.Where(pm => pm.currentHealth > 0).ToList().Count > 0);
             isGameOver = !playersAlive || !enemiesAlive;
         }
-        if (isGameOver) yield return delay(0);
+        if (isGameOver) hudManager.ShowResultsWindow(playersAlive);
 
-        ResetPartyState();
-        hudManager.ShowActionMenu(true);
+        else
+        {
+            ResetPartyState();
+            hudManager.ShowActionMenu(true);
+        }
     }
     private void AddEnemyActions()
     {

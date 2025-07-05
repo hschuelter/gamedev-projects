@@ -24,6 +24,6 @@ public class ActionItem: Action
 
     public override void Execute()
     {
-        user.UseItem();
+        user.UseItem(target);
     }
 }

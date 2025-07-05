@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class HUDManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class HUDManager : MonoBehaviour
     [SerializeField] ActionMenu subActionMenu;
     [SerializeField] ActionMenuCursor subActionCursor;
 
+    [SerializeField] ResultsWindow resultsWindow;
+    [SerializeField] GameObject partyHUDWindow;
 
     private TMP_Text descriptionText;
 
@@ -57,6 +60,20 @@ public class HUDManager : MonoBehaviour
     public void DisableActionMenu()
     {
         actionMenu.DisableAllButtons();
+    }
+
+    public void ShowResultsWindow(bool value)
+    {
+        resultsWindow.ShowWindow(value);
+
+        ShowActionMenu(false);
+        partyHUDWindow.SetActive(false);
+    }
+    public void ShowBattleStart()
+    {
+        resultsWindow.HideWindow();
+        ShowActionMenu(true);
+        partyHUDWindow.SetActive(true);
     }
 
 }

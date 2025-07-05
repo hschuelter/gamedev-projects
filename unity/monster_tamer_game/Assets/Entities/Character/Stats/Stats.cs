@@ -86,16 +86,17 @@ public class Stats : MonoBehaviour
     }
 
     // UseItem(Item item)
-    public void UseItem()
+    public void UseItem(Stats target)
     {
         // item.use(this);
-        currentHealth = Mathf.Clamp(currentHealth + 20, 0f, maxHealth);
+        target.currentHealth = Mathf.Clamp(target.currentHealth + 20, 0f, target.maxHealth);
 
-        if (animatorController != null)
+        if (animatorController != null) animatorController.SetBool("isItem", true);
+
+        if (target.animatorController != null)
         {
-            animatorController.SetBool("isItem", true);
-            animatorController.SetFloat("healthPercentage", currentHealth / maxHealth);
-            animatorController.SetInteger("healthValue", (int)Mathf.Floor(currentHealth));
+            target.animatorController.SetFloat("healthPercentage", target.currentHealth / target.maxHealth);
+            target.animatorController.SetInteger("healthValue", (int)Mathf.Floor(target.currentHealth));
         }
     }
 
