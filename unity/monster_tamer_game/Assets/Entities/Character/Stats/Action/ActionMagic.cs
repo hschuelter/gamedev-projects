@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ActionMagic : Action
 {
+    private Spell spell;
     public ActionMagic(Stats user, Stats target) : base(user, target)
     {
         this.user = user;
@@ -16,14 +17,19 @@ public class ActionMagic : Action
         this.actionName = "Magic!";
     }
 
+    public void SetSpell(Spell spell)
+    {
+        this.spell = spell;
+        this.description = $"{user.nickname} casted {spell.title}!";
+    }
+
     public override void SetTarget(Stats target)
     {
         this.target = target;
-        this.description = $"{user.nickname} casted Fire!";
     }
 
     public override void Execute()
     {
-        user.Magic(target);
+        user.Magic(target, spell);
     }
 }

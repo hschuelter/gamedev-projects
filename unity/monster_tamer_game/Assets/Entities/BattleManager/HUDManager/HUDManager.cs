@@ -10,6 +10,11 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Color dangerColor;
 
     [SerializeField] ActionMenu actionMenu;
+    [SerializeField] ActionMenuCursor actionCursor;
+
+    [SerializeField] ActionMenu subActionMenu;
+    [SerializeField] ActionMenuCursor subActionCursor;
+
 
     private TMP_Text descriptionText;
 
@@ -17,7 +22,7 @@ public class HUDManager : MonoBehaviour
     {
         descriptionText = descriptionWindow.GetComponentInChildren<TMP_Text>();
         descriptionWindow.SetActive(false);
-        ShowActionMenu();
+        ShowActionMenu(true);
     }
     public void UpdateHUD(PartyMemberHUDManager characterHUDManager) 
     {
@@ -29,22 +34,19 @@ public class HUDManager : MonoBehaviour
     {
         descriptionText.text = description;
     }
-    public void ShowDescription()
+    public void ShowDescription(bool value)
     {
-        descriptionWindow.SetActive(true);
+        descriptionWindow.SetActive(value);
     }
-    public void HideDescription()
+    public void ShowActionMenu(bool value)
     {
-        descriptionWindow.SetActive(false);
+        actionMenu.ShowMenu(value);
     }
 
-    public void HideActionMenu()
+    public void ShowSubActionMenu(bool value)
     {
-        actionMenu.ShowMenu(false);
-    }
-    public void ShowActionMenu()
-    {
-        actionMenu.ShowMenu(true);
+        subActionMenu.ShowMenu(value);
+        if (value) subActionMenu.SelectFirstOption();
     }
 
     public void EnableActionMenu()

@@ -6,7 +6,8 @@ using UnityEngine;
 public class TargetSelectionManager : MonoBehaviour
 {
     [SerializeField] private BattleManager battleManager;
-    
+    [SerializeField] private GameObject selectionCursor;
+
     [HideInInspector] public bool isSelectingEnemy = false;
     private bool isReady = false;
 
@@ -14,20 +15,20 @@ public class TargetSelectionManager : MonoBehaviour
     private int currentPosition = 0;
     private int verticalInput = 0;
 
-    void Start()
+    private void Start()
     {
-        
+        selectionCursor.SetActive(false);
     }
-
     void Update()
     {
         if (!isSelectingEnemy) return;
-
         if (!isReady && !Input.GetButtonDown("Submit"))
         {
-            Debug.Log($"Soltei");
             isReady = true;
             currentPosition = 0;
+            selectionCursor.SetActive(true);
+            var position = enemiesList.ElementAt(currentPosition).transform.position;
+            selectionCursor.transform.position = position;
         }
 
         if (isReady)
@@ -42,9 +43,10 @@ public class TargetSelectionManager : MonoBehaviour
             {
                 isSelectingEnemy = false;
                 isReady = false;
+                selectionCursor.SetActive(false);
                 battleManager.hudManager.EnableActionMenu();
-                battleManager.ConfirmTarget(enemiesList.ElementAt(currentPosition));
-                Debug.Log($"{enemiesList.ElementAt(currentPosition).name}");
+                battleManager.ConfirmTarget(enemiesList, currentPosition);
+                //Debug.Log($"Enemy at position {currentPosition}");
             }
 
             if (currVerticalInput != 0 && currVerticalInput != verticalInput)
@@ -64,9 +66,16 @@ public class TargetSelectionManager : MonoBehaviour
     private void MoveUp()
     {
         currentPosition = (currentPosition + enemiesList.Count - 1) % enemiesList.Count;
+
+        var position = enemiesList.ElementAt(currentPosition).transform.position;
+        selectionCursor.transform.position = position;
+
     }
     private void MoveDown()
     {
         currentPosition = (currentPosition + enemiesList.Count + 1) % enemiesList.Count;
+
+        var position = enemiesList.ElementAt(currentPosition).transform.position;
+        selectionCursor.transform.position = position;
     }
 }

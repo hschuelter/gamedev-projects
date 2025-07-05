@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3df429419e2194b88bda794ee2eba1, type: 3}
   m_Name: BatEnemyStatsData
   m_EditorClassIdentifier: 
-  currentHealth: 10
-  maxHealth: 10
+  currentHealth: 4
+  maxHealth: 4
   currentMana: 5
   maxMana: 5
   attack: 5
   defense: 5
-  speed: 12
+  speed: 1
   nickname: Bat
   level: 1

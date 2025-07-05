@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +12,8 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] public HUDManager hudManager;
     [SerializeField] private TargetSelectionManager targetSelectionManager;
-    //[SerializeField] private Button atkButton;
-    //[SerializeField] private ActionMenu actionMenu;
+
+    [SerializeField] private SpellData fireSpellData;
 
     float ANIMATION_DELAY_TIME = 1f;
     float SHORT_DELAY_TIME = 0.5f;
@@ -36,57 +37,79 @@ public class BattleManager : MonoBehaviour
         currentAction = action;
         targetSelectionManager.isSelectingEnemy = true;
         targetSelectionManager.SetTargets(enemyParty.partyMembers.Where(c => c.currentHealth > 0).ToList());
+        hudManager.ShowSubActionMenu(false);
         hudManager.DisableActionMenu();
     }
-
-    public void ConfirmTarget(Stats target)
+    public void ConfirmAction(Action action, Stats target)
     {
+        currentAction = action;
         currentAction.SetTarget(target);
         roundQueue.Add(currentAction);
+        if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
+            StartCoroutine(ExecuteBattleRound());
+    }
 
-        Debug.Log($"Round Queue: {roundQueue.Count} x {playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count}");
+    public void ConfirmTarget(List<Stats> targetParty, int targetPosition)
+    {
+        currentAction.SetTarget(targetParty.ElementAt(targetPosition));
+        currentAction.SetTargetParty(targetParty);
+        roundQueue.Add(currentAction);
+
         if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
             StartCoroutine(ExecuteBattleRound());
     }
 
     public void ConfirmAttackAction()
     {
-        // Depois tirar
-        var enemyStats = enemyParty.partyMembers.PickRandom();
-
         var currentStats = partyList.First();
         partyList.RemoveAt(0);
+        hudManager.ShowSubActionMenu(false);
 
         ConfirmAction(new ActionAttack(currentStats));
     }
 
     public void ConfirmGuardAction()
     {
-        // Depois tirar
-        var enemyStats = enemyParty.partyMembers.PickRandom();
-
         var currentStats = partyList.First();
         partyList.RemoveAt(0);
 
-        ConfirmAction(new ActionGuard(currentStats));
+        ConfirmAction(new ActionGuard(currentStats), currentStats);
     }
 
     public void ConfirmMagicAction()
     {
-        // Depois tirar
-        var enemyStats = enemyParty.partyMembers.PickRandom();
+        var currentStats = partyList.First();
+        //partyList.RemoveAt(0);
 
+        hudManager.ShowSubActionMenu(true);
+
+        var action = new ActionMagic(currentStats);
+        currentAction = action;
+
+        //targetSelectionManager.isSelectingEnemy = true;
+        //targetSelectionManager.SetTargets(enemyParty.partyMembers.Where(c => c.currentHealth > 0).ToList());
+        hudManager.DisableActionMenu();
+
+    }
+
+    public void ConfirmSpell()
+    {
+        Spell spell = new Spell(fireSpellData);
         var currentStats = partyList.First();
         partyList.RemoveAt(0);
 
-        ConfirmAction(new ActionMagic(currentStats));
+        var action = new ActionMagic(currentStats);
+        action.SetSpell(spell);
+        currentAction = action;
+
+
+        Debug.Log($"{spell.title} spell selected");
+        hudManager.ShowSubActionMenu(false);
+        ConfirmAction(action);
     }
 
     public void ConfirmItemAction()
     {
-        // Depois tirar
-        var enemyStats = enemyParty.partyMembers.PickRandom();
-
         var currentStats = partyList.First();
         partyList.RemoveAt(0);
 
@@ -95,21 +118,9 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator ExecuteBattleRound()
     {
-        hudManager.HideActionMenu();
-
-        foreach (var enemy in enemyParty.partyMembers)
-        {
-            if (enemy.currentHealth == 0) continue;
-            var partyCopy = playerParty.partyMembers;
-            //var playerStats = partyCopy.Where(p => p.currentHealth > 0).PickRandom();
-            var playerStats = partyCopy.Where(p => p.currentHealth > 0).First();
-
-            if (enemy.currentHealth <= 0) continue;
-            roundQueue.Add(new ActionAttack(enemy, playerStats));
-        }
-
-        roundQueue = roundQueue.OrderByDescending(action => action.actionName == "Guard").ThenByDescending(action => action.user.speed).ToList();
-        roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
+        hudManager.ShowActionMenu(false);
+        AddEnemyActions();
+        SortRoundQueue();
 
         while (roundQueue.Count > 0)
         {
@@ -117,7 +128,7 @@ public class BattleManager : MonoBehaviour
             roundQueue.RemoveAt(0);
 
             hudManager.UpdateDescription(currAction.description);
-            hudManager.ShowDescription();
+            hudManager.ShowDescription(true);
 
             currAction.Execute();
 
@@ -128,20 +139,39 @@ public class BattleManager : MonoBehaviour
                 hudManager.UpdateHUD(currAction.user.characterHUDManager);
 
             roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
+            
+            /* ANIMATIONS */
             currAction.user.ActionAnimation();
-
-            // Add specific delay times for each type of action
             yield return delay(ANIMATION_DELAY_TIME);
             currAction.user.Stepback();
-
-            hudManager.HideDescription();
+            hudManager.ShowDescription(false);
             yield return delay(SHORT_DELAY_TIME);
         }
 
         ResetPartyState();
-        hudManager.ShowActionMenu();
+        hudManager.ShowActionMenu(true);
     }
+    private void AddEnemyActions()
+    {
+        var partyCopy = playerParty.partyMembers;
+        foreach (var enemy in enemyParty.partyMembers)
+        {
+            if (enemy.currentHealth == 0) continue;
 
+            /* Enemy AI */
+            //var playerStats = partyCopy.Where(p => p.currentHealth > 0).PickRandom();
+            var playerStats = partyCopy.Where(p => p.currentHealth > 0).First();
+            var attackAction = new ActionAttack(enemy, playerStats);
+            attackAction.SetTargetParty(partyCopy);
+
+            roundQueue.Add(attackAction);
+        }
+    }
+    private void SortRoundQueue()
+    {
+        roundQueue = roundQueue.OrderByDescending(action => action.actionName == "Guard").ThenByDescending(action => action.user.speed).ToList();
+        roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
+    }
     public void ResetPartyState() 
     {
         partyList = new List<Stats>();
@@ -153,7 +183,6 @@ public class BattleManager : MonoBehaviour
             partyList.Add(player);
         }
     }
-
     IEnumerator delay(float seconds)
     {
         yield return new WaitForSeconds(seconds);

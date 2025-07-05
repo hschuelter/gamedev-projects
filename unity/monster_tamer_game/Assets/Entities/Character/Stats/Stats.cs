@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Stats : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class Stats : MonoBehaviour
 
         if (animatorController != null)
         {
-            AnimateDamageTaken(0.40f);
+            AnimateDamageTaken(damage, 0.40f);
         }
     }
 
@@ -53,18 +54,18 @@ public class Stats : MonoBehaviour
     {
         int movePower = 40;
         int damage = CalculateDamage(target, movePower);
-        Debug.Log($"[ATK] {nickname} -> {target.nickname}: {damage} dmg");
+        //Debug.Log($"[ATK] {nickname} -> {target.nickname}: {damage} dmg");
         target.Damage(damage);
 
         if (animatorController != null)
             animatorController.SetBool("isAttack", true);
     }
 
-    public void Magic(Stats target)
+    public void Magic(Stats target, Spell spell)
     {
-        int movePower = 60;
-        int damage = CalculateDamage(target, movePower);
-        Debug.Log($"[MAG] {nickname} -> {target.nickname}: {damage} dmg");
+        int baseDamage = spell.baseDamage;
+        int damage = CalculateDamage(target, baseDamage);
+        //Debug.Log($"[MAG] {nickname} -> {target.nickname}: {damage} dmg");
         target.Damage(damage);
         currentMana--;
 
@@ -87,7 +88,12 @@ public class Stats : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + 20, 0f, maxHealth);
 
         if (animatorController != null)
+        {
             animatorController.SetBool("isItem", true);
+            animatorController.SetFloat("healthPercentage", currentHealth / maxHealth);
+            animatorController.SetInteger("healthValue", (int)Mathf.Floor(currentHealth));
+
+        }
     }
 
     public void ActionAnimation()
@@ -121,9 +127,9 @@ public class Stats : MonoBehaviour
 
     private int CalculateDamage(Stats target, int movePower)
     {
-        float damageConstant = ((2 * level / 5) + 2) / 50;
+        //float damageConstant = ((2 * level / 5) + 2) / 50;
 
-        float damage = damageConstant  * movePower * (attack / target.defense) + 2;
+        float damage = movePower * (attack / target.defense);
         if (target.isGuarding) damage = damage / 2;
 
         return (int)Math.Ceiling(damage);
@@ -140,14 +146,23 @@ public class Stats : MonoBehaviour
         }
     }
 
-    public void AnimateDamageTaken(float time)
+    public void AnimateDamageTaken(float damage, float time)
     {
         StartCoroutine(SetHit(true, 0.32f));
         StartCoroutine(SetHit(false, time + 0.40f));
+
+        /* Damage */
+        StartCoroutine(ShowDamage(damage, 0.40f));
+        
     }
 
     IEnumerator delay(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+    }
+    IEnumerator ShowDamage(float damage, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        DamageNumbersManager.Instance.ShowDamage(damage, this.transform.position);
     }
 }

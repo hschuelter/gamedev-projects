@@ -12,5 +12,4 @@ public class StatsData : ScriptableObject
     [SerializeField] public float speed;
     [SerializeField] public string nickname;
     [SerializeField] public int level;
-
 }
