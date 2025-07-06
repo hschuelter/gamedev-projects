@@ -48,6 +48,8 @@ public class ActionMenuCursor : MonoBehaviour
     }
     public void Deactivate()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         holdPosition = true;
         spriteRenderer.color = unactive;
         animator.enabled = false;

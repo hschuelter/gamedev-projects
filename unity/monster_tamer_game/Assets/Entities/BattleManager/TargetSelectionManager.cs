@@ -28,7 +28,8 @@ public class TargetSelectionManager : MonoBehaviour
             currentPosition = 0;
             selectionCursor.SetActive(true);
             var position = enemiesList.ElementAt(currentPosition).transform.position;
-            selectionCursor.transform.position = position;
+            float yOffset = -0.05f;
+            selectionCursor.transform.position = new Vector3(position.x, position.y + yOffset, position.z);
         }
 
         if (isReady)
@@ -71,7 +72,8 @@ public class TargetSelectionManager : MonoBehaviour
         currentPosition = (currentPosition + enemiesList.Count - 1) % enemiesList.Count;
 
         var position = enemiesList.ElementAt(currentPosition).transform.position;
-        selectionCursor.transform.position = position;
+        float yOffset = -0.05f;
+        selectionCursor.transform.position = new Vector3(position.x, position.y + yOffset, position.z);
 
     }
     private void MoveDown()
@@ -79,7 +81,8 @@ public class TargetSelectionManager : MonoBehaviour
         currentPosition = (currentPosition + enemiesList.Count + 1) % enemiesList.Count;
 
         var position = enemiesList.ElementAt(currentPosition).transform.position;
-        selectionCursor.transform.position = position;
+        float yOffset = -0.05f;
+        selectionCursor.transform.position = new Vector3(position.x, position.y + yOffset, position.z);
     }
 
     public void Enable()
@@ -93,5 +96,11 @@ public class TargetSelectionManager : MonoBehaviour
         isSelectingEnemy = false;
         isReady = false;
         selectionCursor.SetActive(false);
+    }
+
+    public void InvertCursor(bool value)
+    {
+        int x = value ? -1 : 1;
+        selectionCursor.transform.localScale = new Vector3(0.7f * x, 0.7f, 0.7f);
     }
 }

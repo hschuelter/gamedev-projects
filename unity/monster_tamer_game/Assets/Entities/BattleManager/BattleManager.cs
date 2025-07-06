@@ -99,6 +99,7 @@ public class BattleManager : MonoBehaviour
         partyList.RemoveAt(0);
 
         EnableTargetSelection(enemyParty);
+        targetSelectionManager.InvertCursor(false);
     }
     public void ConfirmAction(Action action, Party party)
     {
@@ -109,6 +110,7 @@ public class BattleManager : MonoBehaviour
         partyList.RemoveAt(0);
         
         EnableTargetSelection(party);
+        targetSelectionManager.InvertCursor(true);
     }
     public void ConfirmAction(Action action, Stats target)
     {
