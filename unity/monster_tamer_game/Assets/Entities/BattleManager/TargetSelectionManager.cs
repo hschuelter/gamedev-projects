@@ -41,10 +41,7 @@ public class TargetSelectionManager : MonoBehaviour
 
             if (Input.GetButtonDown("Submit"))
             {
-                isSelectingEnemy = false;
-                isReady = false;
-                selectionCursor.SetActive(false);
-                battleManager.hudManager.EnableActionMenu();
+                DisableComponent();
                 battleManager.ConfirmTarget(enemiesList, currentPosition);
                 //Debug.Log($"Enemy at position {currentPosition}");
             }
@@ -85,8 +82,16 @@ public class TargetSelectionManager : MonoBehaviour
         selectionCursor.transform.position = position;
     }
 
-    public void OnDisable()
+    public void Enable()
     {
-        
+
+        isSelectingEnemy = true;
+    }
+
+    public void DisableComponent()
+    {
+        isSelectingEnemy = false;
+        isReady = false;
+        selectionCursor.SetActive(false);
     }
 }

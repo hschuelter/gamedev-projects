@@ -4445,6 +4445,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 3358663793427075439, guid: c36d2deed8e191e4eb1acab468cda3d1, type: 3}
   canvas: {fileID: 634277178}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  healColor: {r: 0.3254717, g: 1, b: 0.3254717, a: 1}
 --- !u!1 &1688828292
 GameObject:
   m_ObjectHideFlags: 0
@@ -5237,7 +5239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1702802067811403948, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2956075547231096431, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
       propertyPath: m_Name
@@ -5350,6 +5352,10 @@ PrefabInstance:
     - target: {fileID: 6967794072768856261, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442290002801708093, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8624075912873439140, guid: a35c85a3dfedebc489a49781b917d03d, type: 3}
       propertyPath: m_AnchorMax.y

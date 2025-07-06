@@ -89,15 +89,16 @@ public class Stats : MonoBehaviour
     public void UseItem(Stats target)
     {
         // item.use(this);
-        target.currentHealth = Mathf.Clamp(target.currentHealth + 20, 0f, target.maxHealth);
+        //target.currentHealth = Mathf.Clamp(target.currentHealth + 20, 0f, target.maxHealth);
+        target.Damage(-20);
 
         if (animatorController != null) animatorController.SetBool("isItem", true);
 
-        if (target.animatorController != null)
-        {
-            target.animatorController.SetFloat("healthPercentage", target.currentHealth / target.maxHealth);
-            target.animatorController.SetInteger("healthValue", (int)Mathf.Floor(target.currentHealth));
-        }
+        //if (target.animatorController != null)
+        //{
+        //    target.animatorController.SetFloat("healthPercentage", target.currentHealth / target.maxHealth);
+        //    target.animatorController.SetInteger("healthValue", (int)Mathf.Floor(target.currentHealth));
+        //}
     }
 
     public void ActionAnimation()

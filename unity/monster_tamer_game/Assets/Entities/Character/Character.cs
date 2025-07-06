@@ -1,11 +1,14 @@
-using System.Data;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Character : MonoBehaviour
 {
-    public Sprite characterSprite;
-    public StatsData statusData;
     public RuntimeAnimatorController animatorController;
+    public Sprite characterSprite;
+    
+    [Header("RPG")]
+    public StatsData statusData;
+    public List<SpellData> magicList = new List<SpellData>();
     
     private Stats stats;
 

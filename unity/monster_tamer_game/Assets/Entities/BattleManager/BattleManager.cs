@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,64 +21,124 @@ public class BattleManager : MonoBehaviour
 
     [HideInInspector] public Action currentAction;
     [HideInInspector] public List<Stats> partyList = new List<Stats>();
-    private List<Action> roundQueue = new List<Action>();
+
+    private List<Action> roundQueue { get; set; }
+    private int partyIterator;
     private bool isGameOver = false;
+    private bool isSubmenu = false;
 
     void Start()
     {
         playerParty.CreateParty();
         enemyParty.CreateParty(false);
 
-        roundQueue = new List<Action>();
+
+        Debug.Log($"{playerParty.partyMembers.Count} -> {playerParty.partyMembers}");
+
+        partyIterator = 0;
         partyList = new List<Stats>();
+        roundQueue = new List<Action>();
         ResetPartyState();
         hudManager.ShowBattleStart();
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel") && targetSelectionManager.isSelectingEnemy)
-        {
-            Debug.Log($"Cancel");
-            targetSelectionManager.isSelectingEnemy = false;
-            partyList.Insert(0, currentAction.user);
+        HandleCancelButton();
+    }
 
+    private void HandleCancelButton()
+    {
+        if (!Input.GetButtonDown("Cancel")) return;
+
+        if (!targetSelectionManager.isSelectingEnemy && !isSubmenu && roundQueue.Count > 0)
+        {
+            var command = roundQueue.Last();
+            var currentCharacter = partyList.First();
+            var lastCharacter = command.user;
+
+            partyList.Insert(0, lastCharacter);
+            roundQueue.RemoveAt(roundQueue.Count - 1);
+
+            currentCharacter.MoveBack();
+            lastCharacter.MoveFront();
         }
+
+        else if (!targetSelectionManager.isSelectingEnemy && isSubmenu)
+        {
+            hudManager.ShowSubActionMenu(false);
+            hudManager.EnableActionMenu();
+            isSubmenu = false;
+        }
+
+        else if (targetSelectionManager.isSelectingEnemy)
+        {
+            targetSelectionManager.DisableComponent();
+
+            if (isSubmenu) hudManager.EnableSubActionMenu();
+            else hudManager.EnableActionMenu();
+
+            partyList.Insert(0, currentAction.user);
+        }
+    }
+
+    private void EnableTargetSelection(Party party)
+    {
+        targetSelectionManager.Enable();
+        targetSelectionManager.SetTargets(party.partyMembers.Where(c => c.currentHealth > 0).ToList());
+        //hudManager.ShowSubActionMenu(false);
+        hudManager.DisableActionMenu();
+        hudManager.DisableSubActionMenu();
     }
 
     public void ConfirmAction(Action action)
     {
-        partyList.RemoveAt(0);
         currentAction = action;
-        targetSelectionManager.isSelectingEnemy = true;
-        targetSelectionManager.SetTargets(enemyParty.partyMembers.Where(c => c.currentHealth > 0).ToList());
-        hudManager.ShowSubActionMenu(false);
-        hudManager.DisableActionMenu();
+
+        partyIterator++;
+        partyList.RemoveAt(0);
+
+        EnableTargetSelection(enemyParty);
     }
     public void ConfirmAction(Action action, Party party)
     {
-        partyList.RemoveAt(0);
+        /* Item Command -> can target party */
         currentAction = action;
-        targetSelectionManager.isSelectingEnemy = true;
-        targetSelectionManager.SetTargetsAlly(party.partyMembers.Where(c => c.currentHealth > 0).ToList());
-        hudManager.ShowSubActionMenu(false);
-        hudManager.DisableActionMenu();
+
+        partyIterator++;
+        partyList.RemoveAt(0);
+        
+        EnableTargetSelection(party);
     }
     public void ConfirmAction(Action action, Stats target)
     {
-        partyList.RemoveAt(0);
+        /* Guard Command -> no need for targetting */
         currentAction = action;
+        currentAction.user.MoveBack();
+
+        partyIterator++;
+        partyList.RemoveAt(0);
+
         currentAction.SetTarget(target);
         roundQueue.Add(currentAction);
         if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
             StartCoroutine(ExecuteBattleRound());
+        else
+            partyList.First().MoveFront();
     }
 
     public void ConfirmTarget(List<Stats> targetParty, int targetPosition)
     {
         currentAction.user.MoveBack();
+
         currentAction.SetTarget(targetParty.ElementAt(targetPosition));
         currentAction.SetTargetParty(targetParty);
+
+        hudManager.EnableActionMenu();
+        //hudManager.DisableActionMenu();
+        hudManager.ShowSubActionMenu(false);
+        isSubmenu = false;
+
         roundQueue.Add(currentAction);
 
         if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
@@ -104,6 +165,7 @@ public class BattleManager : MonoBehaviour
     {
         var currentStats = partyList.First();
         hudManager.ShowSubActionMenu(true);
+        isSubmenu = true;
 
         var action = new ActionMagic(currentStats);
         currentAction = action;
@@ -185,6 +247,7 @@ public class BattleManager : MonoBehaviour
     }
     public void ResetPartyState() 
     {
+        partyIterator = 0;
         partyList = new List<Stats>();
         foreach (var player in playerParty.partyMembers)
         {

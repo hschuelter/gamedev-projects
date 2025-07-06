@@ -48,8 +48,13 @@ public class HUDManager : MonoBehaviour
 
     public void ShowSubActionMenu(bool value)
     {
+        Debug.Log($"Loading subaction menu...");
+
         subActionMenu.ShowMenu(value);
         if (value) subActionMenu.SelectFirstOption();
+
+        if (value) EnableSubActionMenu();
+        else DisableSubActionMenu();
     }
 
     public void EnableActionMenu()
@@ -60,6 +65,16 @@ public class HUDManager : MonoBehaviour
     public void DisableActionMenu()
     {
         actionMenu.DisableAllButtons();
+    }
+
+    public void EnableSubActionMenu()
+    {
+        subActionMenu.EnableAllButtons();
+    }
+
+    public void DisableSubActionMenu()
+    {
+        subActionMenu.DisableAllButtons();
     }
 
     public void ShowResultsWindow(bool value)
