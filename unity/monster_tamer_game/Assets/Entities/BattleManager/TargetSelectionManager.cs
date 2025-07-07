@@ -44,7 +44,6 @@ public class TargetSelectionManager : MonoBehaviour
             {
                 DisableComponent();
                 battleManager.ConfirmTarget(enemiesList, currentPosition);
-                //Debug.Log($"Enemy at position {currentPosition}");
             }
 
             if (currVerticalInput != 0 && currVerticalInput != verticalInput)

@@ -51,6 +51,12 @@ public class ActionMenu : MonoBehaviour
         lastAction = actionOption;
     }
 
+    public void LoadItems(string[] itemList)
+    {
+        foreach(var item in itemList)
+            Debug.Log($"{item}");
+    }
+
     public void ShowMenu(bool active)
     {
         //this.gameObject.SetActive(active);

@@ -14,7 +14,6 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log($"[Character] - Awake");
         var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = characterSprite;
 
@@ -25,7 +24,6 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"[Character] - Start");
         //stats = GetComponent<Stats>();
         //stats.UpdateStats(statusData);
     }
