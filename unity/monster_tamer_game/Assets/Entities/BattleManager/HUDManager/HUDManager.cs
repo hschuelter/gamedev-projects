@@ -1,14 +1,14 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class HUDManager : MonoBehaviour
 {
-    [SerializeField] GameObject descriptionWindow;
     [SerializeField] Color healthyColor;
     [SerializeField] Color attentionColor;
     [SerializeField] Color dangerColor;
+
+    [SerializeField] CommandDescriptionWindow descriptionWindow;
 
     [SerializeField] ActionMenu actionMenu;
     [SerializeField] ActionMenuCursor actionCursor;
@@ -16,15 +16,16 @@ public class HUDManager : MonoBehaviour
     [SerializeField] ActionMenu subActionMenu;
     [SerializeField] ActionMenuCursor subActionCursor;
 
+    [SerializeField] public ActionMenu itemSubMenu;
+    [SerializeField] ActionMenuCursor itemsubCursor;
+
     [SerializeField] ResultsWindow resultsWindow;
     [SerializeField] GameObject partyHUDWindow;
 
-    private TMP_Text descriptionText;
-
     private void Start()
     {
-        descriptionText = descriptionWindow.GetComponentInChildren<TMP_Text>();
-        descriptionWindow.SetActive(false);
+        descriptionWindow.Setup();
+        descriptionWindow.ShowWindow(false);
         ShowActionMenu(true);
     }
     public void UpdateHUD(PartyMemberHUDManager characterHUDManager) 
@@ -35,11 +36,11 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateDescription(string description)
     {
-        descriptionText.text = description;
+        descriptionWindow.UpdateText(description);
     }
     public void ShowDescription(bool value)
     {
-        descriptionWindow.SetActive(value);
+        descriptionWindow.ShowWindow(value);
     }
     public void ShowActionMenu(bool value)
     {
@@ -48,13 +49,30 @@ public class HUDManager : MonoBehaviour
 
     public void ShowSubActionMenu(bool value)
     {
-        Debug.Log($"Loading subaction menu...");
-
         subActionMenu.ShowMenu(value);
         if (value) subActionMenu.SelectFirstOption();
 
-        if (value) EnableSubActionMenu();
-        else DisableSubActionMenu();
+        if (value) EnableButtons(subActionMenu);
+        else DisableButtons(subActionMenu);
+    }
+
+    public void ShowItemSubMenu(bool value)
+    {
+        itemSubMenu.ShowMenu(value);
+        if (value) itemSubMenu.SelectFirstOption();
+
+        if (value) EnableButtons(itemSubMenu);
+        else DisableButtons(itemSubMenu);
+    }
+
+    public void EnableButtons(ActionMenu menu)
+    {
+        menu.EnableAllButtons();
+    }
+
+    public void DisableButtons(ActionMenu menu)
+    {
+        menu.DisableAllButtons();
     }
 
     public void EnableActionMenu()
@@ -84,6 +102,11 @@ public class HUDManager : MonoBehaviour
         ShowActionMenu(false);
         partyHUDWindow.SetActive(false);
     }
+    public void LoadOptions()
+    {
+        itemSubMenu.LoadItems(InventoryManager.Instance.GetItems());
+    }
+
     public void ShowBattleStart()
     {
         resultsWindow.HideWindow();

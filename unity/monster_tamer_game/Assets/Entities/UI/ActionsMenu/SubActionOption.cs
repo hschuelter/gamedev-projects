@@ -1,12 +1,15 @@
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SubActionOption : ActionOption
 {
     public override void SetInfo()
     {
+        description = commandData.description;
         var texts = GetComponentsInChildren<TMP_Text>();
+
         foreach (var t in texts)
         {
             if (t.name == "Mana Cost") 
@@ -16,7 +19,6 @@ public class SubActionOption : ActionOption
 
         }
     }
-
     public void ConfirmSpell()
     {
         Spell spell = new Spell(spellData);

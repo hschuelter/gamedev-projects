@@ -47,11 +47,12 @@ public class Stats : MonoBehaviour
     public void Damage(float damage)
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
-
-        if (animatorController != null)
-        {
-            AnimateDamageTaken(damage, 0.40f);
-        }
+        AnimateDamageTaken(damage, 0.40f);
+    }
+    public void Heal(float damage)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + damage, 0f, maxHealth);
+        AnimateHeal(-damage);
     }
 
     public void Attack(Stats target)
@@ -90,7 +91,7 @@ public class Stats : MonoBehaviour
     {
         // item.use(this);
         //target.currentHealth = Mathf.Clamp(target.currentHealth + 20, 0f, target.maxHealth);
-        target.Damage(-20);
+        target.Heal(20);
 
         if (animatorController != null) animatorController.SetBool("isItem", true);
 
@@ -197,7 +198,12 @@ public class Stats : MonoBehaviour
 
         /* Damage */
         StartCoroutine(ShowDamage(damage, 0.40f));
-        
+        StartCoroutine(ShowVFX(0.40f));
+    }
+    public void AnimateHeal(float damage)
+    {
+        /* Damage */
+        StartCoroutine(ShowDamage(damage, 0.40f));
     }
 
     IEnumerator delay(float seconds)
@@ -208,5 +214,10 @@ public class Stats : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         DamageNumbersManager.Instance.ShowDamage(damage, this.transform.position);
+    }
+    IEnumerator ShowVFX(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        VFXManager.Instance.ShowVFX(this.transform.position);
     }
 }

@@ -8,8 +8,8 @@ using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] private Party playerParty;
-    [SerializeField] private Party enemyParty;
+    public Party playerParty;
+    public Party enemyParty;
 
     [SerializeField] public HUDManager hudManager;
     [SerializeField] private TargetSelectionManager targetSelectionManager;
@@ -25,15 +25,13 @@ public class BattleManager : MonoBehaviour
     private List<Action> roundQueue { get; set; }
     private int partyIterator;
     private bool isGameOver = false;
-    private bool isSubmenu = false;
+    private bool isMagicSubmenu = false;
+    private bool isItemSubmenu = false;
 
     void Start()
     {
         playerParty.CreateParty();
         enemyParty.CreateParty(false);
-
-
-        Debug.Log($"{playerParty.partyMembers.Count} -> {playerParty.partyMembers}");
 
         partyIterator = 0;
         partyList = new List<Stats>();
@@ -51,7 +49,7 @@ public class BattleManager : MonoBehaviour
     {
         if (!Input.GetButtonDown("Cancel")) return;
 
-        if (!targetSelectionManager.isSelectingEnemy && !isSubmenu && roundQueue.Count > 0)
+        if (!targetSelectionManager.isSelectingEnemy && !isMagicSubmenu && !isItemSubmenu && roundQueue.Count > 0)
         {
             var command = roundQueue.Last();
             var currentCharacter = partyList.First();
@@ -64,18 +62,28 @@ public class BattleManager : MonoBehaviour
             lastCharacter.MoveFront();
         }
 
-        else if (!targetSelectionManager.isSelectingEnemy && isSubmenu)
+        else if (!targetSelectionManager.isSelectingEnemy && isMagicSubmenu && !isItemSubmenu)
         {
             hudManager.ShowSubActionMenu(false);
             hudManager.EnableActionMenu();
-            isSubmenu = false;
+            isMagicSubmenu = false;
+            isItemSubmenu = false;
+        }
+
+        else if (!targetSelectionManager.isSelectingEnemy && !isMagicSubmenu && isItemSubmenu)
+        {
+            hudManager.ShowItemSubMenu(false);
+            hudManager.EnableActionMenu();
+            isMagicSubmenu = false;
+            isItemSubmenu = false;
         }
 
         else if (targetSelectionManager.isSelectingEnemy)
         {
             targetSelectionManager.DisableComponent();
 
-            if (isSubmenu) hudManager.EnableSubActionMenu();
+            if (isMagicSubmenu) hudManager.EnableSubActionMenu();
+            else if (isItemSubmenu) hudManager.EnableButtons(hudManager.itemSubMenu);
             else hudManager.EnableActionMenu();
 
             partyList.Insert(0, currentAction.user);
@@ -89,6 +97,7 @@ public class BattleManager : MonoBehaviour
         //hudManager.ShowSubActionMenu(false);
         hudManager.DisableActionMenu();
         hudManager.DisableSubActionMenu();
+        hudManager.DisableButtons(hudManager.itemSubMenu);
     }
 
     public void ConfirmAction(Action action)
@@ -139,14 +148,16 @@ public class BattleManager : MonoBehaviour
         hudManager.EnableActionMenu();
         //hudManager.DisableActionMenu();
         hudManager.ShowSubActionMenu(false);
-        isSubmenu = false;
+        hudManager.ShowItemSubMenu(false);
+        isMagicSubmenu = false;
+        isItemSubmenu = false;
 
         roundQueue.Add(currentAction);
 
         if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
             StartCoroutine(ExecuteBattleRound());
         else
-            partyList.First().MoveFront();
+           partyList.First().MoveFront();
     }
 
     public void ConfirmAttackAction()
@@ -167,7 +178,8 @@ public class BattleManager : MonoBehaviour
     {
         var currentStats = partyList.First();
         hudManager.ShowSubActionMenu(true);
-        isSubmenu = true;
+        isMagicSubmenu = true;
+        isItemSubmenu = false;
 
         var action = new ActionMagic(currentStats);
         currentAction = action;
@@ -177,15 +189,23 @@ public class BattleManager : MonoBehaviour
     public void ConfirmItemAction()
     {
         var currentStats = partyList.First();
+        hudManager.ShowItemSubMenu(true);
+        isMagicSubmenu = false;
+        isItemSubmenu = true;
 
-        ConfirmAction(new ActionItem(currentStats), playerParty);
+        var action = new ActionItem(currentStats);
+        currentAction = action;
+        hudManager.DisableActionMenu();
+        hudManager.LoadOptions();
+        //ConfirmAction(new ActionItem(currentStats), playerParty);
     }
 
     public IEnumerator ExecuteBattleRound()
     {
+        hudManager.ShowDescription(false);
         hudManager.ShowActionMenu(false);
         AddEnemyActions();
-        SortRoundQueue();
+        //SortRoundQueue();
 
         bool playersAlive = false, enemiesAlive = false;
 
@@ -194,8 +214,8 @@ public class BattleManager : MonoBehaviour
             var currAction = roundQueue.First();
             roundQueue.RemoveAt(0);
 
-            hudManager.UpdateDescription(currAction.description);
-            hudManager.ShowDescription(true);
+            //hudManager.UpdateDescription(currAction.description);
+            //hudManager.ShowDescription(true);
 
             currAction.Execute();
 
@@ -259,7 +279,14 @@ public class BattleManager : MonoBehaviour
             partyList.Add(player);
         }
         partyList.First().MoveFront();
+
     }
+    public void UpdateCommandDescription(string description)
+    {
+        hudManager.UpdateDescription(description);
+        hudManager.ShowDescription(true);
+    }
+
     IEnumerator delay(float seconds)
     {
         yield return new WaitForSeconds(seconds);

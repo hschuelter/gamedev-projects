@@ -288,7 +288,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1600818791278547260, guid: 08fe7aa3f33299d4bb1b1e8edcb0e8f3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8385323858618770674, guid: 08fe7aa3f33299d4bb1b1e8edcb0e8f3, type: 3}
@@ -318,7 +319,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleManager: {fileID: 0}
   spellData: {fileID: 11400000, guid: 5674d8af1f54d5d4bb376700ff77712c, type: 2}
+  commandData: {fileID: 0}
   actionMenu: {fileID: 0}
+  description: 
 --- !u!224 &8136112388385025783 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8385323858618770674, guid: 08fe7aa3f33299d4bb1b1e8edcb0e8f3, type: 3}
