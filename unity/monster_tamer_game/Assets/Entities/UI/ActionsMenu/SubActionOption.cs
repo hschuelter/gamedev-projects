@@ -21,7 +21,11 @@ public class SubActionOption : ActionOption
     }
     public void ConfirmSpell()
     {
-        Spell spell = new Spell(spellData);
+        Spell spell;
+        if (spellData.baseDamage > 0) spell = new SpellDamage(spellData);
+        else if (spellData.baseDamage < 0) spell = new SpellHeal(spellData);
+        else spell = new SpellHeal(spellData); // SpellBuff
+
         var stats = battleManager.partyList.First();
 
         if (stats.currentMana < spell.manaCost) return;
@@ -29,6 +33,8 @@ public class SubActionOption : ActionOption
         var action = new ActionMagic(stats);
         action.SetSpell(spell);
 
-        battleManager.ConfirmAction(action);
+        Party party = spell.isTargetParty ? battleManager.playerParty : battleManager.enemyParty;
+
+        battleManager.ConfirmAction(action, party, spell.isTargetParty);
     }
 }

@@ -33,7 +33,8 @@ public class ActionMagic : Action
     {
         if (target.currentHealth == 0)
             target = this.targetParty.Where(t => t.currentHealth > 0).PickRandom();
-
+        
+        var vfxPrefab = VFXManager.Instance.vfxHitPrefab;
         user.Magic(target, spell);
     }
 }

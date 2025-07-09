@@ -24,6 +24,7 @@ public class ActionItem: Action
 
     public override void Execute()
     {
-        user.UseItem(target);
+        var vfxPrefab = VFXManager.Instance.vfxHealPrefab;
+        user.UseItem(target, vfxPrefab);
     }
 }

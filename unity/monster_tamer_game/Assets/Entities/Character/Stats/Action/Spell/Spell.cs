@@ -8,6 +8,8 @@ public class Spell
     [HideInInspector] public int baseDamage;
     [HideInInspector] public int manaCost;
     [HideInInspector] public string title;
+    [HideInInspector] public bool isTargetParty;
+    [HideInInspector] public GameObject vfxPrefab;
 
     public Spell(SpellData spellData)
     {
@@ -15,6 +17,13 @@ public class Spell
         this.baseDamage = spellData.baseDamage;
         this.manaCost = spellData.manaCost;
         this.title = spellData.title;
+        this.isTargetParty = spellData.isTargetParty;
+        this.vfxPrefab = spellData.vfxPrefab;
+    }
+
+    public virtual void Cast(Stats user, Stats target)
+    {
+        Debug.Log($"override me...");
     }
 
 }

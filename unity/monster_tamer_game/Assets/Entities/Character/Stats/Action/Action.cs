@@ -10,6 +10,8 @@ public class Action
     public string actionName { get; set; }
     public string description { get; set; }
 
+    public GameObject vfxPrefab;
+
     public Action(Stats user, Stats target)
     {
         this.user = user;
@@ -32,6 +34,11 @@ public class Action
     {
         this.target = target;
         this.description = $"{this.user.nickname} did something to {target.nickname}...";
+    }
+    public void SetVFX(GameObject vfx)
+    {
+        Debug.Log($"Setei o VFX -> {vfx.name}");
+        vfxPrefab = vfx;
     }
 
     public virtual void Execute()

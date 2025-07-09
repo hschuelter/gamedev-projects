@@ -49,13 +49,13 @@ public class Stats : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
         AnimateDamageTaken(damage, 0.40f);
     }
-    public void Heal(float damage)
+    public void Heal(float value)
     {
-        currentHealth = Mathf.Clamp(currentHealth + damage, 0f, maxHealth);
-        AnimateHeal(-damage);
+        currentHealth = Mathf.Clamp(currentHealth + value, 0f, maxHealth);
+        AnimateHeal(value);
     }
 
-    public void Attack(Stats target)
+    public void Attack(Stats target, GameObject vfxPrefab)
     {
         int baseDamage = 1;
         int damage = CalculateDamage(target, baseDamage, isMagic: false);
@@ -64,18 +64,22 @@ public class Stats : MonoBehaviour
 
         if (animatorController != null)
             animatorController.SetBool("isAttack", true);
+
+        StartCoroutine(ShowVFX(vfxPrefab, target.transform.position, 0.40f));
     }
 
     public void Magic(Stats target, Spell spell)
     {
-        int baseDamage = spell.baseDamage;
-        int damage = CalculateDamage(target, baseDamage, isMagic: true);
+        //int baseDamage = spell.baseDamage;
+        //int damage = CalculateDamage(target, baseDamage, isMagic: true);
         //Debug.Log($"[MAG] {nickname} -> {target.nickname}: {damage} dmg");
-        target.Damage(damage);
+        spell.Cast(this, target);
         currentMana -= spell.manaCost;
 
         if (animatorController != null)
             animatorController.SetBool("isMagic", true);
+
+        StartCoroutine(ShowVFX(spell.vfxPrefab, target.transform.position, 0.40f));
     }
 
     public void Guard()
@@ -87,19 +91,15 @@ public class Stats : MonoBehaviour
     }
 
     // UseItem(Item item)
-    public void UseItem(Stats target)
+    public void UseItem(Stats target, GameObject vfxPrefab)
     {
         // item.use(this);
         //target.currentHealth = Mathf.Clamp(target.currentHealth + 20, 0f, target.maxHealth);
         target.Heal(20);
 
-        if (animatorController != null) animatorController.SetBool("isItem", true);
+        StartCoroutine(ShowVFX(vfxPrefab, target.transform.position, 0.40f));
 
-        //if (target.animatorController != null)
-        //{
-        //    target.animatorController.SetFloat("healthPercentage", target.currentHealth / target.maxHealth);
-        //    target.animatorController.SetInteger("healthValue", (int)Mathf.Floor(target.currentHealth));
-        //}
+        if (animatorController != null) animatorController.SetBool("isItem", true);
     }
 
     public void ActionAnimation()
@@ -198,12 +198,11 @@ public class Stats : MonoBehaviour
 
         /* Damage */
         StartCoroutine(ShowDamage(damage, 0.40f));
-        StartCoroutine(ShowVFX(0.40f));
     }
     public void AnimateHeal(float damage)
     {
         /* Damage */
-        StartCoroutine(ShowDamage(damage, 0.40f));
+        StartCoroutine(ShowDamage(-damage, 0.40f));
     }
 
     IEnumerator delay(float seconds)
@@ -215,9 +214,9 @@ public class Stats : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         DamageNumbersManager.Instance.ShowDamage(damage, this.transform.position);
     }
-    IEnumerator ShowVFX(float seconds)
+    IEnumerator ShowVFX(GameObject vfxPrefab, Vector3 position, float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        VFXManager.Instance.ShowVFX(this.transform.position);
+        VFXManager.Instance.ShowVFX(vfxPrefab, position);
     }
 }

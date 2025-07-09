@@ -33,6 +33,6 @@ public class ItemSubOption : ActionOption
         var stats = battleManager.partyList.First();
 
         //if (stats.currentMana < spell.manaCost) return;
-        battleManager.ConfirmAction(new ActionItem(stats), battleManager.playerParty);
+        battleManager.ConfirmAction(new ActionItem(stats), battleManager.playerParty, true);
     }
 }

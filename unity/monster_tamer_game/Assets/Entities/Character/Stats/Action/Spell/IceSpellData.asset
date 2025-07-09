@@ -15,3 +15,4 @@ MonoBehaviour:
   baseDamage: 1
   manaCost: 2
   title: Ice
+  vfxPrefab: {fileID: 6900140403663408769, guid: 2e2f72a76ec730c46bb5f975a723f6e9, type: 3}

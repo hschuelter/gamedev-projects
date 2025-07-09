@@ -15,3 +15,4 @@ MonoBehaviour:
   baseDamage: 1
   manaCost: 2
   title: Thunder
+  vfxPrefab: {fileID: 7402740428181739962, guid: c3838dc6c4f568e43be8bd8ce5e75d0e, type: 3}

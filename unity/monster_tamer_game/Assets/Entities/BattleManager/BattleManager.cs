@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] public HUDManager hudManager;
     [SerializeField] private TargetSelectionManager targetSelectionManager;
+    [SerializeField] private VFXManager vfxManager;
 
     [SerializeField] private SpellData fireSpellData;
 
@@ -110,16 +112,16 @@ public class BattleManager : MonoBehaviour
         EnableTargetSelection(enemyParty);
         targetSelectionManager.InvertCursor(false);
     }
-    public void ConfirmAction(Action action, Party party)
+    public void ConfirmAction(Action action, Party party, bool invert)
     {
         /* Item Command -> can target party */
         currentAction = action;
 
         partyIterator++;
         partyList.RemoveAt(0);
-        
+
         EnableTargetSelection(party);
-        targetSelectionManager.InvertCursor(true);
+        targetSelectionManager.InvertCursor(invert);
     }
     public void ConfirmAction(Action action, Stats target)
     {
@@ -164,8 +166,8 @@ public class BattleManager : MonoBehaviour
     {
         var currentStats = partyList.First();
         hudManager.ShowSubActionMenu(false);
-
-        ConfirmAction(new ActionAttack(currentStats));
+        var attackAction = new ActionAttack(currentStats);
+        ConfirmAction(attackAction);
     }
 
     public void ConfirmGuardAction()
@@ -188,13 +190,15 @@ public class BattleManager : MonoBehaviour
 
     public void ConfirmItemAction()
     {
+        Debug.Log($"ConfirmItemAction");
         var currentStats = partyList.First();
         hudManager.ShowItemSubMenu(true);
         isMagicSubmenu = false;
         isItemSubmenu = true;
 
-        var action = new ActionItem(currentStats);
-        currentAction = action;
+        var actionItem = new ActionItem(currentStats);
+        currentAction = actionItem;
+
         hudManager.DisableActionMenu();
         hudManager.LoadOptions();
         //ConfirmAction(new ActionItem(currentStats), playerParty);
@@ -217,6 +221,8 @@ public class BattleManager : MonoBehaviour
             //hudManager.UpdateDescription(currAction.description);
             //hudManager.ShowDescription(true);
 
+            /* ANIMATIONS */
+            currAction.user.ActionAnimation();
             currAction.Execute();
 
             if (currAction.target.characterHUDManager != null)
@@ -227,8 +233,7 @@ public class BattleManager : MonoBehaviour
 
             roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
             
-            /* ANIMATIONS */
-            currAction.user.ActionAnimation();
+            /* MORE ANIMATIONS */
             yield return delay(ANIMATION_DELAY_TIME);
             currAction.user.Stepback();
             hudManager.ShowDescription(false);
@@ -257,6 +262,7 @@ public class BattleManager : MonoBehaviour
             //var playerStats = partyCopy.Where(p => p.currentHealth > 0).PickRandom();
             var playerStats = partyCopy.Where(p => p.currentHealth > 0).First();
             var attackAction = new ActionAttack(enemy, playerStats);
+
             attackAction.SetTargetParty(partyCopy);
 
             roundQueue.Add(attackAction);

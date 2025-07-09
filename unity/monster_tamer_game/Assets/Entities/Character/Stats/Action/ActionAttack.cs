@@ -1,4 +1,5 @@
 using System.Linq;
+using UnityEngine;
 
 public class ActionAttack : Action
 {
@@ -31,6 +32,7 @@ public class ActionAttack : Action
             target = this.targetParty.Where(t => t.currentHealth > 0).PickRandom();
         }
 
-        user.Attack(target);
+        var vfxPrefab = VFXManager.Instance.vfxHitPrefab;
+        user.Attack(target, vfxPrefab);
     }
 }

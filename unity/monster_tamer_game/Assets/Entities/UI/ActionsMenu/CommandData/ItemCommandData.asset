@@ -16,3 +16,4 @@ MonoBehaviour:
   baseDamage: 0
   manaCost: 0
   title: 
+  vfxPrefab: {fileID: 450157909473967995, guid: 724585b7b18f9694e844952837fea453, type: 3}

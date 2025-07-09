@@ -8,4 +8,6 @@ public class CommandData : ScriptableObject
     public int manaCost;
     public string title;
 
+    public GameObject vfxPrefab;
+
 }

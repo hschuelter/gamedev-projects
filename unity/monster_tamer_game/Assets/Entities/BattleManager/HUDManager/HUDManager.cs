@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class HUDManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class HUDManager : MonoBehaviour
         descriptionWindow.Setup();
         descriptionWindow.ShowWindow(false);
         ShowActionMenu(true);
+        ShowSubActionMenu(false);
+        ShowItemSubMenu(false);
     }
     public void UpdateHUD(PartyMemberHUDManager characterHUDManager) 
     {

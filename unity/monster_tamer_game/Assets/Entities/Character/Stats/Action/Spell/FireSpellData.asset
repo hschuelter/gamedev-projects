@@ -15,3 +15,5 @@ MonoBehaviour:
   baseDamage: 1
   manaCost: 2
   title: Fire
+  isTargetParty: 0
+  vfxPrefab: {fileID: 5009329437826525645, guid: 6f096115160bc0e47a198867cb3b693f, type: 3}

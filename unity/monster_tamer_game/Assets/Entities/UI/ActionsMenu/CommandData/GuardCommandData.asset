@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: GuardCommandData
   m_EditorClassIdentifier: 
   description: Guard
+  baseDamage: 0
+  manaCost: 0
+  title: 
+  vfxPrefab: {fileID: 1605317904486183353, guid: 762c4ddedec271140af65f48fdc1ef08, type: 3}
