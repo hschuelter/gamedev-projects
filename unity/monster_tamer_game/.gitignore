@@ -3,6 +3,8 @@ Assets/Entities/Monsters/**/*.png
 Assets/TextMesh Pro/
 Assets/Entities/Character/**/*.png
 Assets/*.png
+Assets/Entities/VFX/**/*.png
+
 
 .vsconfig
 .vs/
