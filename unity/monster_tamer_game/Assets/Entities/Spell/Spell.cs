@@ -25,5 +25,4 @@ public class Spell
     {
         Debug.Log($"override me...");
     }
-
 }

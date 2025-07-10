@@ -1261,7 +1261,7 @@ PrefabInstance:
       objectReference: {fileID: 442257050}
     - target: {fileID: 6558261809411740595, guid: 7582c32ce481ff9428f79c6dc42afa27, type: 3}
       propertyPath: m_Name
-      value: Btn_Fire
+      value: Btn_Potion
       objectReference: {fileID: 0}
     - target: {fileID: 8136112388385025783, guid: 7582c32ce481ff9428f79c6dc42afa27, type: 3}
       propertyPath: m_Pivot.x
@@ -1343,7 +1343,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2418640369823389909, guid: 7582c32ce481ff9428f79c6dc42afa27, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5385,6 +5386,7 @@ MonoBehaviour:
   commandData: {fileID: 11400000, guid: 9d89a9e815a5b5144a2c41abb3e75634, type: 2}
   actionMenu: {fileID: 0}
   description: 
+  itemData: {fileID: 11400000, guid: 6e9a2b74b52c90d458a64d6b050501b6, type: 2}
 --- !u!1 &1903198240
 GameObject:
   m_ObjectHideFlags: 0

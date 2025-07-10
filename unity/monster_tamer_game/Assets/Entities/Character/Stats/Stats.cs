@@ -57,9 +57,9 @@ public class Stats : MonoBehaviour
 
     public void Attack(Stats target, GameObject vfxPrefab)
     {
+
         int baseDamage = 1;
-        int damage = CalculateDamage(target, baseDamage, isMagic: false);
-        //Debug.Log($"[ATK] {nickname} -> {target.nickname}: {damage} dmg");
+        int damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, isMagic: false);
         target.Damage(damage);
 
         if (animatorController != null)
@@ -70,9 +70,6 @@ public class Stats : MonoBehaviour
 
     public void Magic(Stats target, Spell spell)
     {
-        //int baseDamage = spell.baseDamage;
-        //int damage = CalculateDamage(target, baseDamage, isMagic: true);
-        //Debug.Log($"[MAG] {nickname} -> {target.nickname}: {damage} dmg");
         spell.Cast(this, target);
         currentMana -= spell.manaCost;
 
@@ -90,17 +87,15 @@ public class Stats : MonoBehaviour
             animatorController.SetBool("isGuard", true);
     }
 
-    // UseItem(Item item)
-    public void UseItem(Stats target, GameObject vfxPrefab)
+    public void UseItem(Stats target, Item item)
     {
-        // item.use(this);
-        //target.currentHealth = Mathf.Clamp(target.currentHealth + 20, 0f, target.maxHealth);
-        target.Heal(20);
-
-        StartCoroutine(ShowVFX(vfxPrefab, target.transform.position, 0.40f));
+        item.Use(target);
+        StartCoroutine(ShowVFX(item.vfxPrefab, target.transform.position, 0.40f));
 
         if (animatorController != null) animatorController.SetBool("isItem", true);
     }
+
+    /* Animations */
 
     public void ActionAnimation()
     {
@@ -143,43 +138,6 @@ public class Stats : MonoBehaviour
     {
         animatorController.SetBool("isGuard", false);
     }
-
-    private int CalculateDamage(Stats target, int baseDamage, bool isMagic = false)
-    {
-        float moveMultiplier = 1f;
-        /* 
-         * DAMAGE = Base Damage × Stat Difference × Level Difference × Move Multiplier
-         *      * Base Damage = Weapon or Spell Rank
-         *          * Min: 1
-         *          * Max: 2
-         *      * Stat Difference = Attack - Defense
-         *          * Min: 1
-         *          * Max: (M) Attack - (M) Defense
-         *      * Level Difference = 
-         *          * Each level above -> +10% damage
-         *          * Each level below -> +10% damage
-         *      * Move Multiplier =
-         *          * Normal: 1
-         *          * Weak: 1.5
-         *          * Resists: 0.5
-         *          * Null: 0
-         *          * Absorbs: -1
-         */
-
-        float offensiveStat = isMagic ? magicAttack : attack;
-        float defensiveStat = isMagic ? target.magicDefense : target.defense;
-
-        float statDifference = offensiveStat - defensiveStat;
-        statDifference = Mathf.Clamp(statDifference, 1, statDifference);
-
-        float levelDifference = (10 + this.level - target.level) / 10;
-
-        float damage =  baseDamage * statDifference * levelDifference * moveMultiplier;
-        if (target.isGuarding) damage = damage / 2;
-
-        return (int) Math.Ceiling(damage);
-    }
-
     public IEnumerator SetHit(bool value, float time)
     {
         yield return delay(time);
@@ -196,12 +154,10 @@ public class Stats : MonoBehaviour
         StartCoroutine(SetHit(true, 0.32f));
         StartCoroutine(SetHit(false, time + 0.40f));
 
-        /* Damage */
         StartCoroutine(ShowDamage(damage, 0.40f));
     }
     public void AnimateHeal(float damage)
     {
-        /* Damage */
         StartCoroutine(ShowDamage(-damage, 0.40f));
     }
 

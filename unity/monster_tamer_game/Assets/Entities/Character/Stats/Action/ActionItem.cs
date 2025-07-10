@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ActionItem: Action
 {
+    private Item item;
     public ActionItem(Stats user, Stats target) : base(user, target)
     {
         this.user = user;
@@ -16,6 +17,12 @@ public class ActionItem: Action
         this.actionName = "Item";
     }
 
+    public void SetItem(Item item)
+    {
+        this.item = item;
+        this.description = $"{user.nickname} used {item.title}!";
+    }
+
     public override void SetTarget(Stats target)
     {
         this.target = target;
@@ -25,6 +32,6 @@ public class ActionItem: Action
     public override void Execute()
     {
         var vfxPrefab = VFXManager.Instance.vfxHealPrefab;
-        user.UseItem(target, vfxPrefab);
+        user.UseItem(target, item);
     }
 }
