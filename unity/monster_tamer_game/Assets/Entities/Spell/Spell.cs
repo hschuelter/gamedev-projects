@@ -23,6 +23,6 @@ public class Spell
 
     public virtual void Cast(Stats user, Stats target)
     {
-        Debug.Log($"override me...");
+        Debug.Log($"[Spell] override me...");
     }
 }

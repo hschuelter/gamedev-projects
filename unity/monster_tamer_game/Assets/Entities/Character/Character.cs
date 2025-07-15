@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     public StatsData statusData;
     public List<SpellData> magicList = new List<SpellData>();
     
-    private Stats stats;
+    [HideInInspector] public Stats stats;
 
     private void Awake()
     {

@@ -7,32 +7,34 @@ using UnityEngine.UI;
 
 public class ActionMenu : MonoBehaviour
 {
-    private List<ActionOption> actionsList = new List<ActionOption>();
+    [HideInInspector] public List<ActionOption> actionsList = new List<ActionOption>();
     [HideInInspector] public ActionOption lastAction;
-    
-    [SerializeField] ActionMenuCursor actionCursor;
+    [HideInInspector] public VerticalLayoutGroup verticalLayout;
+
+    public BattleManager battleManager;
+    public ActionMenuCursor actionCursor;
+    bool isSetup = false;
 
     void Start()
     {
+        verticalLayout = GetComponent<VerticalLayoutGroup>();
+        Setup();
+        lastAction = actionsList.Where(action => action.gameObject.activeSelf).FirstOrDefault() ?? lastAction;
+        lastAction.GetComponent<Button>().Select();
+        MoveCursorTo(lastAction);
+    }
+    public void Setup()
+    {
+        if (isSetup) return;
+
         actionsList = GetComponentsInChildren<ActionOption>().ToList();
         foreach (var action in actionsList)
         {
             action.actionMenu = this;
             action.SetInfo();
         }
-
         lastAction = actionsList.First();
-        lastAction.GetComponent<Button>().Select();
-        MoveCursorTo(lastAction);
-    }
-    private void Setup()
-    {
-        actionsList = GetComponentsInChildren<ActionOption>().ToList();
-        foreach (var action in actionsList)
-        {
-            action.actionMenu = this;
-        }
-        lastAction = actionsList.First();
+        isSetup = true;
     }
 
     public void SelectFirstOption()
@@ -66,12 +68,13 @@ public class ActionMenu : MonoBehaviour
         actionCursor.ChangeTarget(lastAction);
     }
 
-    public void EnableAllButtons()
+    public virtual void EnableAllButtons()
     {
         foreach (var item in actionsList)
         {
             item.GetComponent<Button>().interactable = true;
         }
+        if (!lastAction.gameObject.activeSelf) lastAction = actionsList.Where(action => action.gameObject.activeSelf).FirstOrDefault();
         lastAction.GetComponent<Button>().Select();
         actionCursor.Activate();
     }

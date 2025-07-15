@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bec73765b17752d4eaf5b2c14e637e9c, type: 3}
   m_Name: MagicIceCommandData
   m_EditorClassIdentifier: 
-  description: Ice
+  description: Basic Ice element spell
   baseDamage: 0
   manaCost: 0
   title: 

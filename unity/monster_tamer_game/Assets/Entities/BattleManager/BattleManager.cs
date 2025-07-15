@@ -66,7 +66,7 @@ public class BattleManager : MonoBehaviour
 
         else if (!targetSelectionManager.isSelectingEnemy && isMagicSubmenu && !isItemSubmenu)
         {
-            hudManager.ShowSubActionMenu(false);
+            hudManager.ShowMagicSubMenu(false);
             hudManager.EnableActionMenu();
             isMagicSubmenu = false;
             isItemSubmenu = false;
@@ -96,7 +96,7 @@ public class BattleManager : MonoBehaviour
     {
         targetSelectionManager.Enable();
         targetSelectionManager.SetTargets(party.partyMembers.Where(c => c.currentHealth > 0).ToList());
-        //hudManager.ShowSubActionMenu(false);
+        //hudManager.ShowMagicSubMenu(false);
         hudManager.DisableActionMenu();
         hudManager.DisableSubActionMenu();
         hudManager.DisableButtons(hudManager.itemSubMenu);
@@ -114,7 +114,7 @@ public class BattleManager : MonoBehaviour
     }
     public void ConfirmAction(Action action, Party party, bool invert)
     {
-        /* Item Command -> can target party */
+        /* Item & Magic Commands -> can target party */
         currentAction = action;
 
         partyIterator++;
@@ -149,7 +149,7 @@ public class BattleManager : MonoBehaviour
 
         hudManager.EnableActionMenu();
         //hudManager.DisableActionMenu();
-        hudManager.ShowSubActionMenu(false);
+        hudManager.ShowMagicSubMenu(false);
         hudManager.ShowItemSubMenu(false);
         isMagicSubmenu = false;
         isItemSubmenu = false;
@@ -165,7 +165,7 @@ public class BattleManager : MonoBehaviour
     public void ConfirmAttackAction()
     {
         var currentStats = partyList.First();
-        hudManager.ShowSubActionMenu(false);
+        hudManager.ShowMagicSubMenu(false);
         var attackAction = new ActionAttack(currentStats);
         ConfirmAction(attackAction);
     }
@@ -179,7 +179,9 @@ public class BattleManager : MonoBehaviour
     public void ConfirmMagicAction()
     {
         var currentStats = partyList.First();
-        hudManager.ShowSubActionMenu(true);
+        var curentCharacter = playerParty.GetCharacter(currentStats);
+        hudManager.LoadMagicOptions(curentCharacter.magicList);
+        hudManager.ShowMagicSubMenu(true);
         isMagicSubmenu = true;
         isItemSubmenu = false;
 
@@ -190,7 +192,6 @@ public class BattleManager : MonoBehaviour
 
     public void ConfirmItemAction()
     {
-        Debug.Log($"ConfirmItemAction");
         var currentStats = partyList.First();
         hudManager.ShowItemSubMenu(true);
         isMagicSubmenu = false;

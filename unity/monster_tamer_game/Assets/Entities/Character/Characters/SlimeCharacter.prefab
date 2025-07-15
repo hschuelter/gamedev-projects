@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6b3d65b9bd8734380db7515f52a3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorController: {fileID: 9100000, guid: fefc3f1d30c94c2469353be0b788390a, type: 2}
   characterSprite: {fileID: -1375263723, guid: 527e70df751cf0d4187fce5e3f09903a, type: 3}
   statusData: {fileID: 11400000, guid: 3576f36350e5e2345a1aff84af6836d2, type: 2}
-  animatorController: {fileID: 9100000, guid: fefc3f1d30c94c2469353be0b788390a, type: 2}
+  magicList:
+  - {fileID: 11400000, guid: 5674d8af1f54d5d4bb376700ff77712c, type: 2}
+  stats: {fileID: 0}

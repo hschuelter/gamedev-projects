@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,11 +15,11 @@ public class HUDManager : MonoBehaviour
     [SerializeField] ActionMenu actionMenu;
     [SerializeField] ActionMenuCursor actionCursor;
 
-    [SerializeField] ActionMenu subActionMenu;
-    [SerializeField] ActionMenuCursor subActionCursor;
+    [SerializeField] CommandSubMenu magicSubMenu;
+    [SerializeField] ActionMenuCursor magicSubCursor;
 
     [SerializeField] public ActionMenu itemSubMenu;
-    [SerializeField] ActionMenuCursor itemsubCursor;
+    [SerializeField] ActionMenuCursor itemSubCursor;
 
     [SerializeField] ResultsWindow resultsWindow;
     [SerializeField] GameObject partyHUDWindow;
@@ -28,7 +29,7 @@ public class HUDManager : MonoBehaviour
         descriptionWindow.Setup();
         descriptionWindow.ShowWindow(false);
         ShowActionMenu(true);
-        ShowSubActionMenu(false);
+        ShowMagicSubMenu(false);
         ShowItemSubMenu(false);
     }
     public void UpdateHUD(PartyMemberHUDManager characterHUDManager) 
@@ -50,13 +51,13 @@ public class HUDManager : MonoBehaviour
         actionMenu.ShowMenu(value);
     }
 
-    public void ShowSubActionMenu(bool value)
+    public void ShowMagicSubMenu(bool value)
     {
-        subActionMenu.ShowMenu(value);
-        if (value) subActionMenu.SelectFirstOption();
+        magicSubMenu.ShowMenu(value);
+        if (value) magicSubMenu.SelectFirstOption();
 
-        if (value) EnableButtons(subActionMenu);
-        else DisableButtons(subActionMenu);
+        if (value) EnableButtons(magicSubMenu);
+        else DisableButtons(magicSubMenu);
     }
 
     public void ShowItemSubMenu(bool value)
@@ -90,12 +91,12 @@ public class HUDManager : MonoBehaviour
 
     public void EnableSubActionMenu()
     {
-        subActionMenu.EnableAllButtons();
+        magicSubMenu.EnableAllButtons();
     }
 
     public void DisableSubActionMenu()
     {
-        subActionMenu.DisableAllButtons();
+        magicSubMenu.DisableAllButtons();
     }
 
     public void ShowResultsWindow(bool value)
@@ -117,4 +118,8 @@ public class HUDManager : MonoBehaviour
         partyHUDWindow.SetActive(true);
     }
 
+    public void LoadMagicOptions(List<SpellData> spells)
+    {
+        magicSubMenu.LoadMagicOptions(spells);
+    }
 }

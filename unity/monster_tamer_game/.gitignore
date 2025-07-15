@@ -4,6 +4,7 @@ Assets/TextMesh Pro/
 Assets/Entities/Character/**/*.png
 Assets/*.png
 Assets/Entities/VFX/**/*.png
+Assets/Fonts/*.asset
 
 
 .vsconfig

@@ -55,8 +55,14 @@ public class Party : MonoBehaviour
         var stats = characterObj.AddComponent<Stats>();
         stats.animatorController = animator;
         stats.UpdateStats(character.statusData);
+        character.stats = stats;
 
         characterObj.transform.parent = this.transform;
         return characterObj;
+    }
+
+    public Character GetCharacter(Stats stats)
+    {
+        return partyCharacters.Find(c => c.stats.name == stats.name);
     }
 }

@@ -37,12 +37,11 @@ public class Action
     }
     public void SetVFX(GameObject vfx)
     {
-        Debug.Log($"Setei o VFX -> {vfx.name}");
         vfxPrefab = vfx;
     }
 
     public virtual void Execute()
     {
-        Debug.Log($"Override me...");
+        Debug.Log($"[Action] Override me...");
     }
 }
