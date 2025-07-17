@@ -14,4 +14,5 @@ public class StatsData : ScriptableObject
     public float speed;
     public string nickname;
     public int level;
+    public int expGranted;
 }

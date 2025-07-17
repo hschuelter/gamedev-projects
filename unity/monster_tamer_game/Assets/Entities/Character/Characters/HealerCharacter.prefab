@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorController: {fileID: 9100000, guid: 74b9f171ec1bfdc49a4d6f186de89b56, type: 2}
   characterSprite: {fileID: 1615351823, guid: 7bcd09d15bcfe434d920e9ea20e5f7d1, type: 3}
-  statusData: {fileID: 11400000, guid: 1dd2444947683f349854768cbba08344, type: 2}
+  statsData: {fileID: 11400000, guid: 1dd2444947683f349854768cbba08344, type: 2}
   magicList:
   - {fileID: 11400000, guid: f70a467ab73f97c47b9a79f4c51431ae, type: 2}
   - {fileID: 11400000, guid: abb403aabec4f904b8a748db3ca97df7, type: 2}

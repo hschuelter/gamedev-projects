@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,6 +24,9 @@ public class HUDManager : MonoBehaviour
 
     [SerializeField] ResultsWindow resultsWindow;
     [SerializeField] GameObject partyHUDWindow;
+    
+    [SerializeField] BattleManager battleManager;
+
 
     private void Start()
     {
@@ -38,6 +42,11 @@ public class HUDManager : MonoBehaviour
         characterHUDManager.UpdateMana();
     }
 
+    public void UpdateHUDAll(PartyHUDManager partyHUDManager)
+    {
+        partyHUDManager.UpdateHUDAll();
+    }
+
     public void UpdateDescription(string description)
     {
         descriptionWindow.UpdateText(description);
@@ -49,6 +58,7 @@ public class HUDManager : MonoBehaviour
     public void ShowActionMenu(bool value)
     {
         actionMenu.ShowMenu(value);
+        if (value) actionMenu.SelectFirstOption();
     }
 
     public void ShowMagicSubMenu(bool value)
@@ -101,7 +111,10 @@ public class HUDManager : MonoBehaviour
 
     public void ShowResultsWindow(bool value)
     {
-        resultsWindow.ShowWindow(value);
+        var enemies = battleManager.enemyParty.partyCharacters;
+        var expGained = enemies.Select(e => e.statsData.expGranted).Sum();
+
+        resultsWindow.ShowWindow(value, expGained);
 
         ShowActionMenu(false);
         partyHUDWindow.SetActive(false);

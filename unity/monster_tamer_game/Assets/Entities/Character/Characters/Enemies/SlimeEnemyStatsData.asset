@@ -23,3 +23,4 @@ MonoBehaviour:
   speed: 8
   nickname: Slime
   level: 1
+  expGranted: 3

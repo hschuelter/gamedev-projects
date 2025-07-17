@@ -17,6 +17,7 @@ public class Party : MonoBehaviour
     private int sortingOrder = 1;
     public void CreateParty(bool isPlayer = true)
     {
+        ClearChildren();
         partyMembers = new List<Stats>();
 
         int i = 0;
@@ -40,7 +41,7 @@ public class Party : MonoBehaviour
 
     public GameObject CreateCharacter(Character character)
     {
-        GameObject characterObj = new GameObject($"PartyMemberHUD-{character.statusData.nickname}-{sortingOrder}");
+        GameObject characterObj = new GameObject($"PartyMemberHUD-{character.statsData.nickname}-{sortingOrder}");
 
         GameObject shadowObject = Instantiate(shadowPrefab);
         shadowObject.transform.parent = characterObj.transform;
@@ -54,7 +55,7 @@ public class Party : MonoBehaviour
 
         var stats = characterObj.AddComponent<Stats>();
         stats.animatorController = animator;
-        stats.UpdateStats(character.statusData);
+        stats.UpdateStats(character.statsData);
         character.stats = stats;
 
         characterObj.transform.parent = this.transform;
@@ -64,5 +65,14 @@ public class Party : MonoBehaviour
     public Character GetCharacter(Stats stats)
     {
         return partyCharacters.Find(c => c.stats.name == stats.name);
+    }
+
+
+    public void ClearChildren()
+    {
+        foreach (Transform child in this.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

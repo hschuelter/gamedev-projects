@@ -26,4 +26,13 @@ public class PartyHUDManager : MonoBehaviour
             memberHUD.Draw();
         }
     }
+
+    public void UpdateHUDAll()
+    {
+        foreach (var characterHUD in partyMembersHUD)
+        {
+            characterHUD.UpdateHealth();
+            characterHUD.UpdateMana();
+        }
+    }
 }

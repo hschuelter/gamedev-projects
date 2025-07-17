@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
     public Sprite characterSprite;
     
     [Header("RPG")]
-    public StatsData statusData;
+    public StatsData statsData;
     public List<SpellData> magicList = new List<SpellData>();
     
     [HideInInspector] public Stats stats;

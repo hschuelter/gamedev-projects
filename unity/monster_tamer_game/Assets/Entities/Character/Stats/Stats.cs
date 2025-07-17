@@ -18,9 +18,10 @@ public class Stats : MonoBehaviour
     [SerializeField] public string nickname;
     [SerializeField] public int level;
 
-    public StatsData statusData;
+    public StatsData statsData;
 
     public bool isGuarding = false;
+    public int currentExp = 0;
     public PartyMemberHUDManager characterHUDManager;
     public Animator animatorController;
     public void UpdateStats(StatsData statusData)
@@ -42,6 +43,24 @@ public class Stats : MonoBehaviour
             animatorController.SetFloat("healthPercentage", currentHealth / maxHealth);
             animatorController.SetInteger("healthValue", (int)Mathf.Floor(currentHealth));
         }
+    }
+
+    public void LevelUp()
+    {
+        this.level++;
+        this.currentHealth += 2;
+        this.maxHealth += 2;
+        this.currentMana += 2;
+        this.maxMana += 2;
+        this.attack += 2;
+        this.defense += 2;
+        this.magicAttack += 2;
+        this.magicDefense += 2;
+        this.speed += 2;
+    }
+    public void UpdateExp(int exp)
+    {
+        currentExp = exp;
     }
 
     public void Damage(float damage)

@@ -22,7 +22,7 @@ public class BattleManager : MonoBehaviour
     float SHORT_DELAY_TIME = 0.5f;
 
     [HideInInspector] public Action currentAction;
-    [HideInInspector] public List<Stats> partyList = new List<Stats>();
+    public List<Stats> partyList = new List<Stats>();
 
     public List<Action> roundQueue { get; set; }
     private int partyIterator;
@@ -33,13 +33,23 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         playerParty.CreateParty();
-        enemyParty.CreateParty(false);
+        //enemyParty.CreateParty(false);
 
         partyIterator = 0;
         partyList = new List<Stats>();
-        roundQueue = new List<Action>();
+        NextBattle();
+    }
+    public void NextBattle()
+    {
         ResetPartyState();
+        roundQueue = new List<Action>();
         hudManager.ShowBattleStart();
+        hudManager.UpdateHUDAll(playerParty.partyHUD);
+        enemyParty.CreateParty(false);
+        isGameOver = false;
+        isMagicSubmenu = false;
+        isItemSubmenu = false;
+
     }
 
     private void Update()
@@ -123,6 +133,7 @@ public class BattleManager : MonoBehaviour
         EnableTargetSelection(party);
         targetSelectionManager.InvertCursor(invert);
     }
+    
     public void ConfirmAction(Action action, Stats target)
     {
         /* Guard Command -> no need for targetting */
