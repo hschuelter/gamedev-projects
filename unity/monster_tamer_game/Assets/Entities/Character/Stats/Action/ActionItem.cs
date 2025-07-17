@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ActionItem: Action
 {
-    private Item item;
+    public Item item;
     public ActionItem(Stats user, Stats target) : base(user, target)
     {
         this.user = user;

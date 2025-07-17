@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
     [HideInInspector] public Action currentAction;
     [HideInInspector] public List<Stats> partyList = new List<Stats>();
 
-    private List<Action> roundQueue { get; set; }
+    public List<Action> roundQueue { get; set; }
     private int partyIterator;
     private bool isGameOver = false;
     private bool isMagicSubmenu = false;

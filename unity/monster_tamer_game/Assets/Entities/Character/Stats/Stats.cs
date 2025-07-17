@@ -90,6 +90,7 @@ public class Stats : MonoBehaviour
     public void UseItem(Stats target, Item item)
     {
         item.Use(target);
+        InventoryManager.Instance.UseItem(item);
         StartCoroutine(ShowVFX(item.vfxPrefab, target.transform.position, 0.40f));
 
         if (animatorController != null) animatorController.SetBool("isItem", true);

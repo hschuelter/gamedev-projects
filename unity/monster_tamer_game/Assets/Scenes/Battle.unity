@@ -3900,6 +3900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fa8febde0983a4596cba89c963dcbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  potionItemData: {fileID: 11400000, guid: 6e9a2b74b52c90d458a64d6b050501b6, type: 2}
+  battleManager: {fileID: 442257050}
 --- !u!4 &1201430660
 Transform:
   m_ObjectHideFlags: 0

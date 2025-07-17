@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ActionMenu : MonoBehaviour
 {
@@ -53,10 +54,17 @@ public class ActionMenu : MonoBehaviour
         lastAction = actionOption;
     }
 
-    public void LoadItems(string[] itemList)
+    public void LoadItems(List<InventoryItem> itemList)
     {
-        foreach(var item in itemList)
-            Debug.Log($"{item}");
+        foreach(var commandOption in actionsList)
+        {
+            var itemOption = commandOption.GetComponent<ItemSubOption>();
+            var itemInventory = itemList.Where(i => i.item.title == itemOption.itemData.title).First();
+
+            var amountInRoundQueue = InventoryManager.Instance.AmountInRoundQueue(itemInventory.item);
+
+            itemOption.SetInfo(itemInventory.item, itemInventory.amount - amountInRoundQueue);
+        }
     }
 
     public void ShowMenu(bool active)

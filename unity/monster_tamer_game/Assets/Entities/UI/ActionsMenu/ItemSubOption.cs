@@ -19,13 +19,15 @@ public class ItemSubOption : ActionOption
         }
     }
 
-    public void SetInfo(string title)
+    public void SetInfo(Item item, int amount)
     {
         var texts = GetComponentsInChildren<TMP_Text>();
         foreach (var t in texts)
         {
+            if (t.name == "Mana Cost")
+                t.text = $"x{amount}";
             if (t.name == "Label")
-                t.text = title;
+                t.text = item.title;
         }
     }
 
@@ -33,8 +35,12 @@ public class ItemSubOption : ActionOption
     {
         Item item;
 
-        if (itemData.healValue> 0) item = new ItemHeal(itemData);
+        if (itemData.healValue > 0) item = new ItemHeal(itemData);
         else item = new Item(itemData);
+
+        int itemAmount = InventoryManager.Instance.GetAmountOf(item);
+        var amountInRoundQueue = InventoryManager.Instance.AmountInRoundQueue(item);
+        if (itemAmount - amountInRoundQueue == 0) return;
 
         var stats = battleManager.partyList.First();
         var action = new ActionItem(stats);
