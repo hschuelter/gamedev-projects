@@ -63,23 +63,28 @@ public class Stats : MonoBehaviour
         currentExp = exp;
     }
 
-    public void Damage(float damage)
+    public void Damage(float damage, bool isCritical = false)
     {
+        if (damage == 0)
+        {
+            StartCoroutine(SetMiss(0.40f));
+            return;
+        }
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
-        AnimateDamageTaken(damage, 0.40f);
+        AnimateDamageTaken(damage, 0.40f, isCritical);
     }
-    public void Heal(float value)
+    public void Heal(float value, bool isCritical = false)
     {
         currentHealth = Mathf.Clamp(currentHealth + value, 0f, maxHealth);
-        AnimateHeal(value);
+        AnimateHeal(value, isCritical);
     }
 
     public void Attack(Stats target, GameObject vfxPrefab)
     {
 
         int baseDamage = 1;
-        int damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, isMagic: false);
-        target.Damage(damage);
+        Damage damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, isMagic: false);
+        target.Damage(damage.value, damage.isCritical);
 
         if (animatorController != null)
             animatorController.SetBool("isAttack", true);
@@ -169,26 +174,35 @@ public class Stats : MonoBehaviour
         }
     }
 
-    public void AnimateDamageTaken(float damage, float time)
+    public IEnumerator SetMiss(float time)
+    {
+        StartCoroutine(ShowDamage(0, 0.40f));
+        yield return delay(time);
+        MoveBack();
+        yield return delay(time);
+        MoveFront();
+    }
+
+    public void AnimateDamageTaken(float damage, float time, bool isCritical = false)
     {
         StartCoroutine(SetHit(true, 0.32f));
         StartCoroutine(SetHit(false, time + 0.40f));
 
-        StartCoroutine(ShowDamage(damage, 0.40f));
+        StartCoroutine(ShowDamage(damage, 0.40f, isCritical));
     }
-    public void AnimateHeal(float damage)
+    public void AnimateHeal(float damage, bool isCritical = false)
     {
-        StartCoroutine(ShowDamage(-damage, 0.40f));
+        StartCoroutine(ShowDamage(-damage, 0.40f, isCritical));
     }
 
     IEnumerator delay(float seconds)
     {
         yield return new WaitForSeconds(seconds);
     }
-    IEnumerator ShowDamage(float damage, float seconds)
+    IEnumerator ShowDamage(float damage, float seconds, bool isCritical = false)
     {
         yield return new WaitForSeconds(seconds);
-        DamageNumbersManager.Instance.ShowDamage(damage, this.transform.position);
+        DamageNumbersManager.Instance.ShowDamage(damage, this.transform.position, isCritical);
     }
     IEnumerator ShowVFX(GameObject vfxPrefab, Vector3 position, float seconds)
     {

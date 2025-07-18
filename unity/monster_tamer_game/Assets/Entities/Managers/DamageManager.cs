@@ -6,16 +6,18 @@ public class DamageManager : MonoBehaviour
 {
     public static DamageManager Instance { get; private set; }
 
+    private float criticalHitRatio = 2f;
+
     private void Awake()
     {
         Instance = this;
     }
 
-    public int CalculateDamage(Stats user, Stats target, int baseDamage, bool isMagic = false)
+    public Damage CalculateDamage(Stats user, Stats target, int baseDamage, bool isMagic = false)
     {
         float moveMultiplier = 1f;
         /* 
-         * DAMAGE = Base Damage × Stat Difference × Level Difference × Move Multiplier
+         * DAMAGE = Base Damage x Stat Difference x Level Difference x Move Multiplier
          *      * Base Damage = Weapon or Spell Rank
          *          * Min: 1
          *          * Max: 2
@@ -44,6 +46,14 @@ public class DamageManager : MonoBehaviour
         float damage = baseDamage * statDifference * levelDifference * moveMultiplier;
         if (target.isGuarding && baseDamage > 0) damage = damage / 2;
 
-        return (int) Math.Ceiling(damage);
+        var hitRoll = HitRoll();
+        if (hitRoll == 20) damage *= criticalHitRatio;
+        if (hitRoll == 1)  damage = 0;
+
+        return new Damage((int) Math.Ceiling(damage), hitRoll == 20);
+    }
+
+    private int HitRoll() {
+        return UnityEngine.Random.Range(1, 20);
     }
 }

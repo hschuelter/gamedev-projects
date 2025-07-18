@@ -5784,6 +5784,7 @@ MonoBehaviour:
   popupPrefab: {fileID: 3358663793427075439, guid: c36d2deed8e191e4eb1acab468cda3d1, type: 3}
   canvas: {fileID: 634277178}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
+  criticalHitColor: {r: 1, g: 0.11764706, b: 0.11764706, a: 1}
   healColor: {r: 0.3254717, g: 1, b: 0.3254717, a: 1}
 --- !u!1 &1688828292
 GameObject:

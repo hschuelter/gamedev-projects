@@ -15,8 +15,8 @@ public class SpellDamage : Spell
 
     public override void Cast(Stats user, Stats target)
     {
-        int damage = DamageManager.Instance.CalculateDamage(user, target, baseDamage, isMagic: true);
-        target.Damage(damage);
+        Damage damage = DamageManager.Instance.CalculateDamage(user, target, baseDamage, isMagic: true);
+        target.Damage(damage.value, damage.isCritical);
 
     }
 }
