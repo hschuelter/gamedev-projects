@@ -12,7 +12,7 @@ public class CharacterExpHUD : MonoBehaviour
     private TMP_Text levelText;
     private TMP_Text expText;
 
-    float expCap = 10f;
+    float expCap;
     float rate = 1;
     private float targetEXP;
     private float currentExp;
@@ -31,6 +31,8 @@ public class CharacterExpHUD : MonoBehaviour
 
     public void Draw(int expGained)
     {
+        UpdateExpCap();
+        Debug.Log($"expGained {expGained} || expCap {expCap}");
         foreach (Transform child in transform)
         {
             if (child.name == "Name")
@@ -79,6 +81,7 @@ public class CharacterExpHUD : MonoBehaviour
             currentExp = 0;
             targetEXP -= expCap;
 
+            UpdateExpCap();
             UpdateLevel();
             UpdateExpBar();
         }
@@ -87,5 +90,10 @@ public class CharacterExpHUD : MonoBehaviour
             characterStats.UpdateExp(Mathf.FloorToInt(targetEXP));
             isOk = true;
         }
+    }
+
+    private void UpdateExpCap()
+    {
+        expCap = ExpTables.GetExpForLevel(characterStats.level);
     }
 }
