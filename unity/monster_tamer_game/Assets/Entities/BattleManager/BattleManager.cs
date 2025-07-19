@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] public HUDManager hudManager;
     [SerializeField] private TargetSelectionManager targetSelectionManager;
+    [SerializeField] private EncounterController encounterController;
     [SerializeField] private VFXManager vfxManager;
 
     [SerializeField] private SpellData fireSpellData;
@@ -41,15 +42,23 @@ public class BattleManager : MonoBehaviour
     }
     public void NextBattle()
     {
+        if (!encounterController.IsNext()) return;
+
         ResetPartyState();
         roundQueue = new List<Action>();
         hudManager.ShowBattleStart();
         hudManager.UpdateHUDAll(playerParty.partyHUD);
-        enemyParty.CreateParty(false);
+        CreateEnemyParty(encounterController.NextEncounter());
         isGameOver = false;
         isMagicSubmenu = false;
         isItemSubmenu = false;
 
+    }
+
+    private void CreateEnemyParty(List<Character> enemies)
+    {
+        enemyParty.partyCharacters = enemies;
+        enemyParty.CreateParty(false);
     }
 
     private void Update()

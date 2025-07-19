@@ -10,7 +10,10 @@ public class ResultsWindow : MonoBehaviour
     private TMP_Text label;
     [SerializeField] private CharacterExpHUDManager characterExpHUDManager;
     [SerializeField] private BattleManager battleManager;
+    [SerializeField] private EncounterController encounterController;
+    [SerializeField] private Button restartButton;
     [SerializeField] private Button nextButton;
+    [SerializeField] private Button endButton;
 
     private void Update()
     {
@@ -32,6 +35,11 @@ public class ResultsWindow : MonoBehaviour
         battleManager.NextBattle();
     }
 
+    public void EndGame()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void ShowWindow(bool playersAlive, int expGained)
     {
         string resultString = playersAlive ? "You Win" : "You Lose";
@@ -39,6 +47,11 @@ public class ResultsWindow : MonoBehaviour
 
         gameObject.SetActive(true);
         ShowExpGained(expGained);
+
+        var isEnd = !encounterController.IsNext();
+        restartButton.gameObject.SetActive(!isEnd);
+        nextButton.gameObject.SetActive(!isEnd);
+        endButton.gameObject.SetActive(isEnd);
     }
     public void HideWindow()
     {
