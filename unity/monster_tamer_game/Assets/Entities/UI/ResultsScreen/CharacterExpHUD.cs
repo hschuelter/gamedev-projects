@@ -32,7 +32,6 @@ public class CharacterExpHUD : MonoBehaviour
     public void Draw(int expGained)
     {
         UpdateExpCap();
-        Debug.Log($"expGained {expGained} || expCap {expCap}");
         foreach (Transform child in transform)
         {
             if (child.name == "Name")

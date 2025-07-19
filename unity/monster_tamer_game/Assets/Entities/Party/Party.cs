@@ -17,6 +17,7 @@ public class Party : MonoBehaviour
     private int sortingOrder = 1;
     public void CreateParty(bool isPlayer = true)
     {
+        sortingOrder = 1;
         ClearChildren();
         partyMembers = new List<Stats>();
 

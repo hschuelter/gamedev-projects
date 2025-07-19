@@ -31,9 +31,15 @@ public class CommandSubMenu : ActionMenu
         {
             item.GetComponent<Button>().interactable = true;
         }
-        if (!lastAction.gameObject.activeSelf) lastAction = actionsList.Where(action => action.gameObject.activeSelf).FirstOrDefault();
-        lastAction.GetComponent<Button>().Select();
+
         actionCursor.Activate();
+        MoveCursorTo(actionsList.First());
+
+        var availableCommands = actionsList.Where(action => action.gameObject.activeSelf).ToList();
+        if (availableCommands.Count == 0) return;
+
+        if (!lastAction.gameObject.activeSelf) lastAction = availableCommands.First();
+        lastAction.GetComponent<Button>().Select();
         MoveCursorTo(actionsList.First());
     }
 }

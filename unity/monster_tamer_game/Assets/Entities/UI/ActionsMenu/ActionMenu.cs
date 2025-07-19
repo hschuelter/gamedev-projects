@@ -20,7 +20,7 @@ public class ActionMenu : MonoBehaviour
     {
         verticalLayout = GetComponent<VerticalLayoutGroup>();
         Setup();
-        lastAction = actionsList.Where(action => action.gameObject.activeSelf).FirstOrDefault() ?? lastAction;
+        lastAction = actionsList.First();
         lastAction.GetComponent<Button>().Select();
         MoveCursorTo(lastAction);
     }
@@ -41,6 +41,11 @@ public class ActionMenu : MonoBehaviour
     public void SelectFirstOption()
     {
         if (actionsList.Count == 0) Setup();
+        if (!lastAction)
+        {
+            actionsList.First().GetComponent<Button>().Select();
+            return;
+        }
 
         //lastAction = actionsList.First();
         lastAction.GetComponent<Button>().Select();
