@@ -1,11 +1,11 @@
 # My Game Development Journey 🎮
 
-Hey there! Welcome to my game development playground where I'm learning, experimenting, and building cool stuff with code and creativity.
+Hey there! Welcome to my game development playground where I'm learning, experimenting, and building cool stuff.
 
 ## What I'm Working With
 
-I'm exploring game development through different engines and tools:
-- **Godot** - Love the open-source vibes and its simplicity. Makes making games even more fun.
+Currently exploring game development through different engines and tools:
+- **Godot** - Love the community and its simplicity. Makes making games even more fun.
 - **Unity** - Industry standard, great for learning professional workflows.
 - **Custom C++ Engine** - Because sometimes you want to build everything from scratch!
 
@@ -15,9 +15,9 @@ I'm working my way through different genres to understand how games tick:
 
 🏓 **Pong** - Started with the classic! Great for learning basic physics, collision detection and adding gameplay juice.
 
-🗡️ **JRPG Prototype** - Just turn-based combat for now, planning to add story systems, and all those RPG mechanics I grew up loving.
+🗡️ **JRPG Prototype** - Just turn-based combat for now, planning to add story systems, and a roguelike system.
 
-🧛 **Vampire Survivors Clone** - Bullet-hell mayhem! Learning about spawning systems, performance optimization and upgrade systems.
+🧛 **Mystic Survivors** - Bullet-hell mayhem! Learning about spawning systems, performance optimization and upgrade systems.
 
 
 ## Why This Repo Exists
