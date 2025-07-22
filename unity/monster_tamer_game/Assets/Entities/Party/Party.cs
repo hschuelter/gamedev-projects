@@ -11,6 +11,7 @@ public class Party : MonoBehaviour
     public PartyHUDManager partyHUD;
     public List<Character> partyCharacters;
     public GameObject shadowPrefab;
+    public TargetSelectionManager targetSelectionManager;
 
     [HideInInspector] public List<Stats> partyMembers;
     
@@ -25,7 +26,7 @@ public class Party : MonoBehaviour
         int positionMod = isPlayer ? 1 : -1;
         foreach (Character character in partyCharacters)
         {
-            var cur = CreateCharacter(character);
+            var cur = CreateCharacter(character, isPlayer);
             float x_offset = -0.15f * i * positionMod;
             float y_offset = -0.18f * i;
 
@@ -40,7 +41,7 @@ public class Party : MonoBehaviour
         partyHUD.DrawHUD();
     }
 
-    public GameObject CreateCharacter(Character character)
+    public GameObject CreateCharacter(Character character, bool isPlayer)
     {
         GameObject characterObj = new GameObject($"PartyMemberHUD-{character.statsData.nickname}-{sortingOrder}");
 
@@ -58,6 +59,12 @@ public class Party : MonoBehaviour
         stats.animatorController = animator;
         stats.UpdateStats(character.statsData);
         character.stats = stats;
+
+        if (!isPlayer) { 
+            var collider2D = characterObj.AddComponent<BoxCollider2D>();
+            collider2D.size = new Vector2(0.33f, 0.3f);
+            stats.targetSelectionManager = this.targetSelectionManager;
+        }
 
         characterObj.transform.parent = this.transform;
         return characterObj;

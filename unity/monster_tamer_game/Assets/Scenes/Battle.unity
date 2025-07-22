@@ -3715,6 +3715,7 @@ MonoBehaviour:
   - {fileID: 6719457545690070272, guid: 861a1909c560ba04e87dc277f228cbea, type: 3}
   - {fileID: -172850867217573873, guid: c5a84c6883dd2384e83d50b3350b84ef, type: 3}
   shadowPrefab: {fileID: 3509812548471410319, guid: d59cad24e54bb1e49ae12c362ee1ff0d, type: 3}
+  targetSelectionManager: {fileID: 0}
   partyMembers: []
 --- !u!212 &1106538297
 SpriteRenderer:
@@ -6943,6 +6944,7 @@ MonoBehaviour:
   - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
   - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
   shadowPrefab: {fileID: 3509812548471410319, guid: d59cad24e54bb1e49ae12c362ee1ff0d, type: 3}
+  targetSelectionManager: {fileID: 1016394343}
   partyMembers: []
 --- !u!212 &2143410390
 SpriteRenderer:

@@ -26,6 +26,7 @@ public class Stats : MonoBehaviour
     public int currentExp = 0;
     public PartyMemberHUDManager characterHUDManager;
     public Animator animatorController;
+    public TargetSelectionManager targetSelectionManager;
     public void UpdateStats(StatsData statusData)
     {
         this.currentHealth = statusData.currentHealth;
@@ -212,5 +213,15 @@ public class Stats : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         VFXManager.Instance.ShowVFX(vfxPrefab, position);
+    }
+
+    void OnMouseOver()
+    {
+        targetSelectionManager.SelectOnMouseHover(gameObject.name);
+    }
+
+    void OnMouseExit()
+    {
+        targetSelectionManager.MouseExit();
     }
 }

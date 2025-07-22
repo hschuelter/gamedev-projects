@@ -14,11 +14,13 @@ public class TargetSelectionManager : MonoBehaviour
     private List<Stats> enemiesList;
     private int currentPosition = 0;
     private int verticalInput = 0;
+    private bool isHovering = false;
 
     private void Start()
     {
         selectionCursor.SetActive(false);
     }
+
     void Update()
     {
         if (!isSelectingEnemy) return;
@@ -39,9 +41,12 @@ public class TargetSelectionManager : MonoBehaviour
 
             if (rawVerticalInput > 0) currVerticalInput = 1;
             if (rawVerticalInput < 0) currVerticalInput = -1;
-
-            if (Input.GetButtonDown("Submit"))
+            
+            if (Input.GetButtonDown("Submit") ||
+                (Input.GetMouseButtonDown(0) && isHovering))
             {
+
+                isHovering = false;
                 DisableComponent();
                 battleManager.ConfirmTarget(enemiesList, currentPosition);
             }
@@ -82,6 +87,22 @@ public class TargetSelectionManager : MonoBehaviour
         var position = enemiesList.ElementAt(currentPosition).transform.position;
         float yOffset = -0.05f;
         selectionCursor.transform.position = new Vector3(position.x, position.y + yOffset, position.z);
+    }
+
+    public void SelectOnMouseHover(string enemyName)
+    {
+        if (!isSelectingEnemy) return;
+        isHovering = true;
+
+        currentPosition = enemiesList.FindIndex(enemy => enemy.gameObject.name == enemyName);
+        var position = enemiesList.ElementAt(currentPosition).transform.position;
+        float yOffset = -0.05f;
+        selectionCursor.transform.position = new Vector3(position.x, position.y + yOffset, position.z);
+    }
+
+    public void MouseExit()
+    {
+        isHovering = false;
     }
 
     public void Enable()
