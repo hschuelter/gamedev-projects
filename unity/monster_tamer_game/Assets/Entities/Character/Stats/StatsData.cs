@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StatsData", menuName = "Scriptable Objects/StatsData")]
@@ -15,4 +16,7 @@ public class StatsData : ScriptableObject
     public string nickname;
     public int level;
     public int expGranted;
+
+    [Space]
+    public List<DamageResistance> resistances = new List<DamageResistance>();
 }

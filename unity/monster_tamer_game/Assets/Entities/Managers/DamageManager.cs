@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class DamageManager : MonoBehaviour
@@ -13,9 +15,8 @@ public class DamageManager : MonoBehaviour
         Instance = this;
     }
 
-    public Damage CalculateDamage(Stats user, Stats target, int baseDamage, bool isMagic = false)
+    public Damage CalculateDamage(Stats user, Stats target, int baseDamage, DamageType damageType, bool isMagic = false)
     {
-        float moveMultiplier = 1f;
         /* 
          * DAMAGE = Base Damage x Stat Difference x Level Difference x Move Multiplier
          *      * Base Damage = Weapon or Spell Rank
@@ -27,30 +28,33 @@ public class DamageManager : MonoBehaviour
          *      * Level Difference = 
          *          * Each level above -> +10% damage
          *          * Each level below -> +10% damage
-         *      * Move Multiplier =
+         *      * Resistance Multiplier =
          *          * Normal: 1
          *          * Weak: 1.5
          *          * Resists: 0.5
          *          * Null: 0
-         *          * Absorbs: -1
+         *          * Absorbs: -1 // Not implemented yet
          */
 
         float offensiveStat = isMagic ? user.magicAttack : user.attack;
         float defensiveStat = isMagic ? target.magicDefense : target.defense;
-
-        float statDifference = offensiveStat - defensiveStat;
-        statDifference = Mathf.Clamp(statDifference, 1, statDifference);
-
+        float statDifference = Mathf.Clamp(offensiveStat - defensiveStat, 1, offensiveStat - defensiveStat);
         float levelDifference = (10 + user.level - target.level) / 10;
+        float resistanceMultiplier = CalculateResistances(target, damageType);
 
-        float damage = baseDamage * statDifference * levelDifference * moveMultiplier;
+        float damage = baseDamage * statDifference * levelDifference * resistanceMultiplier;
         if (target.isGuarding && baseDamage > 0) damage = damage / 2;
 
         var hitRoll = HitRoll();
         if (hitRoll == 20) damage *= criticalHitRatio;
         if (hitRoll == 1)  damage = 0;
 
-        return new Damage((int) Math.Ceiling(damage), hitRoll == 20);
+        return new Damage((int) Math.Ceiling(damage), hitRoll == 20, hitRoll == 1);
+    }
+
+    public float CalculateResistances(Stats target, DamageType damageType)
+    {
+        return target.resistances.Where(res => res.damageType == damageType).FirstOrDefault()?.GetMultiplier() ?? 1f;
     }
 
     private int HitRoll() {

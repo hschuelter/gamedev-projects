@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
@@ -17,6 +18,7 @@ public class Stats : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] public string nickname;
     [SerializeField] public int level;
+    [SerializeField] public List<DamageResistance> resistances = new List<DamageResistance>();
 
     public StatsData statsData;
 
@@ -37,6 +39,7 @@ public class Stats : MonoBehaviour
         this.speed = statusData.speed;
         this.nickname = statusData.nickname;
         this.level = statusData.level;
+        this.resistances = statusData.resistances;
 
         if (animatorController != null)
         {
@@ -63,15 +66,15 @@ public class Stats : MonoBehaviour
         currentExp = exp;
     }
 
-    public void Damage(float damage, bool isCritical = false)
+    public void Damage(float damage, bool isCritical = false, bool isMiss = false)
     {
-        if (damage == 0)
+        if (isMiss)
         {
             StartCoroutine(SetMiss(0.40f));
             return;
         }
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
-        AnimateDamageTaken(damage, 0.40f, isCritical);
+        AnimateDamageTaken(damage, 0.40f, isCritical, isMiss);
     }
     public void Heal(float value, bool isCritical = false)
     {
@@ -83,8 +86,9 @@ public class Stats : MonoBehaviour
     {
 
         int baseDamage = 1;
-        Damage damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, isMagic: false);
-        target.Damage(damage.value, damage.isCritical);
+        var damageType = DamageType.Physical;
+        Damage damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, damageType, isMagic: false);
+        target.Damage(damage.value, damage.isCritical, damage.isMiss);
 
         if (animatorController != null)
             animatorController.SetBool("isAttack", true);
@@ -176,19 +180,19 @@ public class Stats : MonoBehaviour
 
     public IEnumerator SetMiss(float time)
     {
-        StartCoroutine(ShowDamage(0, 0.40f));
+        StartCoroutine(ShowDamage(0, 0.40f, isMiss: true));
         yield return delay(time);
         MoveBack();
         yield return delay(time);
         MoveFront();
     }
 
-    public void AnimateDamageTaken(float damage, float time, bool isCritical = false)
+    public void AnimateDamageTaken(float damage, float time, bool isCritical = false, bool isMiss = false)
     {
         StartCoroutine(SetHit(true, 0.32f));
         StartCoroutine(SetHit(false, time + 0.40f));
 
-        StartCoroutine(ShowDamage(damage, 0.40f, isCritical));
+        StartCoroutine(ShowDamage(damage, 0.40f, isCritical, isMiss));
     }
     public void AnimateHeal(float damage, bool isCritical = false)
     {
@@ -199,10 +203,10 @@ public class Stats : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
     }
-    IEnumerator ShowDamage(float damage, float seconds, bool isCritical = false)
+    IEnumerator ShowDamage(float damage, float seconds, bool isCritical = false, bool isMiss = false)
     {
         yield return new WaitForSeconds(seconds);
-        DamageNumbersManager.Instance.ShowDamage(damage, this.transform.position, isCritical);
+        DamageNumbersManager.Instance.ShowDamage(damage, this.transform.position, isCritical, isMiss);
     }
     IEnumerator ShowVFX(GameObject vfxPrefab, Vector3 position, float seconds)
     {

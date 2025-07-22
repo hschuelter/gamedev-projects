@@ -9,6 +9,7 @@ public class Spell
     [HideInInspector] public int manaCost;
     [HideInInspector] public string title;
     [HideInInspector] public bool isTargetParty;
+    [HideInInspector] public DamageType damageType;
     [HideInInspector] public GameObject vfxPrefab;
 
     public Spell(SpellData spellData)
@@ -18,6 +19,7 @@ public class Spell
         this.manaCost = spellData.manaCost;
         this.title = spellData.title;
         this.isTargetParty = spellData.isTargetParty;
+        this.damageType = spellData.damageType;
         this.vfxPrefab = spellData.vfxPrefab;
     }
 

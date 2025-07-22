@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ec41683e7e7f34a910ed6de3acf008, type: 3}
   m_Name: HealSpellData
   m_EditorClassIdentifier: 
+  title: Heal
   baseDamage: -1
   manaCost: 3
-  title: Heal
   isTargetParty: 1
+  damageType: 4
   vfxPrefab: {fileID: 450157909473967995, guid: 724585b7b18f9694e844952837fea453, type: 3}

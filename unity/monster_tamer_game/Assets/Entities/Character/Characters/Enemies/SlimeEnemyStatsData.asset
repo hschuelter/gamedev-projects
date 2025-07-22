@@ -24,3 +24,6 @@ MonoBehaviour:
   nickname: Slime
   level: 1
   expGranted: 3
+  resistances:
+  - damageType: 0
+    resistanceLevel: 1

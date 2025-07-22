@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ec41683e7e7f34a910ed6de3acf008, type: 3}
   m_Name: FireSpellData
   m_EditorClassIdentifier: 
+  title: Fire
   baseDamage: 1
   manaCost: 2
-  title: Fire
   isTargetParty: 0
+  damageType: 1
   vfxPrefab: {fileID: 5009329437826525645, guid: 6f096115160bc0e47a198867cb3b693f, type: 3}

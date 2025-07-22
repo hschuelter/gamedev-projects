@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ec41683e7e7f34a910ed6de3acf008, type: 3}
   m_Name: ThunderSpellData
   m_EditorClassIdentifier: 
+  title: Thunder
   baseDamage: 1
   manaCost: 2
-  title: Thunder
+  isTargetParty: 0
+  damageType: 2
   vfxPrefab: {fileID: 7402740428181739962, guid: c3838dc6c4f568e43be8bd8ce5e75d0e, type: 3}

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ec41683e7e7f34a910ed6de3acf008, type: 3}
   m_Name: IceSpellData
   m_EditorClassIdentifier: 
+  title: Ice
   baseDamage: 1
   manaCost: 2
-  title: Ice
+  isTargetParty: 0
+  damageType: 3
   vfxPrefab: {fileID: 6900140403663408769, guid: 2e2f72a76ec730c46bb5f975a723f6e9, type: 3}

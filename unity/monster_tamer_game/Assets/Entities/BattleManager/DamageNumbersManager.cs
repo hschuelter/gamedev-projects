@@ -17,7 +17,7 @@ public class DamageNumbersManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowDamage(float damage, Vector3 position, bool isCritical = false)
+    public void ShowDamage(float damage, Vector3 position, bool isCritical = false, bool isMiss = false)
     {
         var popup = Instantiate(popupPrefab, position, Quaternion.identity, canvas.transform);
         Color color = isCritical ? criticalHitColor : normalColor;
@@ -30,7 +30,7 @@ public class DamageNumbersManager : MonoBehaviour
 
         string damageText = damage.ToString();
 
-        if (damage == 0)
+        if (isMiss)
         {
             damageText = "Miss";
         }
