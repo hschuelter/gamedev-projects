@@ -23,6 +23,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] ActionMenuCursor itemSubCursor;
 
     [SerializeField] ResultsWindow resultsWindow;
+    [SerializeField] MapWindow mapWindow;
     [SerializeField] GameObject partyHUDWindow;
     
     [SerializeField] BattleManager battleManager;
@@ -127,10 +128,15 @@ public class HUDManager : MonoBehaviour
     public void ShowBattleStart()
     {
         resultsWindow.HideWindow();
+        mapWindow.HideWindow();
         ShowActionMenu(true);
         partyHUDWindow.SetActive(true);
     }
 
+    public void ShowMapWindow()
+    {
+        mapWindow.ShowWindow();
+    }
     public void LoadMagicOptions(List<SpellData> spells)
     {
         magicSubMenu.LoadMagicOptions(spells);

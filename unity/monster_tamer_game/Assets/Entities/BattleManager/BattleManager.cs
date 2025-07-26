@@ -55,6 +55,11 @@ public class BattleManager : MonoBehaviour
 
     }
 
+    public void ShowMapWindow()
+    {
+        hudManager.ShowMapWindow();
+    }
+
     private void CreateEnemyParty(List<Character> enemies)
     {
         enemyParty.partyCharacters = enemies;

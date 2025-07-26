@@ -32,7 +32,8 @@ public class ResultsWindow : MonoBehaviour
 
     public void NextBattle()
     {
-        battleManager.NextBattle();
+        HideWindow();
+        battleManager.ShowMapWindow();
     }
 
     public void EndGame()
