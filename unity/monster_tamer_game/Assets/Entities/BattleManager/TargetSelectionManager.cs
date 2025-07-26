@@ -29,7 +29,7 @@ public class TargetSelectionManager : MonoBehaviour
             isReady = true;
             currentPosition = 0;
             selectionCursor.SetActive(true);
-            var position = enemiesList.ElementAt(currentPosition).transform.position;
+            var position = enemiesList.Where(ene => ene.currentHealth > 0).ElementAt(currentPosition).transform.position;
             float yOffset = -0.05f;
             selectionCursor.transform.position = new Vector3(position.x, position.y + yOffset, position.z);
         }

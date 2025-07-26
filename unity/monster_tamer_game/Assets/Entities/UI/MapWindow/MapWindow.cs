@@ -10,9 +10,9 @@ public class MapWindow : MonoBehaviour
     [SerializeField] private BattleManager battleManager;
 
     private List<Button> buttonOptions = new List<Button>();
-    private int position = 0;
+    [HideInInspector] public int position = 1;
 
-    private void Start()
+    public void Load()
     {
         buttonOptions = GetComponentsInChildren<Button>().ToList();
         buttonOptions.ForEach(b => b.interactable = false);
@@ -20,10 +20,9 @@ public class MapWindow : MonoBehaviour
 
     public void ShowWindow()
     {
-        buttonOptions.ForEach(b => b.interactable = false);
-        buttonOptions.ElementAt(position++).interactable = true;
-
         gameObject.SetActive(true);
+        var nextStage = buttonOptions.ElementAt(position);
+        nextStage.interactable = true;
     }
 
     public void HideWindow()

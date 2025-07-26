@@ -49,6 +49,7 @@ public class BattleManager : MonoBehaviour
         hudManager.ShowBattleStart();
         hudManager.UpdateHUDAll(playerParty.partyHUD);
         CreateEnemyParty(encounterController.NextEncounter());
+        hudManager.UpdateMapWindow(encounterController.encounterNumber);
         isGameOver = false;
         isMagicSubmenu = false;
         isItemSubmenu = false;

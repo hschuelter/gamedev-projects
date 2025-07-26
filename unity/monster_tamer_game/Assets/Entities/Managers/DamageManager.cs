@@ -40,14 +40,18 @@ public class DamageManager : MonoBehaviour
         float defensiveStat = isMagic ? target.magicDefense : target.defense;
         float statDifference = Mathf.Clamp(offensiveStat - defensiveStat, 1, offensiveStat - defensiveStat);
         float levelDifference = (10 + user.level - target.level) / 10;
+        levelDifference = Mathf.Clamp(levelDifference, 0.1f, 2.0f);
         float resistanceMultiplier = CalculateResistances(target, damageType);
 
         float damage = baseDamage * statDifference * levelDifference * resistanceMultiplier;
+        Debug.Log($"baseDamage {baseDamage} | statDifference {statDifference} |  levelDifference {levelDifference} | resistanceMultiplier {resistanceMultiplier}");
         if (target.isGuarding && baseDamage > 0) damage = damage / 2;
 
         var hitRoll = HitRoll();
         if (hitRoll == 20) damage *= criticalHitRatio;
         if (hitRoll == 1)  damage = 0;
+
+        Debug.Log($"hitRoll {hitRoll} -> damage");
 
         return new Damage((int) Math.Ceiling(damage), hitRoll == 20, hitRoll == 1);
     }

@@ -135,7 +135,12 @@ public class HUDManager : MonoBehaviour
 
     public void ShowMapWindow()
     {
+        mapWindow.Load();
         mapWindow.ShowWindow();
+    }
+    public void UpdateMapWindow(int position)
+    {
+        mapWindow.position = position;
     }
     public void LoadMagicOptions(List<SpellData> spells)
     {

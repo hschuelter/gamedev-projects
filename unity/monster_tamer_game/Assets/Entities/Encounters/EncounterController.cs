@@ -8,11 +8,12 @@ using UnityEngine;
 public class EncounterController : MonoBehaviour
 {
     [SerializeField] public List<Encounter> EnconterList = new List<Encounter>();
-    private int encounterNumber = 0;
+    public int encounterNumber = 0;
 
 
     public List<Character> NextEncounter()
     {
+        Debug.Log($"[EncounterController] encounterNumber = {encounterNumber}");
         var currentEncounter = EnconterList.ElementAt(encounterNumber++);
         List<Character> enemies = new List<Character>();
 

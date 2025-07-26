@@ -217,6 +217,7 @@ public class Stats : MonoBehaviour
 
     void OnMouseOver()
     {
+        if (currentHealth == 0) return;
         targetSelectionManager.SelectOnMouseHover(gameObject.name);
     }
 
