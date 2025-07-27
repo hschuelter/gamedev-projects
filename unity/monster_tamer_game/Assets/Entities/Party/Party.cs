@@ -50,7 +50,7 @@ public class Party : MonoBehaviour
         
         var spriteRenderer = characterObj.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = character.characterSprite;
-        spriteRenderer.sortingOrder = sortingOrder++;
+        spriteRenderer.sortingOrder = ++sortingOrder;
 
         var animator = characterObj.AddComponent<Animator>();
         animator.runtimeAnimatorController = character.animatorController;

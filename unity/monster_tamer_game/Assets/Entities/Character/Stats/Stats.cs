@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
@@ -127,6 +128,11 @@ public class Stats : MonoBehaviour
 
     /* Animations */
 
+    public void SetWalking(bool value)
+    {
+        animatorController.SetBool("isWalking", value);
+    }
+
     public void ActionAnimation()
     {
         var pos = gameObject.transform.position;
@@ -146,6 +152,7 @@ public class Stats : MonoBehaviour
 
     public void MoveFront()
     {
+        //Debug.Log($"{this.name} -> Move front");
         var pos = gameObject.transform.position;
         var scale = gameObject.transform.localScale;
         gameObject.transform.position = new Vector3(pos.x + 0.2f * scale.x, pos.y, pos.z);

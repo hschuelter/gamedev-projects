@@ -43,7 +43,7 @@ public class ResultsWindow : MonoBehaviour
 
     public void ShowWindow(bool playersAlive, int expGained)
     {
-        string resultString = playersAlive ? "You Win" : "You Lose";
+        string resultString = playersAlive ? "Victory" : "You Lose";
         GetComponentInChildren<TMP_Text>().text = resultString;
 
         gameObject.SetActive(true);

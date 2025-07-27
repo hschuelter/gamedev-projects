@@ -129,6 +129,11 @@ public class HUDManager : MonoBehaviour
     {
         resultsWindow.HideWindow();
         mapWindow.HideWindow();
+        ShowActionMenu(false);
+    }
+
+    public void ShowBattleUI()
+    {
         ShowActionMenu(true);
         partyHUDWindow.SetActive(true);
     }

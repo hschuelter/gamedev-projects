@@ -44,14 +44,11 @@ public class DamageManager : MonoBehaviour
         float resistanceMultiplier = CalculateResistances(target, damageType);
 
         float damage = baseDamage * statDifference * levelDifference * resistanceMultiplier;
-        Debug.Log($"baseDamage {baseDamage} | statDifference {statDifference} |  levelDifference {levelDifference} | resistanceMultiplier {resistanceMultiplier}");
         if (target.isGuarding && baseDamage > 0) damage = damage / 2;
 
         var hitRoll = HitRoll();
         if (hitRoll == 20) damage *= criticalHitRatio;
         if (hitRoll == 1)  damage = 0;
-
-        Debug.Log($"hitRoll {hitRoll} -> damage");
 
         return new Damage((int) Math.Ceiling(damage), hitRoll == 20, hitRoll == 1);
     }
@@ -62,6 +59,6 @@ public class DamageManager : MonoBehaviour
     }
 
     private int HitRoll() {
-        return UnityEngine.Random.Range(1, 20);
+        return UnityEngine.Random.Range(1, 21);
     }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,11 +34,15 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        playerParty.CreateParty();
-        //enemyParty.CreateParty(false);
-
         partyIterator = 0;
         partyList = new List<Stats>();
+        BattleStart();
+    }
+
+    public void BattleStart()
+    {
+        playerParty.CreateParty();
+        Debug.Log($"Battle Start!");
         NextBattle();
     }
     public void NextBattle()
@@ -46,14 +51,28 @@ public class BattleManager : MonoBehaviour
 
         ResetPartyState();
         roundQueue = new List<Action>();
-        hudManager.ShowBattleStart();
-        hudManager.UpdateHUDAll(playerParty.partyHUD);
         CreateEnemyParty(encounterController.NextEncounter());
+        hudManager.ShowBattleStart();
+
+        StartCoroutine(BattleStartAnimations());
+    }
+
+    public IEnumerator BattleStartAnimations()
+    {
+        playerParty.transform.position = new Vector3(-1.6f, 0.3f, 0);
+        hudManager.UpdateHUDAll(playerParty.partyHUD);
         hudManager.UpdateMapWindow(encounterController.encounterNumber);
         isGameOver = false;
         isMagicSubmenu = false;
         isItemSubmenu = false;
 
+        partyList.ForEach(character => character.SetWalking(true));
+        playerParty.transform.DOMoveX(-0.8f, 1);
+        yield return delay(1f);
+        partyList.ForEach(character => character.SetWalking(false));
+        yield return delay(0.25f);
+        partyList.First().MoveFront();
+        hudManager.ShowBattleUI();
     }
 
     public void ShowMapWindow()
@@ -275,6 +294,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             ResetPartyState();
+            partyList.First().MoveFront();
             hudManager.ShowActionMenu(true);
         }
     }
@@ -311,7 +331,6 @@ public class BattleManager : MonoBehaviour
             if (player.currentHealth == 0) continue;
             partyList.Add(player);
         }
-        partyList.First().MoveFront();
 
     }
     public void UpdateCommandDescription(string description)
