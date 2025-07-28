@@ -14,25 +14,26 @@ public class Party : MonoBehaviour
     public TargetSelectionManager targetSelectionManager;
 
     [HideInInspector] public List<Stats> partyMembers;
-    
+
     private int sortingOrder = 1;
+    private int position = 0;
     public void CreateParty(bool isPlayer = true)
     {
         sortingOrder = 1;
         ClearChildren();
         partyMembers = new List<Stats>();
 
-        int i = 0;
+        position = 0;
         int positionMod = isPlayer ? 1 : -1;
         foreach (Character character in partyCharacters)
         {
             var cur = CreateCharacter(character, isPlayer);
-            float x_offset = -0.15f * i * positionMod;
-            float y_offset = -0.18f * i;
+            float x_offset = -0.15f * position * positionMod;
+            float y_offset = -0.18f * position;
 
             cur.transform.position = new Vector3(this.transform.position.x + x_offset, this.transform.position.y + y_offset, 0);
             cur.transform.localScale = new Vector3(cur.transform.localScale.x * positionMod, cur.transform.localScale.y, cur.transform.localScale.z);
-            i++;
+            position++;
         }
 
         partyMembers = gameObject.GetComponentsInChildren<Stats>().ToList();
@@ -47,7 +48,7 @@ public class Party : MonoBehaviour
 
         GameObject shadowObject = Instantiate(shadowPrefab);
         shadowObject.transform.parent = characterObj.transform;
-        
+
         var spriteRenderer = characterObj.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = character.characterSprite;
         spriteRenderer.sortingOrder = ++sortingOrder;
@@ -60,7 +61,7 @@ public class Party : MonoBehaviour
         stats.UpdateStats(character.statsData);
         character.stats = stats;
 
-        if (!isPlayer) { 
+        if (!isPlayer) {
             var collider2D = characterObj.AddComponent<BoxCollider2D>();
             collider2D.size = new Vector2(0.33f, 0.3f);
             stats.targetSelectionManager = this.targetSelectionManager;
@@ -70,11 +71,32 @@ public class Party : MonoBehaviour
         return characterObj;
     }
 
+    public void AddCharacter(Character character, bool isPlayer)
+    {
+        int positionMod = isPlayer ? 1 : -1;
+
+        var cur = CreateCharacter(character, isPlayer);
+        float x_offset = -0.15f * position * positionMod;
+        float y_offset = -0.18f * position;
+
+        cur.transform.position = new Vector3(this.transform.position.x + x_offset, this.transform.position.y + y_offset, 0);
+        cur.transform.localScale = new Vector3(cur.transform.localScale.x * positionMod, cur.transform.localScale.y, cur.transform.localScale.z);
+        position++;
+
+        partyMembers.Add(cur.GetComponent<Stats>());
+        partyCharacters.Add(character);
+        partyHUD.DrawHUD();
+    }
+
+    public void RewardExp(int expGained)
+    {
+        partyMembers.ForEach(stats => stats.GainExp(expGained));
+    }
+
     public Character GetCharacter(Stats stats)
     {
         return partyCharacters.Find(c => c.stats.name == stats.name);
     }
-
 
     public void ClearChildren()
     {

@@ -23,6 +23,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] ActionMenuCursor itemSubCursor;
 
     [SerializeField] ResultsWindow resultsWindow;
+    [SerializeField] RewardsWindow rewardsWindow;
     [SerializeField] MapWindow mapWindow;
     [SerializeField] GameObject partyHUDWindow;
     
@@ -128,6 +129,7 @@ public class HUDManager : MonoBehaviour
     public void ShowBattleStart()
     {
         resultsWindow.HideWindow();
+        rewardsWindow.HideWindow();
         mapWindow.HideWindow();
         ShowActionMenu(false);
     }

@@ -14,7 +14,7 @@ public class ResultsWindow : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button endButton;
-
+    
     private void Update()
     {
         CheckNextButton();

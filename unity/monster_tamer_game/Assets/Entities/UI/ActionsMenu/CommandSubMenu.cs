@@ -9,6 +9,7 @@ public class CommandSubMenu : ActionMenu
     public Button buttonPrefab;
     public void LoadMagicOptions(List<SpellData> spells)
     {
+        Debug.Log($"LoadMagicOptions");
         if (actionsList.Count == 0) Setup();
 
         foreach (var magicCommand in actionsList)
@@ -23,7 +24,13 @@ public class CommandSubMenu : ActionMenu
 
         GetComponent<VerticalLayoutGroup>().enabled = true;
         var firstButton = actionsList.Where(action => action.gameObject.activeSelf).FirstOrDefault();
-        if (firstButton != null) firstButton.GetComponent<Button>().Select();
+        Debug.Log($"firstButton >{firstButton}<");
+        if (firstButton != null)
+        {
+            /* TODO: Please fix this */
+            firstButton.GetComponent<Button>().Select();
+            firstButton.GetComponent<Button>().Select();
+        }
     }
     public override void EnableAllButtons()
     {

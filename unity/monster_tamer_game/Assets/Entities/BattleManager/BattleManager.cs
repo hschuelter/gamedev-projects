@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
     float SHORT_DELAY_TIME = 0.5f;
 
     [HideInInspector] public Action currentAction;
-    public List<Stats> partyList = new List<Stats>();
+    [HideInInspector] public List<Stats> partyList = new List<Stats>();
 
     public List<Action> roundQueue { get; set; }
     private int partyIterator;
@@ -55,6 +55,13 @@ public class BattleManager : MonoBehaviour
         hudManager.ShowBattleStart();
 
         StartCoroutine(BattleStartAnimations());
+    }
+
+    public void AddPartyMember(RewardsController _rewardsController)
+    {
+        var character = _rewardsController.GetRandomCharacter(playerParty.partyCharacters);
+        if (playerParty.partyMembers.Count < 4)
+            playerParty.AddCharacter(character, true);
     }
 
     public IEnumerator BattleStartAnimations()
@@ -289,7 +296,11 @@ public class BattleManager : MonoBehaviour
             enemiesAlive = (enemyParty.partyMembers.Where(pm => pm.currentHealth > 0).ToList().Count > 0);
             isGameOver = !playersAlive || !enemiesAlive;
         }
-        if (isGameOver) hudManager.ShowResultsWindow(playersAlive);
+        if (isGameOver)
+        {
+            hudManager.ShowResultsWindow(playersAlive);
+            RewardExp();
+        }
 
         else
         {
@@ -297,6 +308,11 @@ public class BattleManager : MonoBehaviour
             partyList.First().MoveFront();
             hudManager.ShowActionMenu(true);
         }
+    }
+    private void RewardExp()
+    {
+        var expGained = enemyParty.partyCharacters.Select(e => e.statsData.expGranted).Sum();
+        playerParty.RewardExp(expGained);
     }
     private void AddEnemyActions()
     {

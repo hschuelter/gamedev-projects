@@ -12,6 +12,7 @@ public class PartyHUDManager : MonoBehaviour
 
     public void DrawHUD()
     {
+        ClearChildren();
         partyMembersHUD = new List<PartyMemberHUDManager>();
         int i = 0;
         foreach (Stats partyMember in party.partyMembers)
@@ -33,6 +34,13 @@ public class PartyHUDManager : MonoBehaviour
         {
             characterHUD.UpdateHealth();
             characterHUD.UpdateMana();
+        }
+    }
+    public void ClearChildren()
+    {
+        foreach (Transform child in this.transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 }
