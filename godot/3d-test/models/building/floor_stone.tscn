@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc8lnwjy4vn7q"]
+
+[ext_resource type="PackedScene" uid="uid://7l0mwjt4o4mh" path="res://models/building/floor_stone.glb" id="1_8xhs1"]
+
+[node name="FloorStone" type="StaticBody3D"]
+
+[node name="FloorStoneMesh" parent="." instance=ExtResource("1_8xhs1")]
