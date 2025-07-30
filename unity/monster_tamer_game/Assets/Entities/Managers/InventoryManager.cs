@@ -36,6 +36,12 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void AddPotions(int amount)
+    {
+        var _item = new ItemHeal(potionItemData);
+        AddItem(_item, amount);
+    }
+
     public List<InventoryItem> GetItems()
     {
         return _itemList;

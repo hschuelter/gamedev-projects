@@ -88,9 +88,9 @@ public class Party : MonoBehaviour
         partyHUD.DrawHUD();
     }
 
-    public void RewardExp(int expGained)
+    public void RewardExp(float expGained)
     {
-        partyMembers.ForEach(stats => stats.GainExp(expGained));
+        partyMembers.ForEach(stats => stats.GainExp(Mathf.CeilToInt(expGained)));
     }
 
     public Character GetCharacter(Stats stats)

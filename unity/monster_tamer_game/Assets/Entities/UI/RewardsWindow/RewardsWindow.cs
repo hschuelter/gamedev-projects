@@ -1,9 +1,13 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RewardsWindow : MonoBehaviour
 {
     [SerializeField] private RewardsController rewardsController;
     [SerializeField] private BattleManager battleManager;
+    [SerializeField] private GameObject _itemRewardsWindow;
+    [SerializeField] private TMP_Text _itemLabel;
 
     public void NextBattle()
     {
@@ -17,8 +21,38 @@ public class RewardsWindow : MonoBehaviour
         NextBattle();
     }
 
+    public void DoubleExp()
+    {
+        battleManager.DoubleExp();
+        NextBattle();
+    }
+
+    public void GainItems()
+    {
+        int amount = Random.Range(1, 5);
+        InventoryManager.Instance.AddPotions(amount);
+        EnableAllButtons(false);
+        _itemRewardsWindow.SetActive(true);
+        _itemLabel.text = $"You gained x{amount} Potions";
+    }
+
+    public void EnableAllButtons(bool value)
+    {
+        foreach (var button in this.GetComponentsInChildren<Button>())
+        {
+            button.interactable = value;
+        }
+    }
+    public void ShowWindow()
+    {
+        gameObject.SetActive(true);
+        EnableAllButtons(true);
+        _itemRewardsWindow.SetActive(false);
+    }
+
     public void HideWindow()
     {
         gameObject.SetActive(false);
+        _itemRewardsWindow.SetActive(false);
     }
 }

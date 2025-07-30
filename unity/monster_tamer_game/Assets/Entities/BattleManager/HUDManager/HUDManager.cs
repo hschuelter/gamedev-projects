@@ -111,13 +111,9 @@ public class HUDManager : MonoBehaviour
         magicSubMenu.DisableAllButtons();
     }
 
-    public void ShowResultsWindow(bool value)
+    public void ShowResultsWindow(bool value, float expGained)
     {
-        var enemies = battleManager.enemyParty.partyCharacters;
-        var expGained = enemies.Select(e => e.statsData.expGranted).Sum();
-
-        resultsWindow.ShowWindow(value, expGained);
-
+        resultsWindow.ShowWindow(value, Mathf.CeilToInt(expGained));
         ShowActionMenu(false);
         partyHUDWindow.SetActive(false);
     }

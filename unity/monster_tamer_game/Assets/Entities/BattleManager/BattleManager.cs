@@ -31,6 +31,7 @@ public class BattleManager : MonoBehaviour
     private bool isGameOver = false;
     private bool isMagicSubmenu = false;
     private bool isItemSubmenu = false;
+    private float _expMultiplier = 1.0f;
 
     void Start()
     {
@@ -59,9 +60,10 @@ public class BattleManager : MonoBehaviour
 
     public void AddPartyMember(RewardsController _rewardsController)
     {
+        if (playerParty.partyMembers.Count == 4) return;
+
         var character = _rewardsController.GetRandomCharacter(playerParty.partyCharacters);
-        if (playerParty.partyMembers.Count < 4)
-            playerParty.AddCharacter(character, true);
+        playerParty.AddCharacter(character, true);
     }
 
     public IEnumerator BattleStartAnimations()
@@ -298,8 +300,7 @@ public class BattleManager : MonoBehaviour
         }
         if (isGameOver)
         {
-            hudManager.ShowResultsWindow(playersAlive);
-            RewardExp();
+            RewardExp(playersAlive);
         }
 
         else
@@ -309,10 +310,15 @@ public class BattleManager : MonoBehaviour
             hudManager.ShowActionMenu(true);
         }
     }
-    private void RewardExp()
+    private void RewardExp(bool playersAlive)
     {
         var expGained = enemyParty.partyCharacters.Select(e => e.statsData.expGranted).Sum();
-        playerParty.RewardExp(expGained);
+        hudManager.ShowResultsWindow(playersAlive, expGained * _expMultiplier);
+        playerParty.RewardExp(expGained * _expMultiplier);
+        _expMultiplier = 1.0f;
+    }
+    public void DoubleExp() { 
+        _expMultiplier = 2.0f;
     }
     private void AddEnemyActions()
     {

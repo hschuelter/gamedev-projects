@@ -11,6 +11,7 @@ public class ResultsWindow : MonoBehaviour
     [SerializeField] private CharacterExpHUDManager characterExpHUDManager;
     [SerializeField] private BattleManager battleManager;
     [SerializeField] private EncounterController encounterController;
+    [SerializeField] private RewardsWindow rewardsWindow;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button endButton;
@@ -63,6 +64,11 @@ public class ResultsWindow : MonoBehaviour
     public void ShowExpGained(int expGained)
     {
         characterExpHUDManager.DrawHUD(expGained);
+    }
+
+    public void ShowRewards()
+    {
+        rewardsWindow.ShowWindow();
     }
 
 }
