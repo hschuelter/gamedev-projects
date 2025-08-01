@@ -46,7 +46,6 @@ public class ExpMultiplierController : MonoBehaviour
 
     public void NotifyUntouched(bool value)
     {
-        Debug.Log($"Untouched {value}");
         UpdateActiveMultiplier("Untouched", value);
     }
 

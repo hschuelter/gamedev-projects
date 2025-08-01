@@ -37,7 +37,6 @@ public class MusicPlayerController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             InitializeMusicPlayer();
         }
         else
