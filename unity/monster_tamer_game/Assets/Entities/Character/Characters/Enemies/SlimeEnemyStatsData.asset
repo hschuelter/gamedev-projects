@@ -27,3 +27,5 @@ MonoBehaviour:
   resistances:
   - damageType: 0
     resistanceLevel: 1
+  - damageType: 1
+    resistanceLevel: 3

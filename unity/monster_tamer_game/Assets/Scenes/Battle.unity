@@ -4048,6 +4048,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530138751}
   m_CullTransparentMesh: 1
+--- !u!1 &537510090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537510091}
+  - component: {fileID: 537510092}
+  m_Layer: 0
+  m_Name: MusicPlayerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537510091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537510090}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 970810751}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &537510092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537510090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a50c6293b52b8c4fbc722d353be83bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  titleTrack: {fileID: 8300000, guid: 46a5719d9d1cc5943b0563fc8e46a89e, type: 3}
+  battleTrack: {fileID: 8300000, guid: fc7583113e7b0d543983d2b4e00c3ae9, type: 3}
+  victoryTrack: {fileID: 8300000, guid: ffb3fb731e295364eb6f6977b8743428, type: 3}
+  masterVolume: 1
+  fadeSpeed: 1
 --- !u!1 &541265986
 GameObject:
   m_ObjectHideFlags: 0
@@ -6794,6 +6844,7 @@ Transform:
   - {fileID: 1201430660}
   - {fileID: 1529405527}
   - {fileID: 240081633}
+  - {fileID: 537510091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &991137643
@@ -8032,7 +8083,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partyHUD: {fileID: 1267118225}
   partyCharacters:
-  - {fileID: 8327483888514876420, guid: bc30b9b125e904c428727735a40a6bcd, type: 3}
   - {fileID: 8327483888514876420, guid: bc30b9b125e904c428727735a40a6bcd, type: 3}
   shadowPrefab: {fileID: 3509812548471410319, guid: d59cad24e54bb1e49ae12c362ee1ff0d, type: 3}
   targetSelectionManager: {fileID: 0}

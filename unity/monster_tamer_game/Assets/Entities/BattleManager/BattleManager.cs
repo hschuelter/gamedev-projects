@@ -58,6 +58,9 @@ public class BattleManager : MonoBehaviour
     public void NextBattle()
     {
         if (!encounterController.IsNext()) return;
+
+        MusicPlayerController.Instance.PlayMusic((int)TrackNumber.BattleTheme);
+
         expMultiplierController.NotifySingleRound(true);
         ResetPartyState(true);
         roundQueue = new List<Action>();
@@ -363,6 +366,8 @@ public class BattleManager : MonoBehaviour
         }
         if (isGameOver)
         {
+
+            MusicPlayerController.Instance.PlayMusic((int)TrackNumber.VictoryTheme);
             RewardExp(playersAlive);
         }
 
