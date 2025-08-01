@@ -7,6 +7,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] public HUDManager hudManager;
     [SerializeField] private TargetSelectionManager targetSelectionManager;
     [SerializeField] private EncounterController encounterController;
+    [SerializeField] private ExpMultiplierController expMultiplierController;
     [SerializeField] private VFXManager vfxManager;
     [SerializeField] private ChargeWindow chargeWindow;
     
@@ -26,8 +28,9 @@ public class BattleManager : MonoBehaviour
     float ANIMATION_DELAY_TIME = 1f;
     float SHORT_DELAY_TIME = 0.5f;
 
-    [HideInInspector] public Action currentAction;
     [HideInInspector] public List<Stats> partyList = new List<Stats>();
+    [HideInInspector] public Action currentAction;
+    private Action lastAction = new Action();
 
     public List<Action> roundQueue { get; set; }
     private int partyIterator;
@@ -50,11 +53,12 @@ public class BattleManager : MonoBehaviour
         chargeWindow.UpdateUI(_charge);
         playerParty.CreateParty();
         NextBattle();
+        expMultiplierController.NotifySingleRound(true);
     }
     public void NextBattle()
     {
         if (!encounterController.IsNext()) return;
-
+        expMultiplierController.NotifySingleRound(true);
         ResetPartyState(true);
         roundQueue = new List<Action>();
         CreateEnemyParty(encounterController.NextEncounter());
@@ -327,10 +331,23 @@ public class BattleManager : MonoBehaviour
             currAction.Execute();
 
             if (currAction.target.characterHUDManager != null)
+            {
+                // Enemy Attacking
                 hudManager.UpdateHUD(currAction.target.characterHUDManager);
+                if (DamageManager.Instance.LastHitRoll > 1 && DamageManager.Instance.LastModifier > 0) expMultiplierController.NotifyUntouched(false);
+
+            }
 
             if (currAction.user.characterHUDManager != null)
+            {
+                // Player Attacking
                 hudManager.UpdateHUD(currAction.user.characterHUDManager);
+                if (currAction.actionName != "Rest") lastAction = currAction;
+
+                if (currAction.actionType == ActionType.Charge) expMultiplierController.NotifyChargedAttack(true);
+                if (currAction.actionType == ActionType.Reckless) expMultiplierController.NotifyRecklessAttack(true);
+                if (DamageManager.Instance.LastModifier > 1f) expMultiplierController.NotifyWeakness(true);
+            }
 
             roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
             
@@ -351,8 +368,10 @@ public class BattleManager : MonoBehaviour
 
         else
         {
+            expMultiplierController.NotifySingleRound(false);
             ResetPartyState();
             hudManager.ShowActionMenu(true);
+            hudManager.UpdateDescription(lastAction.actionName);
             chargeWindow.ShowWindow(true);
             if (partyList.Any())
                 partyList.First().MoveFront();

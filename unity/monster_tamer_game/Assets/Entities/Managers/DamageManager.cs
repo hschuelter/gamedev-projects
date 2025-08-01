@@ -10,6 +10,9 @@ public class DamageManager : MonoBehaviour
 
     private float criticalHitRatio = 2f;
 
+    public float LastModifier = 1f;
+    public int LastHitRoll = 1;
+
     private void Awake()
     {
         Instance = this;
@@ -57,12 +60,16 @@ public class DamageManager : MonoBehaviour
         if (hitRoll == 20) damage *= criticalHitRatio;
         if (hitRoll == 1)  damage = 0;
 
+        LastHitRoll = hitRoll;
+
         return new Damage((int) Math.Ceiling(damage), hitRoll == 20, hitRoll == 1);
     }
 
     public float CalculateResistances(Stats target, DamageType damageType)
     {
-        return target.resistances.Where(res => res.damageType == damageType).FirstOrDefault()?.GetMultiplier() ?? 1f;
+        var resistance = target.resistances.Where(res => res.damageType == damageType).FirstOrDefault();
+        LastModifier = resistance?.GetMultiplier() ?? 1f;
+        return resistance?.GetMultiplier() ?? 1f;
     }
 
     private int HitRoll() {

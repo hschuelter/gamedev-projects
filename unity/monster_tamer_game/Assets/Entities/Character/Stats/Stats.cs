@@ -54,7 +54,7 @@ public class Stats : MonoBehaviour
 
     public void GainExp(int expGained)
     {
-        Debug.Log($"Implement the EXP gained in here");
+        //Debug.Log($"Implement the EXP gained in here");
     }
 
     public void LevelUp()

@@ -21,6 +21,11 @@ public class Action
 
     public GameObject vfxPrefab;
 
+    public Action()
+    {
+        actionName = "";
+    }
+
     public Action(Stats user, Stats target)
     {
         this.user = user;

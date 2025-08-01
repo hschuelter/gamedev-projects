@@ -23,9 +23,15 @@ public class CharacterExpHUDManager : MonoBehaviour
         }
     }
 
-    public void StartExp()
+    public void StartExp(int expGained)
     {
+        hudList.ForEach(item => item.Draw(expGained));
         hudList.All(item => item.isReady = true);
+    }
+
+    public void ResetExp()
+    {
+        hudList.All(item => item.isReady = false);
     }
 
     public bool isOK()

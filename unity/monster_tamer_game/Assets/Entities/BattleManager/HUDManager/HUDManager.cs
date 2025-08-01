@@ -63,6 +63,7 @@ public class HUDManager : MonoBehaviour
     {
         actionMenu.ShowMenu(value);
         if (value) actionMenu.SelectFirstOption();
+        if (value) ShowDescription(true);
     }
 
     public void ShowMagicSubMenu(bool value)
@@ -131,6 +132,7 @@ public class HUDManager : MonoBehaviour
         rewardsWindow.HideWindow();
         mapWindow.HideWindow();
         chargeWindow.ShowWindow(false);
+        ShowDescription(false);
         ShowActionMenu(false);
     }
 
@@ -139,6 +141,7 @@ public class HUDManager : MonoBehaviour
         ShowActionMenu(true);
         chargeWindow.ShowWindow(true);
         partyHUDWindow.SetActive(true);
+        ShowDescription(true);
     }
 
     public void ShowMapWindow()

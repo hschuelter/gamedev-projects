@@ -12,11 +12,14 @@ public class ResultsWindow : MonoBehaviour
     [SerializeField] private BattleManager battleManager;
     [SerializeField] private EncounterController encounterController;
     [SerializeField] private RewardsWindow rewardsWindow;
+    [SerializeField] private ExpMultiplierController expMultiplierController;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button endButton;
 
     [SerializeField] private TMP_Text totalExpGained;
+    private int totalExpGainedValue;
+    private float totalExpMultiplier;
 
     private void Update()
     {
@@ -37,6 +40,7 @@ public class ResultsWindow : MonoBehaviour
     {
         HideWindow();
         battleManager.ShowMapWindow();
+        characterExpHUDManager.ResetExp();
     }
 
     public void EndGame()
@@ -60,20 +64,32 @@ public class ResultsWindow : MonoBehaviour
     public void HideWindow()
     {
         gameObject.SetActive(false);
+        expMultiplierController.HideExpItems();
         characterExpHUDManager.ClearChildren();
     }
 
     public IEnumerator ShowExpGained(int expGained)
     {
         characterExpHUDManager.DrawHUD(expGained);
-        totalExpGained.text = $"{expGained}";
-        yield return delay(1.0f);
-        characterExpHUDManager.StartExp();
+        StartCoroutine(expMultiplierController.ShowExpItems());
+        totalExpGainedValue = expGained;
+        UpdateTotalExp(1f);
+
+        yield return new WaitUntil(() => expMultiplierController.ShowExpItemsCompleted);
+
+        yield return delay(0.3f);
+        expMultiplierController.ShowExpItemsCompleted = false;
+        characterExpHUDManager.StartExp(Mathf.RoundToInt(totalExpGainedValue * totalExpMultiplier));
     }
 
     public void ShowRewards()
     {
         rewardsWindow.ShowWindow();
+    }
+    public void UpdateTotalExp(float multiplier)
+    {
+        totalExpGained.text = $"{Mathf.RoundToInt(totalExpGainedValue * multiplier)}";
+        totalExpMultiplier = multiplier;
     }
 
     IEnumerator delay(float seconds)

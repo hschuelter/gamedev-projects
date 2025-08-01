@@ -14,7 +14,7 @@ public class ActionAttack : Action
     public ActionAttack(Stats user) : base(user)
     {
         this.user = user;
-        this.actionName = "Attack!";
+        this.actionName = "Attack";
     }
 
     public override void SetTarget(Stats target)

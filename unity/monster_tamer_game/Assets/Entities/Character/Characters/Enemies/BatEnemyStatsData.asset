@@ -24,6 +24,4 @@ MonoBehaviour:
   nickname: Bat
   level: 1
   expGranted: 6
-  resistances:
-  - damageType: 0
-    resistanceLevel: 3
+  resistances: []
