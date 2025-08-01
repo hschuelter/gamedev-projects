@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
@@ -75,28 +76,34 @@ public class Stats : MonoBehaviour
         currentExp = exp;
     }
 
-    public void Damage(float damage, bool isCritical = false, bool isMiss = false)
+    public void Damage(float damage, AudioClip sfxHit, bool isCritical = false, bool isMiss = false)
     {
+        var sfxMiss = SoundEffectsController.Instance.sfxDodge;
+
         if (isMiss)
         {
             StartCoroutine(SetMiss(0.40f));
+            StartCoroutine(PlaySFX(sfxMiss, 0.40f));
             return;
         }
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
         AnimateDamageTaken(damage, 0.40f, isCritical, isMiss);
+        StartCoroutine(PlaySFX(sfxHit, 0.40f));
+
     }
-    public void Heal(float value, bool isCritical = false)
+    public void Heal(float value, AudioClip sfxHit, bool isCritical = false)
     {
         currentHealth = Mathf.Clamp(currentHealth + value, 0f, maxHealth);
         AnimateHeal(value, isCritical);
+        StartCoroutine(PlaySFX(sfxHit, 0.40f));
     }
 
-    public void Attack(Stats target, GameObject vfxPrefab, ActionType actionType)
+    public void Attack(Stats target, GameObject vfxPrefab, AudioClip sfxHit, ActionType actionType)
     {
         int baseDamage = 1;
         var damageType = DamageType.Physical;
         Damage damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, damageType, isMagic: false, actionType: actionType);
-        target.Damage(damage.value, damage.isCritical, damage.isMiss);
+        target.Damage(damage.value, sfxHit, damage.isCritical, damage.isMiss);
 
         if (animatorController != null)
             animatorController.SetBool("isAttack", true);
@@ -106,13 +113,14 @@ public class Stats : MonoBehaviour
 
     public void Magic(Stats target, Spell spell, ActionType actionType)
     {
-        spell.Cast(this, target, actionType);
+        spell.Cast(this, target, actionType, spell.sfx);
         currentMana -= spell.manaCost;
 
         if (animatorController != null)
             animatorController.SetBool("isMagic", true);
 
         StartCoroutine(ShowVFX(spell.vfxPrefab, target.transform.position, 0.40f));
+
     }
 
     public void Guard()
@@ -121,6 +129,9 @@ public class Stats : MonoBehaviour
 
         if (animatorController != null)
             animatorController.SetBool("isGuard", true);
+
+        var sfxGuard = SoundEffectsController.Instance.sfxGuard;
+        StartCoroutine(PlaySFX(sfxGuard, 0.40f));
     }
 
     public void Rest()
@@ -134,6 +145,7 @@ public class Stats : MonoBehaviour
         item.Use(target);
         InventoryManager.Instance.UseItem(item);
         StartCoroutine(ShowVFX(item.vfxPrefab, target.transform.position, 0.40f));
+        StartCoroutine(PlaySFX(item.sfx, 0.40f));
 
         if (animatorController != null) animatorController.SetBool("isItem", true);
     }
@@ -232,6 +244,12 @@ public class Stats : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         VFXManager.Instance.ShowVFX(vfxPrefab, position);
+    }
+
+    IEnumerator PlaySFX(AudioClip sfx, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SoundEffectsController.Instance.PlaySFX(sfx);
     }
 
     void OnMouseOver()

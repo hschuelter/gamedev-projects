@@ -7,5 +7,5 @@ public class ItemData : ScriptableObject
     [SerializeField] public int healValue;
     [SerializeField] public bool isTargetParty;
     [SerializeField] public GameObject vfxPrefab;
-
+    [SerializeField] public AudioClip sfx;
 }

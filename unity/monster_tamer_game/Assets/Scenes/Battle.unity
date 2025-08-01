@@ -1094,6 +1094,56 @@ RectTransform:
   m_AnchoredPosition: {x: -260, y: -275}
   m_SizeDelta: {x: 220, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &123283326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123283327}
+  - component: {fileID: 123283328}
+  m_Layer: 0
+  m_Name: SoundEffectsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &123283327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123283326}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 970810751}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &123283328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123283326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e557e9cd8061b3248ac6374f06ad8e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolume: 1
+  maxAudioSources: 10
+  sfxHit: {fileID: 8300000, guid: 42cd43b21009e904fb6321bdbec4b5f2, type: 3}
+  sfxDodge: {fileID: 8300000, guid: 42cd43b21009e904fb6321bdbec4b5f2, type: 3}
+  sfxHeal: {fileID: 8300000, guid: 42cd43b21009e904fb6321bdbec4b5f2, type: 3}
+  sfxGuard: {fileID: 8300000, guid: 42cd43b21009e904fb6321bdbec4b5f2, type: 3}
 --- !u!1 &143246217
 GameObject:
   m_ObjectHideFlags: 0
@@ -6845,6 +6895,7 @@ Transform:
   - {fileID: 1529405527}
   - {fileID: 240081633}
   - {fileID: 537510091}
+  - {fileID: 123283327}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &991137643
@@ -8084,6 +8135,8 @@ MonoBehaviour:
   partyHUD: {fileID: 1267118225}
   partyCharacters:
   - {fileID: 8327483888514876420, guid: bc30b9b125e904c428727735a40a6bcd, type: 3}
+  - {fileID: -172850867217573873, guid: c5a84c6883dd2384e83d50b3350b84ef, type: 3}
+  - {fileID: 6719457545690070272, guid: 861a1909c560ba04e87dc277f228cbea, type: 3}
   shadowPrefab: {fileID: 3509812548471410319, guid: d59cad24e54bb1e49ae12c362ee1ff0d, type: 3}
   targetSelectionManager: {fileID: 0}
   partyMembers: []

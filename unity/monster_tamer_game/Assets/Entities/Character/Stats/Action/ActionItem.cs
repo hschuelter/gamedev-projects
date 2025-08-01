@@ -32,6 +32,7 @@ public class ActionItem: Action
     public override void Execute()
     {
         var vfxPrefab = VFXManager.Instance.vfxHealPrefab;
+        var sfx = SoundEffectsController.Instance.sfxHeal;
         user.UseItem(target, item);
     }
 }

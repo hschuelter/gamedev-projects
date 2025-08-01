@@ -14,6 +14,6 @@ public class ItemHeal : Item
 
     public override void Use(Stats target)
     {
-        target.Heal(healValue);
+        target.Heal(healValue, this.sfx);
     }
 }

@@ -18,3 +18,4 @@ MonoBehaviour:
   isTargetParty: 0
   damageType: 3
   vfxPrefab: {fileID: 6900140403663408769, guid: 2e2f72a76ec730c46bb5f975a723f6e9, type: 3}
+  sfx: {fileID: 8300000, guid: 42cd43b21009e904fb6321bdbec4b5f2, type: 3}

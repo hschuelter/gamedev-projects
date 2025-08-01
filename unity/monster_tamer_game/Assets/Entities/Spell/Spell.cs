@@ -11,6 +11,7 @@ public class Spell
     [HideInInspector] public bool isTargetParty;
     [HideInInspector] public DamageType damageType;
     [HideInInspector] public GameObject vfxPrefab;
+    [HideInInspector] public AudioClip sfx;
 
     public Spell(SpellData spellData)
     {
@@ -21,9 +22,10 @@ public class Spell
         this.isTargetParty = spellData.isTargetParty;
         this.damageType = spellData.damageType;
         this.vfxPrefab = spellData.vfxPrefab;
+        this.sfx = spellData.sfx;
     }
 
-    public virtual void Cast(Stats user, Stats target, ActionType actionType)
+    public virtual void Cast(Stats user, Stats target, ActionType actionType, AudioClip spellSfx)
     {
         Debug.Log($"[Spell] override me...");
     }

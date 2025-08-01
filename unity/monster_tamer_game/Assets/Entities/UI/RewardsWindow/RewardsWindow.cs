@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,11 +43,13 @@ public class RewardsWindow : MonoBehaviour
         {
             button.interactable = value;
         }
+        var firstReward = GetComponentsInChildren<Button>().First();
+        if (battleManager.playerParty.partyMembers.Count == 4) firstReward.interactable = false;
     }
     public void ShowWindow()
     {
-        gameObject.SetActive(true);
         EnableAllButtons(true);
+        gameObject.SetActive(true);
         _itemRewardsWindow.SetActive(false);
     }
 

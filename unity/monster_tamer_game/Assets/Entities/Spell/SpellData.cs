@@ -9,4 +9,5 @@ public class SpellData : ScriptableObject
     [SerializeField] public bool isTargetParty;
     [SerializeField] public DamageType damageType;
     [SerializeField] public GameObject vfxPrefab;
+    [SerializeField] public AudioClip sfx;
 }

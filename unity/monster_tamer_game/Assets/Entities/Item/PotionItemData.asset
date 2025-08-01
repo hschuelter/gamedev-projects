@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ded28a3ad939e46ba3dbbf901f23c6, type: 3}
   m_Name: PotionItemData
   m_EditorClassIdentifier: 
-  healValue: 20
   title: Potion
+  healValue: 20
   isTargetParty: 1
   vfxPrefab: {fileID: 450157909473967995, guid: 724585b7b18f9694e844952837fea453, type: 3}
+  sfx: {fileID: 8300000, guid: 42cd43b21009e904fb6321bdbec4b5f2, type: 3}

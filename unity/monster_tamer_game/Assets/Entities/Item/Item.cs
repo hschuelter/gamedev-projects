@@ -8,6 +8,7 @@ public class Item
     [HideInInspector] public string title;
     [HideInInspector] public bool isTargetParty;
     [HideInInspector] public GameObject vfxPrefab;
+    [HideInInspector] public AudioClip sfx;
 
     public Item(ItemData itemData)
     {
@@ -16,6 +17,7 @@ public class Item
         this.title = itemData.title;
         this.isTargetParty = itemData.isTargetParty;
         this.vfxPrefab = itemData.vfxPrefab;
+        this.sfx = itemData.sfx;
     }
 
     public virtual void Use(Stats target)

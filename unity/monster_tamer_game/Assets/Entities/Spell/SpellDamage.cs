@@ -14,10 +14,10 @@ public class SpellDamage : Spell
         this.vfxPrefab = spellData.vfxPrefab;
     }
 
-    public override void Cast(Stats user, Stats target, ActionType actionType)
+    public override void Cast(Stats user, Stats target, ActionType actionType, AudioClip spellSfx)
     {
         Damage damage = DamageManager.Instance.CalculateDamage(user, target, baseDamage, this.damageType, isMagic: true, actionType: actionType);
-        target.Damage(damage.value, damage.isCritical, damage.isMiss);
+        target.Damage(damage.value, spellSfx, damage.isCritical, damage.isMiss);
 
     }
 }
