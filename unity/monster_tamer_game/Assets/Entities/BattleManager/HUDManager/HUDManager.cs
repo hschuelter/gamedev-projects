@@ -25,6 +25,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] ResultsWindow resultsWindow;
     [SerializeField] RewardsWindow rewardsWindow;
     [SerializeField] MapWindow mapWindow;
+    [SerializeField] ChargeWindow chargeWindow;
     [SerializeField] GameObject partyHUDWindow;
     
     [SerializeField] BattleManager battleManager;
@@ -37,6 +38,7 @@ public class HUDManager : MonoBehaviour
         ShowActionMenu(true);
         ShowMagicSubMenu(false);
         ShowItemSubMenu(false);
+        chargeWindow.ShowWindow(false);
     }
     public void UpdateHUD(PartyMemberHUDManager characterHUDManager) 
     {
@@ -114,6 +116,7 @@ public class HUDManager : MonoBehaviour
     public void ShowResultsWindow(bool value, float expGained)
     {
         resultsWindow.ShowWindow(value, Mathf.CeilToInt(expGained));
+        chargeWindow.ShowWindow(false);
         ShowActionMenu(false);
         partyHUDWindow.SetActive(false);
     }
@@ -127,12 +130,14 @@ public class HUDManager : MonoBehaviour
         resultsWindow.HideWindow();
         rewardsWindow.HideWindow();
         mapWindow.HideWindow();
+        chargeWindow.ShowWindow(false);
         ShowActionMenu(false);
     }
 
     public void ShowBattleUI()
     {
         ShowActionMenu(true);
+        chargeWindow.ShowWindow(true);
         partyHUDWindow.SetActive(true);
     }
 

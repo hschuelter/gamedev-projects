@@ -17,7 +17,6 @@ public class EncounterController : MonoBehaviour
 
     public List<Character> NextEncounter()
     {
-        Debug.Log($"[EncounterController] encounterNumber = {encounterNumber}");
         battleBackground.sprite = BGList.ElementAt(encounterNumber);
         var currentEncounter = EnconterList.ElementAt(encounterNumber++);
         List<Character> enemies = new List<Character>();

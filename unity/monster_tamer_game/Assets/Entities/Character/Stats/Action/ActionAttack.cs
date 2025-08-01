@@ -33,6 +33,7 @@ public class ActionAttack : Action
         }
 
         var vfxPrefab = VFXManager.Instance.vfxHitPrefab;
-        user.Attack(target, vfxPrefab);
+        user.Attack(target, vfxPrefab, actionType);
+        ApplyNegativeEffects(actionType);
     }
 }

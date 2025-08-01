@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour
         if (isEncounterLayer)
         {
             float rng = Random.Range(0f, 1f);
-            //Debug.Log(rng);
             if (rng < 0.2f) Debug.Log("Encounter found!");
 
         }

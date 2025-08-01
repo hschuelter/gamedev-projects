@@ -21,12 +21,16 @@ public class CharacterExpHUDManager : MonoBehaviour
             memberHUD.Draw(expGained);
             hudList.Add(memberHUD);
         }
+    }
 
+    public void StartExp()
+    {
+        hudList.All(item => item.isReady = true);
     }
 
     public bool isOK()
     {
-        return hudList.All(hud => hud.isOk);
+        return hudList.All(item => item.isOk);
     }
     public void ClearChildren()
     {

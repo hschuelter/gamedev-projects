@@ -15,7 +15,7 @@ public class DamageManager : MonoBehaviour
         Instance = this;
     }
 
-    public Damage CalculateDamage(Stats user, Stats target, int baseDamage, DamageType damageType, bool isMagic = false)
+    public Damage CalculateDamage(Stats user, Stats target, int baseDamage, DamageType damageType, bool isMagic = false, ActionType actionType = ActionType.Normal)
     {
         /* 
          * DAMAGE = Base Damage x Stat Difference x Level Difference x Move Multiplier
@@ -43,7 +43,14 @@ public class DamageManager : MonoBehaviour
         levelDifference = Mathf.Clamp(levelDifference, 0.1f, 2.0f);
         float resistanceMultiplier = CalculateResistances(target, damageType);
 
-        float damage = baseDamage * statDifference * levelDifference * resistanceMultiplier;
+        float damage = baseDamage * statDifference * levelDifference * resistanceMultiplier ;
+        
+        // Action Type
+        damage = damage * ((int)actionType) * 0.5f;
+
+        // If target used a Reckless move
+        if (target.isReckless) damage = damage * 1.5f;
+
         if (target.isGuarding && baseDamage > 0) damage = damage / 2;
 
         var hitRoll = HitRoll();

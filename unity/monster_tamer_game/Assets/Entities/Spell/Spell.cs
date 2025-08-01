@@ -23,7 +23,7 @@ public class Spell
         this.vfxPrefab = spellData.vfxPrefab;
     }
 
-    public virtual void Cast(Stats user, Stats target)
+    public virtual void Cast(Stats user, Stats target, ActionType actionType)
     {
         Debug.Log($"[Spell] override me...");
     }

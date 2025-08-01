@@ -15,7 +15,9 @@ public class ResultsWindow : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button endButton;
-    
+
+    [SerializeField] private TMP_Text totalExpGained;
+
     private void Update()
     {
         CheckNextButton();
@@ -44,11 +46,11 @@ public class ResultsWindow : MonoBehaviour
 
     public void ShowWindow(bool playersAlive, int expGained)
     {
-        string resultString = playersAlive ? "Victory" : "You Lose";
+        string resultString = playersAlive ? "Victory!" : "Defeat...";
         GetComponentInChildren<TMP_Text>().text = resultString;
 
         gameObject.SetActive(true);
-        ShowExpGained(expGained);
+        StartCoroutine(ShowExpGained(expGained));
 
         var isEnd = !encounterController.IsNext();
         restartButton.gameObject.SetActive(!isEnd);
@@ -61,14 +63,22 @@ public class ResultsWindow : MonoBehaviour
         characterExpHUDManager.ClearChildren();
     }
 
-    public void ShowExpGained(int expGained)
+    public IEnumerator ShowExpGained(int expGained)
     {
         characterExpHUDManager.DrawHUD(expGained);
+        totalExpGained.text = $"{expGained}";
+        yield return delay(1.0f);
+        characterExpHUDManager.StartExp();
     }
 
     public void ShowRewards()
     {
         rewardsWindow.ShowWindow();
+    }
+
+    IEnumerator delay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 
 }

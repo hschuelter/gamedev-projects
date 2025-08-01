@@ -1,5 +1,6 @@
 using DG.Tweening;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private TargetSelectionManager targetSelectionManager;
     [SerializeField] private EncounterController encounterController;
     [SerializeField] private VFXManager vfxManager;
+    [SerializeField] private ChargeWindow chargeWindow;
+    
 
     [SerializeField] private SpellData fireSpellData;
 
@@ -32,6 +35,7 @@ public class BattleManager : MonoBehaviour
     private bool isMagicSubmenu = false;
     private bool isItemSubmenu = false;
     private float _expMultiplier = 1.0f;
+    private int _charge = 2;
 
     void Start()
     {
@@ -42,15 +46,16 @@ public class BattleManager : MonoBehaviour
 
     public void BattleStart()
     {
+        _charge = 2;
+        chargeWindow.UpdateUI(_charge);
         playerParty.CreateParty();
-        Debug.Log($"Battle Start!");
         NextBattle();
     }
     public void NextBattle()
     {
         if (!encounterController.IsNext()) return;
 
-        ResetPartyState();
+        ResetPartyState(true);
         roundQueue = new List<Action>();
         CreateEnemyParty(encounterController.NextEncounter());
         hudManager.ShowBattleStart();
@@ -68,7 +73,7 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator BattleStartAnimations()
     {
-        playerParty.transform.position = new Vector3(-1.6f, 0.3f, 0);
+        playerParty.transform.position = new Vector3(-1.6f, 0.4f, 0);
         hudManager.UpdateHUDAll(playerParty.partyHUD);
         hudManager.UpdateMapWindow(encounterController.encounterNumber);
         isGameOver = false;
@@ -98,6 +103,7 @@ public class BattleManager : MonoBehaviour
     private void Update()
     {
         HandleCancelButton();
+        HandleChargeButtons();
     }
 
     private void HandleCancelButton()
@@ -145,10 +151,35 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void HandleChargeButtons()
+    {
+        if (isGameOver || targetSelectionManager.isSelectingEnemy) return;
+
+        if (Input.GetKeyDown(KeyCode.E)) ChargeUp();
+        if (Input.GetKeyDown(KeyCode.Q)) ChargeDown();
+    }
+
+
+    private void ChargeUp()
+    {
+        _charge = Math.Clamp(_charge + 1, 2, 4);
+        chargeWindow.UpdateUI(_charge);
+    }
+    private void ChargeDown()
+    {
+        _charge = Math.Clamp(_charge - 1, 2, 4);
+        chargeWindow.UpdateUI(_charge);
+    }
+    private void ResetChargeBar()
+    {
+        _charge = 2;
+        chargeWindow.UpdateUI(_charge);
+    }
+
     private void EnableTargetSelection(Party party)
     {
         targetSelectionManager.Enable();
-        targetSelectionManager.SetTargets(party.partyMembers.Where(c => c.currentHealth > 0).ToList());
+        targetSelectionManager.SetTargets(party.partyMembers.Where(c => c.currentHealth > 0 && !c.isCharge).ToList());
         //hudManager.ShowMagicSubMenu(false);
         hudManager.DisableActionMenu();
         hudManager.DisableSubActionMenu();
@@ -188,10 +219,15 @@ public class BattleManager : MonoBehaviour
 
         currentAction.SetTarget(target);
         roundQueue.Add(currentAction);
-        if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
+        if (partyList.Count == 0)
             StartCoroutine(ExecuteBattleRound());
         else
             partyList.First().MoveFront();
+    }
+
+    public void SkipTurn()
+    {
+        StartCoroutine(ExecuteBattleRound());
     }
 
     public void ConfirmTarget(List<Stats> targetParty, int targetPosition)
@@ -210,17 +246,19 @@ public class BattleManager : MonoBehaviour
 
         roundQueue.Add(currentAction);
 
-        if (roundQueue.Count == playerParty.partyMembers.Where(c => c.currentHealth > 0).ToList().Count)
+        if (partyList.Count == 0)
             StartCoroutine(ExecuteBattleRound());
         else
-           partyList.First().MoveFront();
-    }
+            partyList.First().MoveFront();
 
+        ResetChargeBar();
+    }
     public void ConfirmAttackAction()
     {
         var currentStats = partyList.First();
         hudManager.ShowMagicSubMenu(false);
         var attackAction = new ActionAttack(currentStats);
+        attackAction.actionType = (ActionType) _charge;
         ConfirmAction(attackAction);
     }
 
@@ -228,6 +266,11 @@ public class BattleManager : MonoBehaviour
     {
         var currentStats = partyList.First();
         ConfirmAction(new ActionGuard(currentStats), currentStats);
+    }
+    public void ConfirmRestAction()
+    {
+        var currentStats = partyList.First();
+        ConfirmAction(new ActionRest(currentStats), currentStats);
     }
 
     public void ConfirmMagicAction()
@@ -239,8 +282,9 @@ public class BattleManager : MonoBehaviour
         isMagicSubmenu = true;
         isItemSubmenu = false;
 
-        var action = new ActionMagic(currentStats);
-        currentAction = action;
+        var actionMagic = new ActionMagic(currentStats);
+        actionMagic.actionType = (ActionType) _charge;
+        currentAction = actionMagic;
         hudManager.DisableActionMenu();
     }
 
@@ -263,6 +307,7 @@ public class BattleManager : MonoBehaviour
     {
         hudManager.ShowDescription(false);
         hudManager.ShowActionMenu(false);
+        chargeWindow.ShowWindow(false);
         AddEnemyActions();
         //SortRoundQueue();
 
@@ -273,11 +318,12 @@ public class BattleManager : MonoBehaviour
             var currAction = roundQueue.First();
             roundQueue.RemoveAt(0);
 
-            //hudManager.UpdateDescription(currAction.description);
-            //hudManager.ShowDescription(true);
+            hudManager.UpdateDescription(currAction.description);
+            hudManager.ShowDescription(true);
 
             /* ANIMATIONS */
             currAction.user.ActionAnimation();
+
             currAction.Execute();
 
             if (currAction.target.characterHUDManager != null)
@@ -306,8 +352,12 @@ public class BattleManager : MonoBehaviour
         else
         {
             ResetPartyState();
-            partyList.First().MoveFront();
             hudManager.ShowActionMenu(true);
+            chargeWindow.ShowWindow(true);
+            if (partyList.Any())
+                partyList.First().MoveFront();
+            else
+                SkipTurn();
         }
     }
     private void RewardExp(bool playersAlive)
@@ -333,6 +383,7 @@ public class BattleManager : MonoBehaviour
             var attackAction = new ActionAttack(enemy, playerStats);
 
             attackAction.SetTargetParty(partyCopy);
+            attackAction.actionType = ActionType.Normal;
 
             roundQueue.Add(attackAction);
         }
@@ -342,16 +393,27 @@ public class BattleManager : MonoBehaviour
         roundQueue = roundQueue.OrderByDescending(action => action.actionName == "Guard").ThenByDescending(action => action.user.speed).ToList();
         roundQueue.RemoveAll(action => action.user.currentHealth <= 0);
     }
-    public void ResetPartyState() 
+    public void ResetPartyState(bool isStart = false) 
     {
         partyIterator = 0;
         partyList = new List<Stats>();
         foreach (var player in playerParty.partyMembers)
         {
             player.ResetGuard();
+            if (isStart) player.Rest();
 
-            if (player.currentHealth == 0) continue;
+            if (player.currentHealth == 0 || player.isCharge) continue;
             partyList.Add(player);
+        }
+
+        foreach (var player in playerParty.partyMembers)
+        {
+            if (player.isCharge)
+            {
+                var action = new ActionRest(player);
+                action.SetTarget(player);
+                roundQueue.Add(action);
+            }
         }
 
     }

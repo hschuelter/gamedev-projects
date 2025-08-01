@@ -32,9 +32,9 @@ public class SubActionOption : ActionOption
 
         var action = new ActionMagic(stats);
         action.SetSpell(spell);
+        action.actionType = battleManager.currentAction.actionType;
 
         Party party = spell.isTargetParty ? battleManager.playerParty : battleManager.enemyParty;
-
         battleManager.ConfirmAction(action, party, spell.isTargetParty);
     }
 }

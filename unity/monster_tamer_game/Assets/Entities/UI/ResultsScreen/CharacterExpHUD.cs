@@ -8,17 +8,21 @@ public class CharacterExpHUD : MonoBehaviour
     public Stats characterStats;
     [SerializeField] ResourceBarHUD expBarHUD;
 
-    private TMP_Text nameText;
-    private TMP_Text levelText;
-    private TMP_Text expText;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text levelText;
+    [SerializeField] private TMP_Text expText;
 
     float expCap;
     float rate = 1;
     private float targetEXP;
     private float currentExp;
     public bool isOk = false;
+    public bool isReady = false;
+
     private void Update()
     {
+        if (!isReady) return;
+
         if (currentExp >= Mathf.Clamp(targetEXP, 0, expCap))
         {
             CheckExp();
@@ -31,22 +35,9 @@ public class CharacterExpHUD : MonoBehaviour
 
     public void Draw(int expGained)
     {
+        isReady = false;
         UpdateExpCap();
-        foreach (Transform child in transform)
-        {
-            if (child.name == "Name")
-            {
-                nameText = child.GetComponentInChildren<TMP_Text>();
-            }
-            if (child.name == "Level")
-            {
-                levelText = child.GetComponentInChildren<TMP_Text>();
-            }
-            if (child.name == "Experience")
-            {
-                expText = child.GetComponentInChildren<TMP_Text>();
-            }
-        }
+
         currentExp = characterStats.currentExp;
         targetEXP = currentExp + expGained;
         rate = expCap / EXP_GAIN_DURATION;

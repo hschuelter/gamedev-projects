@@ -20,6 +20,8 @@ public class Stats : MonoBehaviour
     [SerializeField] public string nickname;
     [SerializeField] public int level;
     [SerializeField] public List<DamageResistance> resistances = new List<DamageResistance>();
+    public bool isCharge { get; set; }
+    public bool isReckless { get; set; }
 
     public StatsData statsData;
 
@@ -89,12 +91,11 @@ public class Stats : MonoBehaviour
         AnimateHeal(value, isCritical);
     }
 
-    public void Attack(Stats target, GameObject vfxPrefab)
+    public void Attack(Stats target, GameObject vfxPrefab, ActionType actionType)
     {
-
         int baseDamage = 1;
         var damageType = DamageType.Physical;
-        Damage damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, damageType, isMagic: false);
+        Damage damage = DamageManager.Instance.CalculateDamage(this, target, baseDamage, damageType, isMagic: false, actionType: actionType);
         target.Damage(damage.value, damage.isCritical, damage.isMiss);
 
         if (animatorController != null)
@@ -103,9 +104,9 @@ public class Stats : MonoBehaviour
         StartCoroutine(ShowVFX(vfxPrefab, target.transform.position, 0.40f));
     }
 
-    public void Magic(Stats target, Spell spell)
+    public void Magic(Stats target, Spell spell, ActionType actionType)
     {
-        spell.Cast(this, target);
+        spell.Cast(this, target, actionType);
         currentMana -= spell.manaCost;
 
         if (animatorController != null)
@@ -120,6 +121,12 @@ public class Stats : MonoBehaviour
 
         if (animatorController != null)
             animatorController.SetBool("isGuard", true);
+    }
+
+    public void Rest()
+    {
+        this.isReckless = false;
+        this.isCharge = false;
     }
 
     public void UseItem(Stats target, Item item)

@@ -35,6 +35,7 @@ public class ActionMagic : Action
             target = this.targetParty.Where(t => t.currentHealth > 0).PickRandom();
         
         var vfxPrefab = VFXManager.Instance.vfxHitPrefab;
-        user.Magic(target, spell);
+        user.Magic(target, spell, actionType);
+        ApplyNegativeEffects(actionType);
     }
 }

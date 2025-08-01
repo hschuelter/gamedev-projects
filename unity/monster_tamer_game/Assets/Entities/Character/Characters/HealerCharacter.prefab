@@ -104,6 +104,6 @@ MonoBehaviour:
   characterSprite: {fileID: 1615351823, guid: 7bcd09d15bcfe434d920e9ea20e5f7d1, type: 3}
   statsData: {fileID: 11400000, guid: 1dd2444947683f349854768cbba08344, type: 2}
   magicList:
-  - {fileID: 11400000, guid: f70a467ab73f97c47b9a79f4c51431ae, type: 2}
+  - {fileID: 11400000, guid: 5674d8af1f54d5d4bb376700ff77712c, type: 2}
   - {fileID: 11400000, guid: abb403aabec4f904b8a748db3ca97df7, type: 2}
   stats: {fileID: 0}

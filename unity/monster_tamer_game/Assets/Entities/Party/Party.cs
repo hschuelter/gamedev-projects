@@ -22,7 +22,6 @@ public class Party : MonoBehaviour
         sortingOrder = 1;
         ClearChildren();
         partyMembers = new List<Stats>();
-
         position = 0;
         int positionMod = isPlayer ? 1 : -1;
         foreach (Character character in partyCharacters)

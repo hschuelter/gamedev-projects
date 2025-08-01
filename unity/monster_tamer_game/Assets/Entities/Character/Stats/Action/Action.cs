@@ -1,7 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
+[Serializable]
+public enum ActionType
+{
+    Normal = 2,
+    Charge = 3,
+    Reckless = 4
+}
 public class Action
 {
     public Stats user { get; set; }
@@ -9,6 +17,7 @@ public class Action
     public List<Stats> targetParty { get; set; }
     public string actionName { get; set; }
     public string description { get; set; }
+    public ActionType actionType { get; set; }
 
     public GameObject vfxPrefab;
 
@@ -43,5 +52,19 @@ public class Action
     public virtual void Execute()
     {
         Debug.Log($"[Action] Override me...");
+    }
+
+    public void ApplyNegativeEffects(ActionType _actionType)
+    {
+        if (_actionType == ActionType.Charge)
+        {
+            user.isCharge = true;
+        }
+
+        if (_actionType == ActionType.Reckless)
+        {
+            user.isCharge = true;
+            user.isReckless = true;
+        }
     }
 }

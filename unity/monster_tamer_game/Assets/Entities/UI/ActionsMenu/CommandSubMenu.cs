@@ -1,15 +1,21 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CommandSubMenu : ActionMenu
 {
     public Button buttonPrefab;
+
+    private void Awake()
+    {
+        Setup();
+    }
     public void LoadMagicOptions(List<SpellData> spells)
     {
-        Debug.Log($"LoadMagicOptions");
         if (actionsList.Count == 0) Setup();
 
         foreach (var magicCommand in actionsList)
@@ -23,15 +29,11 @@ public class CommandSubMenu : ActionMenu
         }
 
         GetComponent<VerticalLayoutGroup>().enabled = true;
-        var firstButton = actionsList.Where(action => action.gameObject.activeSelf).FirstOrDefault();
-        Debug.Log($"firstButton >{firstButton}<");
-        if (firstButton != null)
-        {
-            /* TODO: Please fix this */
-            firstButton.GetComponent<Button>().Select();
-            firstButton.GetComponent<Button>().Select();
-        }
+        var commandOptions = actionsList.Where(action => action.gameObject.activeSelf).ToList();
+        var firstButton = commandOptions.FirstOrDefault();
+        firstButton?.GetComponent<Button>().Select();
     }
+
     public override void EnableAllButtons()
     {
         foreach (var item in actionsList)
