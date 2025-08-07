@@ -23,3 +23,5 @@ MonoBehaviour:
   speed: 10
   nickname: Fighter
   level: 1
+  expGranted: 0
+  resistances: []

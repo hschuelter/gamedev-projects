@@ -62,8 +62,8 @@ public class MusicPlayerController : MonoBehaviour
         }
 
         audioSource.playOnAwake = false;
+        audioSource.volume = masterVolume;
         //audioSource.loop = loopCurrentTrack;
-        //audioSource.volume = masterVolume;
     }
 
     #region Public Methods

@@ -73,6 +73,7 @@ public class Party : MonoBehaviour
     public void AddCharacter(Character character, bool isPlayer)
     {
         int positionMod = isPlayer ? 1 : -1;
+        RedrawParty();
 
         var cur = CreateCharacter(character, isPlayer);
         float x_offset = -0.15f * position * positionMod;
@@ -85,6 +86,35 @@ public class Party : MonoBehaviour
         partyMembers.Add(cur.GetComponent<Stats>());
         partyCharacters.Add(character);
         partyHUD.DrawHUD();
+
+    }
+
+    public void RemoveDeadCharacters()
+    {
+        partyMembers = partyMembers.Where(pm => pm.currentHealth > 0).ToList();
+        partyCharacters = partyCharacters.Where(pm => pm.stats.currentHealth > 0).ToList();
+
+        foreach (Transform child in this.transform)
+        {
+            var stats = child.GetComponent<Stats>();
+            if (stats.currentHealth == 0)
+                Destroy(child.gameObject);
+        }
+    }
+
+    public void RedrawParty()
+    {
+        position = 0;
+        foreach (Transform child in this.transform)
+        {
+            Debug.Log($"Redrawing {child.name}...");
+            int positionMod = 1;
+            float x_offset = -0.15f * position * positionMod;
+            float y_offset = -0.18f * position;
+
+            child.position = new Vector3(this.transform.position.x + x_offset, this.transform.position.y + y_offset, 0);
+            position++;
+        }
     }
 
     public void RewardExp(float expGained)
@@ -94,6 +124,7 @@ public class Party : MonoBehaviour
 
     public Character GetCharacter(Stats stats)
     {
+        partyCharacters.ForEach(c => Debug.Log($"{c.name}"));
         return partyCharacters.Find(c => c.stats.name == stats.name);
     }
 

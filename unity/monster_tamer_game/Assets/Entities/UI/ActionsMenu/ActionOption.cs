@@ -10,7 +10,7 @@ public class ActionOption : MonoBehaviour, ISelectHandler
     public CommandData commandData;
 
     [HideInInspector] public ActionMenu actionMenu;
-    [HideInInspector] public string description;
+    [HideInInspector] public string description { get; set; }
 
     public virtual void SetInfo() {
         description = commandData.description;

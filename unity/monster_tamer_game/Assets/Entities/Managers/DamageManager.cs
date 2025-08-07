@@ -62,7 +62,7 @@ public class DamageManager : MonoBehaviour
 
         LastHitRoll = hitRoll;
 
-        return new Damage((int) Math.Ceiling(damage), hitRoll == 20, hitRoll > 1);
+        return new Damage((int) Math.Ceiling(damage), hitRoll == 20, hitRoll == 1);
     }
 
     public float CalculateResistances(Stats target, DamageType damageType)

@@ -11,7 +11,7 @@ public class ExpMultiplierItem : MonoBehaviour
     public bool IsActive = false;
     private void Awake()
     {
-        _label = GetComponentInChildren<TMP_Text>();
+        //_label = GetComponentInChildren<TMP_Text>();
     }
     public void Show(bool value)
     {

@@ -28,7 +28,7 @@ public class BattleManager : MonoBehaviour
     float ANIMATION_DELAY_TIME = 1f;
     float SHORT_DELAY_TIME = 0.5f;
 
-    [HideInInspector] public List<Stats> partyList = new List<Stats>();
+    [HideInInspector] public List<Stats> partyList;
     [HideInInspector] public Action currentAction;
     private Action lastAction = new Action();
 
@@ -53,7 +53,6 @@ public class BattleManager : MonoBehaviour
         chargeWindow.UpdateUI(_charge);
         playerParty.CreateParty();
         NextBattle();
-        expMultiplierController.NotifySingleRound(true);
     }
     public void NextBattle()
     {
@@ -61,8 +60,8 @@ public class BattleManager : MonoBehaviour
 
         MusicPlayerController.Instance.PlayMusic((int)TrackNumber.BattleTheme);
 
-        expMultiplierController.NotifySingleRound(true);
         ResetPartyState(true);
+        expMultiplierController.NotifySingleRound(true);
         roundQueue = new List<Action>();
         CreateEnemyParty(encounterController.NextEncounter());
         hudManager.ShowBattleStart();
@@ -282,6 +281,7 @@ public class BattleManager : MonoBehaviour
 
     public void ConfirmMagicAction()
     {
+        Debug.Log($"{partyList.First().name}");
         var currentStats = partyList.First();
         var curentCharacter = playerParty.GetCharacter(currentStats);
         hudManager.LoadMagicOptions(curentCharacter.magicList);
@@ -366,7 +366,7 @@ public class BattleManager : MonoBehaviour
         }
         if (isGameOver)
         {
-
+            GameOver();
             MusicPlayerController.Instance.PlayMusic((int)TrackNumber.VictoryTheme);
             RewardExp(playersAlive);
         }
@@ -384,6 +384,15 @@ public class BattleManager : MonoBehaviour
                 SkipTurn();
         }
     }
+
+    public void GameOver()
+    {
+        var playersDead = playerParty.partyMembers.Where(pm => pm.currentHealth > 0).Select(pm => pm.nickname).ToList();
+
+        playerParty.RemoveDeadCharacters();
+        partyList = partyList.Where(character => character.currentHealth > 0).ToList();
+    }
+
     private void RewardExp(bool playersAlive)
     {
         var expGained = enemyParty.partyCharacters.Select(e => e.statsData.expGranted).Sum();
@@ -421,6 +430,7 @@ public class BattleManager : MonoBehaviour
     {
         partyIterator = 0;
         partyList = new List<Stats>();
+        Debug.Log($"ResetPartyState -> {playerParty.partyMembers.Count}");
         foreach (var player in playerParty.partyMembers)
         {
             player.ResetGuard();
