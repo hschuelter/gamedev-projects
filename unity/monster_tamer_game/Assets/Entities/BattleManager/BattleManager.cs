@@ -249,6 +249,7 @@ public class BattleManager : MonoBehaviour
         currentAction.SetTargetParty(targetParty);
 
         hudManager.EnableActionMenu();
+        hudManager.ShowActionMenu(true);
         //hudManager.DisableActionMenu();
         hudManager.ShowMagicSubMenu(false);
         hudManager.ShowItemSubMenu(false);
