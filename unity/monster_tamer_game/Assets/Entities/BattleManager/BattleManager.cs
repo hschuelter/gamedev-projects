@@ -21,7 +21,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private ExpMultiplierController expMultiplierController;
     [SerializeField] private VFXManager vfxManager;
     [SerializeField] private ChargeWindow chargeWindow;
-    
 
     [SerializeField] private SpellData fireSpellData;
 

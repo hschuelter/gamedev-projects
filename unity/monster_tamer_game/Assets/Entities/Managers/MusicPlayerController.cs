@@ -97,7 +97,7 @@ public class MusicPlayerController : MonoBehaviour
     }
     #endregion
 
-    #region Prviate Methods
+    #region Private Methods
 
     private void LoadTrack(int index)
     {
