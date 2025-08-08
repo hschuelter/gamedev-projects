@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,9 +93,11 @@ public class TargetSelectionManager : MonoBehaviour
     public void SelectOnMouseHover(string enemyName)
     {
         if (!isSelectingEnemy) return;
-        isHovering = true;
 
+        isHovering = true;
         currentPosition = enemiesList.FindIndex(enemy => enemy.gameObject.name == enemyName);
+        if (currentPosition == -1) return;
+
         var position = enemiesList.ElementAt(currentPosition).transform.position;
         float yOffset = -0.05f;
         selectionCursor.transform.position = new Vector3(position.x, position.y + yOffset, position.z);

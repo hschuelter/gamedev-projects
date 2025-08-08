@@ -114,7 +114,7 @@ public class BattleManager : MonoBehaviour
 
     private void HandleCancelButton()
     {
-        if (!Input.GetButtonDown("Cancel")) return;
+        if (!Input.GetButtonDown("Cancel") && !Input.GetMouseButtonDown(1)) return;
 
         if (!targetSelectionManager.isSelectingEnemy && !isMagicSubmenu && !isItemSubmenu && roundQueue.Count > 0)
         {
@@ -133,6 +133,7 @@ public class BattleManager : MonoBehaviour
         {
             hudManager.ShowMagicSubMenu(false);
             hudManager.EnableActionMenu();
+            hudManager.ShowActionMenu(true);
             isMagicSubmenu = false;
             isItemSubmenu = false;
         }
@@ -141,6 +142,7 @@ public class BattleManager : MonoBehaviour
         {
             hudManager.ShowItemSubMenu(false);
             hudManager.EnableActionMenu();
+            hudManager.ShowActionMenu(true);
             isMagicSubmenu = false;
             isItemSubmenu = false;
         }
@@ -151,7 +153,11 @@ public class BattleManager : MonoBehaviour
 
             if (isMagicSubmenu) hudManager.EnableSubActionMenu();
             else if (isItemSubmenu) hudManager.EnableButtons(hudManager.itemSubMenu);
-            else hudManager.EnableActionMenu();
+            else
+            {
+                hudManager.EnableActionMenu();
+                hudManager.ShowActionMenu(true);
+            }
 
             partyList.Insert(0, currentAction.user);
         }
@@ -281,7 +287,6 @@ public class BattleManager : MonoBehaviour
 
     public void ConfirmMagicAction()
     {
-        Debug.Log($"{partyList.First().name}");
         var currentStats = partyList.First();
         var curentCharacter = playerParty.GetCharacter(currentStats);
         hudManager.LoadMagicOptions(curentCharacter.magicList);
@@ -293,6 +298,7 @@ public class BattleManager : MonoBehaviour
         actionMagic.actionType = (ActionType) _charge;
         currentAction = actionMagic;
         hudManager.DisableActionMenu();
+        hudManager.ShowActionMenu(false);
     }
 
     public void ConfirmItemAction()
@@ -306,6 +312,7 @@ public class BattleManager : MonoBehaviour
         currentAction = actionItem;
 
         hudManager.DisableActionMenu();
+        hudManager.ShowActionMenu(false);
         hudManager.LoadOptions();
         //ConfirmAction(new ActionItem(currentStats), playerParty);
     }
@@ -430,7 +437,6 @@ public class BattleManager : MonoBehaviour
     {
         partyIterator = 0;
         partyList = new List<Stats>();
-        Debug.Log($"ResetPartyState -> {playerParty.partyMembers.Count}");
         foreach (var player in playerParty.partyMembers)
         {
             player.ResetGuard();

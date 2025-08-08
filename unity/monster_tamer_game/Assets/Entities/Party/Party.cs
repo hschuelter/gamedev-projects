@@ -60,11 +60,9 @@ public class Party : MonoBehaviour
         stats.UpdateStats(character.statsData);
         character.stats = stats;
 
-        if (!isPlayer) {
-            var collider2D = characterObj.AddComponent<BoxCollider2D>();
-            collider2D.size = new Vector2(0.33f, 0.3f);
-            stats.targetSelectionManager = this.targetSelectionManager;
-        }
+        var collider2D = characterObj.AddComponent<BoxCollider2D>();
+        collider2D.size = new Vector2(0.33f, 0.3f);
+        stats.targetSelectionManager = this.targetSelectionManager;
 
         characterObj.transform.parent = this.transform;
         return characterObj;
@@ -124,7 +122,7 @@ public class Party : MonoBehaviour
 
     public Character GetCharacter(Stats stats)
     {
-        partyCharacters.ForEach(c => Debug.Log($"{c.name}"));
+        //partyCharacters.ForEach(c => Debug.Log($"{c.name}"));
         return partyCharacters.Find(c => c.stats.name == stats.name);
     }
 
