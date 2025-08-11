@@ -17,7 +17,7 @@ public class StoryController : MonoBehaviour
 
     
     [Header("Debug Info")]
-    [SerializeField] private int currentStoryIndex;
+    [SerializeField] private int currentStoryIndex = 0;
 
     void Awake()
     {

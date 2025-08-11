@@ -349,6 +349,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1970945316}
   - {fileID: 219592085}
   m_Father: {fileID: 1631867487}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -403,20 +404,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textWindow: {fileID: 2062307179}
   storyPoints:
-  - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id dictum dolor.
-    Cras id sollicitudin est.
-  - Integer nisl ligula, luctus id pellentesque eget, euismod a arcu. Nullam malesuada
-    suscipit ligula dapibus volutpat. Aliquam erat volutpat.
-  - Proin sollicitudin sed nisl ac fringilla. Aenean condimentum dolor odio, vitae
-    sodales metus feugiat bibendum. Sed ultricies rutrum nisi a pretium. Donec placerat
-    ipsum eget eleifend condimentum.
-  - Vestibulum maximus ligula nec dolor mattis fermentum a ut erat. Ut luctus consectetur
-    est, in finibus leo elementum eget.
-  - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus venenatis
-    risus quis bibendum. Vestibulum rutrum erat mollis tincidunt bibendum.
-  - 'Vivamus vitae congue nulla. Praesent eget lectus lacinia, bibendum ante id,
-    gravida justo. Etiam facilisis viverra dictum. Sed porta interdum venenatis.
-    Proin vehicula sed diam eu ultrices.  '
+  - The Seven Relics are so powerful, they are said to bring unbalance to the world.
+  - All of the relics were under the kingdom's protection.
+  - But one day the relics were stolen, right under the guards noses.
+  - The king has recruited you, to retrieve the stolen relics.
+  - It's up to you, to build a party and journey to save the world.
   nextSceneName: Battle
   currentStoryIndex: 0
 --- !u!1 &1631867484
@@ -557,6 +549,94 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1970945315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1970945316}
+  - component: {fileID: 1970945320}
+  - component: {fileID: 1970945319}
+  - component: {fileID: 1970945318}
+  m_Layer: 0
+  m_Name: BackGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1970945316
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970945315}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 238671202}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1500, y: 1500}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1970945318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970945315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df880c51f847c24abb298a07de15759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _img: {fileID: 1970945319}
+  _x: -0.02
+  _y: 0.02
+--- !u!114 &1970945319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970945315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 3ffedb2c24ca67f49aaa445d597b2506, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &1970945320
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970945315}
+  m_CullTransparentMesh: 1
 --- !u!1 &1994694148
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +780,7 @@ MonoBehaviour:
     odio, vitae sodales metus feugiat bibendum. Sed ultricies rutrum nisi a pretium.
     Donec placerat ipsum eget eleifend condimentum.
 
-    
+
 
 '
   m_isRightToLeft: 0
@@ -803,6 +883,7 @@ MonoBehaviour:
   charactersPerSecond: 20
   isTyping: 0
   currentCharIndex: 0
+  targetText: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

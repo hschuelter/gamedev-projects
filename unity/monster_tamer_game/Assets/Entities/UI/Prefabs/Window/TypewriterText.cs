@@ -8,25 +8,16 @@ public class TypewriterText : MonoBehaviour
     [Header("Text Settings")]
     [SerializeField] private TMP_Text textField;
     [SerializeField] private float timer;
-    [SerializeField] private float charactersPerSecond = 20f;
+    [SerializeField] private float charactersPerSecond = 30f;
 
     [Header("Debug Info")]
     [SerializeField] private bool isTyping;
     [SerializeField] private int currentCharIndex;
+    [SerializeField] private string targetText;
     
     public bool IsTyping => isTyping;
     private float timerReset => 1 / charactersPerSecond;
-    private string targetText;
 
-    void Awake()
-    {
-        targetText = "";
-        currentCharIndex = 0;
-        timer = timerReset;
-        isTyping = false;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (targetText.Length == 0) return;
@@ -42,11 +33,11 @@ public class TypewriterText : MonoBehaviour
 
     public void SetText(string text)
     {
-        Debug.Log($"SetText");
         targetText = text;
         textField.text = "";
         currentCharIndex = 0;
         isTyping = true;
+        timer = 0;
     }
     public void CompleteTyping()
     {

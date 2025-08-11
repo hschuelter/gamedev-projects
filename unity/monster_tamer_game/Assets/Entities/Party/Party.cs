@@ -105,7 +105,6 @@ public class Party : MonoBehaviour
         position = 0;
         foreach (Transform child in this.transform)
         {
-            Debug.Log($"Redrawing {child.name}...");
             int positionMod = 1;
             float x_offset = -0.15f * position * positionMod;
             float y_offset = -0.18f * position;

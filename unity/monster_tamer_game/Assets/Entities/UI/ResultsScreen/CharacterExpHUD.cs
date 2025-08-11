@@ -51,7 +51,7 @@ public class CharacterExpHUD : MonoBehaviour
         var ratio = currentExp / expCap;
         expText.text = $"{Mathf.FloorToInt(currentExp)}";
 
-        var barMax = 240f;
+        var barMax = 360f;
         expBarHUD.UpdateResourceBar(barMax, barMax * ratio);
     }
     public void UpdateName()
