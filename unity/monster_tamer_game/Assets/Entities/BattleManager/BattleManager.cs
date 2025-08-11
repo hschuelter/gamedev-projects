@@ -419,8 +419,9 @@ public class BattleManager : MonoBehaviour
 
             /* Enemy AI */
             //var playerStats = partyCopy.Where(p => p.currentHealth > 0).PickRandom();
-            var playerStats = partyCopy.Where(p => p.currentHealth > 0).First();
-            var attackAction = new ActionAttack(enemy, playerStats);
+            var targetsAlive = partyCopy.Where(p => p.currentHealth > 0).ToList();
+            var targetStats = enemy.ChooseTarget(targetsAlive);
+            var attackAction = enemy.ChooseAction(targetStats);
 
             attackAction.SetTargetParty(partyCopy);
             attackAction.actionType = ActionType.Normal;

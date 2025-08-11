@@ -21,6 +21,7 @@ public class Stats : MonoBehaviour
     [SerializeField] public string nickname;
     [SerializeField] public int level;
     [SerializeField] public List<DamageResistance> resistances = new List<DamageResistance>();
+    [SerializeField] private EnemyAI _enemyAI = new BasicAI();
     public bool isCharge { get; set; }
     public bool isReckless { get; set; }
 
@@ -250,6 +251,16 @@ public class Stats : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         SoundEffectsController.Instance.PlaySFX(sfx);
+    }
+
+    public Action ChooseAction(Stats target)
+    {
+        return _enemyAI.ChooseAction(this, target);
+    }
+
+    public Stats ChooseTarget(List<Stats> targetList)
+    {
+        return _enemyAI.ChooseTarget(targetList);
     }
 
     void OnMouseOver()
