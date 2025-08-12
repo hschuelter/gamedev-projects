@@ -190,7 +190,7 @@ public class BattleManager : MonoBehaviour
     private void EnableTargetSelection(Party party)
     {
         targetSelectionManager.Enable();
-        targetSelectionManager.SetTargets(party.partyMembers.Where(c => c.currentHealth > 0 && !c.isCharge).ToList());
+        targetSelectionManager.SetTargets(party.partyMembers.Where(c => c.currentHealth > 0).ToList());
         //hudManager.ShowMagicSubMenu(false);
         hudManager.DisableActionMenu();
         hudManager.DisableSubActionMenu();
@@ -424,7 +424,7 @@ public class BattleManager : MonoBehaviour
             var attackAction = enemy.ChooseAction(targetStats);
 
             attackAction.SetTargetParty(partyCopy);
-            attackAction.actionType = ActionType.Normal;
+            //attackAction.actionType = ActionType.Normal;
 
             roundQueue.Add(attackAction);
         }

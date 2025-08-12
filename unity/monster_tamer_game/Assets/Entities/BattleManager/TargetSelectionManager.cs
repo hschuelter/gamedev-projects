@@ -2,6 +2,7 @@ using Mono.Cecil.Cil;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class TargetSelectionManager : MonoBehaviour
@@ -12,7 +13,7 @@ public class TargetSelectionManager : MonoBehaviour
     [HideInInspector] public bool isSelectingEnemy = false;
     private bool isReady = false;
 
-    private List<Stats> enemiesList;
+    private List<Stats> enemiesList { get; set; }
     private int currentPosition = 0;
     private int verticalInput = 0;
     private bool isHovering = false;

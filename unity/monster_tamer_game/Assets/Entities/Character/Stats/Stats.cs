@@ -21,7 +21,9 @@ public class Stats : MonoBehaviour
     [SerializeField] public string nickname;
     [SerializeField] public int level;
     [SerializeField] public List<DamageResistance> resistances = new List<DamageResistance>();
-    [SerializeField] private EnemyAI _enemyAI = new BasicAI();
+    //[SerializeField] private EnemyAI _enemyAI = new BasicAI();
+    [SerializeField] private EnemyAI _enemyAI = new ExpertAI();
+
     public bool isCharge { get; set; }
     public bool isReckless { get; set; }
 
