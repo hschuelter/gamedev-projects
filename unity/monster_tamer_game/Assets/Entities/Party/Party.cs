@@ -83,7 +83,7 @@ public class Party : MonoBehaviour
 
         partyMembers.Add(cur.GetComponent<Stats>());
         partyCharacters.Add(character);
-        partyHUD.DrawHUD();
+        //partyHUD.DrawHUD();
 
     }
 

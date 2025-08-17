@@ -59,6 +59,8 @@ public class BattleManager : MonoBehaviour
 
         MusicPlayerController.Instance.PlayMusic((int)TrackNumber.BattleTheme);
 
+        playerParty.RedrawParty();
+        hudManager.RedrawPartyHUD(playerParty.partyHUD);
         ResetPartyState(true);
         expMultiplierController.NotifySingleRound(true);
         roundQueue = new List<Action>();

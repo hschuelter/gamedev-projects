@@ -51,6 +51,11 @@ public class HUDManager : MonoBehaviour
         partyHUDManager.UpdateHUDAll();
     }
 
+    public void RedrawPartyHUD(PartyHUDManager partyHUDManager)
+    {
+        partyHUDManager.DrawHUD();
+    }
+
     public void UpdateDescription(string description)
     {
         descriptionWindow.UpdateText(description);
