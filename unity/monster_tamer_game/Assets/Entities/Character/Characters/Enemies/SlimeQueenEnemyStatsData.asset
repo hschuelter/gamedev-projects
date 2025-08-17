@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3df429419e2194b88bda794ee2eba1, type: 3}
   m_Name: SlimeQueenEnemyStatsData
   m_EditorClassIdentifier: 
-  currentHealth: 16
-  maxHealth: 16
-  currentMana: 1
-  maxMana: 1
-  attack: 11
-  defense: 10
-  magicAttack: 10
-  magicDefense: 8
-  speed: 8
-  nickname: Slime
-  level: 1
-  expGranted: 3
+  currentHealth: 60
+  maxHealth: 60
+  currentMana: 40
+  maxMana: 40
+  attack: 20
+  defense: 20
+  magicAttack: 20
+  magicDefense: 20
+  speed: 20
+  nickname: Slime Queen
+  level: 5
+  expGranted: 30
   resistances:
   - damageType: 0
     resistanceLevel: 1

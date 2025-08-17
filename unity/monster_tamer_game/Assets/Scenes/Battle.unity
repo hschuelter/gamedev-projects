@@ -8134,8 +8134,6 @@ MonoBehaviour:
   partyHUD: {fileID: 1267118225}
   partyCharacters:
   - {fileID: 8327483888514876420, guid: bc30b9b125e904c428727735a40a6bcd, type: 3}
-  - {fileID: 6719457545690070272, guid: 861a1909c560ba04e87dc277f228cbea, type: 3}
-  - {fileID: -172850867217573873, guid: c5a84c6883dd2384e83d50b3350b84ef, type: 3}
   shadowPrefab: {fileID: 3509812548471410319, guid: d59cad24e54bb1e49ae12c362ee1ff0d, type: 3}
   targetSelectionManager: {fileID: 1016394343}
   partyMembers: []
@@ -10506,24 +10504,24 @@ MonoBehaviour:
   EnconterList:
   - possibleEnemies:
     - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
-    quantity: 2
+    quantity: 1
   - possibleEnemies:
     - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
     quantity: 2
   - possibleEnemies:
     - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
-    - {fileID: 7016533116300623335, guid: ad1434e4dd1193742800bd4900aa081e, type: 3}
+    - {fileID: 8327483888514876420, guid: 1156cf13d182cbc49a1dd17c39324d3d, type: 3}
     quantity: 2
   - possibleEnemies:
-    - {fileID: 8327483888514876420, guid: 27dae979afd949e4ea90a538aa795700, type: 3}
-    - {fileID: 7016533116300623335, guid: ad1434e4dd1193742800bd4900aa081e, type: 3}
+    - {fileID: 8327483888514876420, guid: 1156cf13d182cbc49a1dd17c39324d3d, type: 3}
     quantity: 3
   - possibleEnemies:
     - {fileID: 7016533116300623335, guid: ad1434e4dd1193742800bd4900aa081e, type: 3}
+    - {fileID: 8327483888514876420, guid: 1156cf13d182cbc49a1dd17c39324d3d, type: 3}
     quantity: 3
   - possibleEnemies:
-    - {fileID: 7016533116300623335, guid: ad1434e4dd1193742800bd4900aa081e, type: 3}
-    quantity: 3
+    - {fileID: 7016533116300623335, guid: cbdc532fd933e8f40b94015b06e30d60, type: 3}
+    quantity: 1
   BGList:
   - {fileID: 1166281922322233608, guid: f61646ad0c800f848b1db6b465f92401, type: 3}
   - {fileID: 4939111806652253329, guid: a99a6b241c464cc479e39bdd98623424, type: 3}

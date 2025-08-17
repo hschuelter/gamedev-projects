@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3df429419e2194b88bda794ee2eba1, type: 3}
   m_Name: MyconidEnemyStatsData
   m_EditorClassIdentifier: 
-  currentHealth: 12
-  maxHealth: 12
+  currentHealth: 16
+  maxHealth: 16
   currentMana: 0
   maxMana: 0
   attack: 13
-  defense: 8
+  defense: 10
   magicAttack: 1
   magicDefense: 6
   speed: 9
-  nickname: Bat
-  level: 1
-  expGranted: 6
+  nickname: Myconid
+  level: 2
+  expGranted: 10
   resistances: []
