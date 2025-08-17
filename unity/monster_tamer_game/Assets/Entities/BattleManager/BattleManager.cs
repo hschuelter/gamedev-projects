@@ -117,14 +117,14 @@ public class BattleManager : MonoBehaviour
     {
         if (!Input.GetButtonDown("Cancel") && !Input.GetMouseButtonDown(1)) return;
 
-        if (!targetSelectionManager.isSelectingEnemy && !isMagicSubmenu && !isItemSubmenu && roundQueue.Count > 0)
+        if (!targetSelectionManager.isSelectingEnemy && !isMagicSubmenu && !isItemSubmenu && roundQueue.Count > 0 && roundQueue.Any(c => c.actionName != "Rest"))
         {
-            var command = roundQueue.Last();
+            var command = roundQueue.Where(c => c.actionName != "Rest").Last();
             var currentCharacter = partyList.First();
             var lastCharacter = command.user;
 
             partyList.Insert(0, lastCharacter);
-            roundQueue.RemoveAt(roundQueue.Count - 1);
+            roundQueue.Remove(command);
 
             currentCharacter.MoveBack();
             lastCharacter.MoveFront();
